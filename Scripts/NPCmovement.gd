@@ -59,7 +59,7 @@ func _physics_process(delta):
 			
 			var nextPathPosition: Vector3 = navigationAgent.get_next_path_position()
 			
-			if (is_reaching_target and navigationAgent.distance_to_target() <= 3):
+			if (is_reaching_target and navigationAgent.distance_to_target() <= 9):
 				set_target(global_position)
 				newVelocity = Vector3.ZERO
 				is_reaching_target = false
@@ -148,6 +148,8 @@ func start_combat():
 	if is_in_combat:
 		stop_combat()
 		return
+	set_target(global_position)
+	newVelocity = Vector3.ZERO
 	await create_tween().tween_interval(1).finished
 	health_bar.visible= true
 	is_in_combat = true
@@ -187,7 +189,7 @@ func start_attack():
 	await create_tween().tween_interval(1).finished
 	var health_left = target.take_damage(1)
 	if health_left == 0:
-		target = null
+		target = combat_controller.get_target("enemy")
 	combat_controller.next_turn()
 	
 func take_damage(strength : float):

@@ -3,6 +3,8 @@ extends EnvironmentAsset
 var player 
 var can_pick
 var is_empty = false
+enum types {KEY,HEALTH_POTION}
+@export var type : types
 
 func _ready():
 	player = $"../../player"
@@ -18,7 +20,13 @@ func _on_input_event(_camera, event, _position, _normal, _shape_idx):
 func pick_up(_value):
 	if !can_pick:
 		return
-	player.can_open_door = true
+	match(type):
+		types.KEY:
+			player.can_open_door = true
+			global_position.y = -11
+		types.HEALTH_POTION:
+			player.heal(5)
+			global_position.y = -11
 	can_pick = false
-	global_position.y = -11
+	
 	

@@ -1,8 +1,9 @@
 extends DefaultNPC
 
+signal start_interaction
+
 func _ready():
-	timer = $"../Timer"
-	timer.timeout.connect(_on_timer_timeout)
+	timer = $Timer
 	
 	MaxDistance = 3
 	
@@ -14,7 +15,7 @@ func _ready():
 
 func get_free():
 	ShowBubble("Love",2)
-	combat_controller = $CombatController
+	combat_controller = $"../CombatController"
 	combat_controller.combat_mode.connect(start_combat)
 	await create_tween().tween_interval(1).finished
 	isFollowingPlayer = true
@@ -30,7 +31,7 @@ func open_door(door : Vector3):
 	$AnimationPlayer.play("MagicStickMovement")
 	await create_tween().tween_interval(1).finished
 	$AnimationPlayer.stop()
-	$"..".start_interaction.emit()
+	start_interaction.emit()
 	
 func play_animation():
 	$AnimationPlayer.play("MagicStickMovement")

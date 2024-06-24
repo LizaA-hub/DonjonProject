@@ -106,7 +106,7 @@ func start_attack():
 		combat_controller.next_turn()
 		
 func try_interact(_position : Vector3):
-	if(global_position.distance_squared_to(_position) > 4):
+	if(global_position.distance_squared_to(_position) > 9):
 		set_target(_position)
 		is_reaching_target = true
 		target_type = InteractableType.INTERACTABLE
@@ -179,3 +179,9 @@ func custom_look_at(_position : Vector3):
 	var look_direction = _position
 	look_direction.y = global_position.y
 	look_at(look_direction)
+
+func heal(amount : float):
+	health += amount
+	if health>10:
+		health = 10 
+	health_bar.set_health(health)

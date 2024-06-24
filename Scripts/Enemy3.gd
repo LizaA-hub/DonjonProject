@@ -26,7 +26,7 @@ func _ready():
 	combat_controller = $"../CombatController"
 	combat_controller.combat_mode.connect(start_combat)
 	player = $"../player"
-	player.interact.connect(take_damage)
+	player.interact.connect(get_attacked)
 	
 func _physics_process(delta):
 	if turn_to_play and is_in_combat:
@@ -41,7 +41,7 @@ func _physics_process(delta):
 			
 			var nextPathPosition: Vector3 = navigationAgent.get_next_path_position()
 			
-			if (is_reaching_target and navigationAgent.distance_to_target() <= 3) or (global_position.distance_squared_to(position_before_move) >= 16):
+			if (is_reaching_target and navigationAgent.distance_to_target() <= 3):
 				set_target(global_position)
 				newVelocity = Vector3.ZERO
 				is_reaching_target = false
@@ -100,6 +100,9 @@ func _on_timer_timeout():
 	$Timer.wait_time = choose([0.5,1,1.5])
 	
 func start_combat():
+	if !visible:
+		return
+	#print(self.name, " is starting combat")
 	if is_in_combat:
 		stop_combat()
 		return
@@ -136,7 +139,7 @@ func start_attack():
 	var health_left = target.take_damage(1)
 	#print("target health left : ", health_left)
 	if health_left == 0:
-		target = null
+		target = combat_controller.get_target("ally")
 	combat_controller.next_turn()
 		
 func take_damage(strength : float):
@@ -170,3 +173,10 @@ func stop_combat():
 	can_take_damage = false
 	if health == 10:
 		health_bar.visible = false
+
+func get_attacked(_strength : float):
+	if !can_take_damage:
+		return
+	print(self.name," is taking damage")
+	take_damage(_strength)
+	
