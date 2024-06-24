@@ -1,0 +1,85 @@
+[gd_scene load_steps=13 format=3 uid="uid://cud55es6jhalq"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_8xf5u"]
+[ext_resource type="PackedScene" uid="uid://cfvnrvxcwfk37" path="res://Nodes/Bubble.tscn" id="2_gsygv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nwpxg"]
+albedo_color = Color(0.603922, 0.541176, 0.968627, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4feqi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hkna0"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_nrp4u"]
+material = SubResource("StandardMaterial3D_hkna0")
+height = 0.34
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b1ujm"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wh0cy"]
+material = SubResource("StandardMaterial3D_b1ujm")
+size = Vector3(0.61, 0.025, 0.105)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_33r78"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_mbor2"]
+material = SubResource("StandardMaterial3D_33r78")
+size = Vector3(0.15, 0.15, 0.06)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oas5o"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_58gx8"]
+radius = 5.23
+
+[node name="CharacterBody3D" type="CharacterBody3D" groups=["dynamic"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+script = ExtResource("1_8xf5u")
+
+[node name="bodymesh" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_nwpxg")
+mesh = SubResource("BoxMesh_4feqi")
+skeleton = NodePath("../..")
+
+[node name="eyeMesh" type="MeshInstance3D" parent="bodymesh"]
+transform = Transform3D(0.286236, -2.24243e-09, -0.0338349, -0.0898272, -1.46347e-08, -0.107816, -2.24243e-09, 0.3, -5.51241e-09, -0.22, 0.259, -0.5)
+mesh = SubResource("CylinderMesh_nrp4u")
+
+[node name="eyeMesh2" type="MeshInstance3D" parent="bodymesh"]
+transform = Transform3D(0.286025, 2.27679e-09, 0.034087, 0.0904964, -1.47437e-08, -0.107736, 2.27679e-09, 0.3, -5.55348e-09, 0.2, 0.259, -0.5)
+mesh = SubResource("CylinderMesh_nrp4u")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="bodymesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0576262, -0.496512)
+mesh = SubResource("BoxMesh_wh0cy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="bodymesh/MeshInstance3D"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -0.172431, -0.0725316, 0)
+mesh = SubResource("PrismMesh_mbor2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_oas5o")
+
+[node name="TriggerArea" type="Area3D" parent="."]
+input_ray_pickable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.64)
+shape = SubResource("SphereShape3D_58gx8")
+
+[node name="bubble" parent="." instance=ExtResource("2_gsygv")]
+transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.13, 0, 1.71469, 0)
+visible = false
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 2.0
+target_desired_distance = 2.0
+avoidance_enabled = true
+radius = 1.0
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.91975, 0)

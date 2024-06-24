@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://bb40vuwqxwqur"]
+
+[ext_resource type="Script" path="res://Scripts/Item.gd" id="1_j2042"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bbi8e"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qtktu"]
+albedo_color = Color(0.494118, 0.494118, 0.494118, 1)
+metallic = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_swytl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_60sai"]
+size = Vector3(3, 1, 1.555)
+
+[node name="key" type="StaticBody3D"]
+script = ExtResource("1_j2042")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.25, 0, 0, 0, 1, 1.169, 0, 0)
+mesh = SubResource("CylinderMesh_bbi8e")
+surface_material_override/0 = SubResource("StandardMaterial3D_qtktu")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.18557e-08, -1, 0, 0.5, -4.37114e-08, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("CylinderMesh_bbi8e")
+surface_material_override/0 = SubResource("StandardMaterial3D_qtktu")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.4, 0, 0, 0, 1, -0.612057, 0, -0.37)
+mesh = SubResource("BoxMesh_swytl")
+surface_material_override/0 = SubResource("StandardMaterial3D_qtktu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.312196, 0, -0.199596)
+shape = SubResource("BoxShape3D_60sai")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

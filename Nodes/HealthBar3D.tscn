@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://35xjxctm1ifu"]
+
+[ext_resource type="Script" path="res://Scripts/HealthBar.gd" id="1_3qigs"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_dxuo4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ws1r"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_x40a5"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_3qigs")
+green = Color(0.298039, 0.533333, 0.454902, 1)
+red = Color(0.784314, 0.376471, 0.32549, 1)
+
+[node name="Font" type="MeshInstance3D" parent="."]
+transform = Transform3D(-6.55671e-08, -4, 0, 1.5, -1.74846e-07, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_dxuo4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_7ws1r")
+
+[node name="FillAnchor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+
+[node name="Fill" type="MeshInstance3D" parent="FillAnchor"]
+transform = Transform3D(-4.37114e-08, -1.5, 0, 1, -6.55671e-08, 0, 0, 0, 1, -1.5, 0, -0.5)
+mesh = SubResource("CylinderMesh_x40a5")
+skeleton = NodePath("")

@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=3 uid="uid://cfvnrvxcwfk37"]
+
+[ext_resource type="Texture2D" uid="uid://cwi0b114l1tko" path="res://Textures/bubblewTip.tga" id="1_bsmba"]
+[ext_resource type="Script" path="res://Scripts/Bubble.gd" id="1_tvyr6"]
+[ext_resource type="Texture2D" uid="uid://vijj406lsg5l" path="res://Textures/EmojiHappy.tga" id="2_w1brj"]
+[ext_resource type="Texture2D" uid="uid://rbdg5rvycfgj" path="res://Textures/Heart.tga" id="3_6e1je"]
+[ext_resource type="Texture2D" uid="uid://dns72ysmi4bkn" path="res://Textures/exclamation.tga" id="4_lrtcj"]
+[ext_resource type="Texture2D" uid="uid://ceuanl65b3yiq" path="res://Textures/EmojiSad.tga" id="5_3ncvm"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_tvyr6")
+Emotes = {
+"Happy": ExtResource("2_w1brj"),
+"Love": ExtResource("3_6e1je"),
+"Sad": ExtResource("5_3ncvm"),
+"Surprise": ExtResource("4_lrtcj")
+}
+
+[node name="BG" type="Sprite3D" parent="."]
+billboard = 1
+texture = ExtResource("1_bsmba")
+
+[node name="emote" type="Sprite3D" parent="BG"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+billboard = 1
+render_priority = 1
+texture = ExtResource("2_w1brj")

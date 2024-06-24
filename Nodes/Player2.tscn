@@ -1,0 +1,137 @@
+[gd_scene load_steps=14 format=3 uid="uid://cdwrdxs0arsup"]
+
+[ext_resource type="Script" path="res://Scripts/PlayerController.gd" id="1_vfj0e"]
+[ext_resource type="PackedScene" uid="uid://35xjxctm1ifu" path="res://Nodes/HealthBar3D.tscn" id="2_yyssb"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3it27"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mu5ra"]
+albedo_color = Color(0.870588, 0.588235, 0.305882, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2e7ct"]
+top_radius = 0.2
+bottom_radius = 0.01
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wln47"]
+albedo_color = Color(0.454902, 0.254902, 0.0980392, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vfs07"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_mhptq"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qmuvm"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_adt87"]
+top_radius = 0.1
+bottom_radius = 0.1
+
+[sub_resource type="Animation" id="Animation_gmdsl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Weapon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.6, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Weapon:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_i2s2m"]
+resource_name = "Weapon"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Weapon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.6, 1, 0), Vector3(-0.6, 0.447007, -0.904179), Vector3(-0.6, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Weapon:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-1.18682, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7cqcb"]
+_data = {
+"RESET": SubResource("Animation_gmdsl"),
+"Weapon": SubResource("Animation_i2s2m")
+}
+
+[node name="CharacterBody3D" type="CharacterBody3D" groups=["EnemyTarget"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_vfj0e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_3it27")
+surface_material_override/0 = SubResource("StandardMaterial3D_mu5ra")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.00320292, 0.490739, -0.433485)
+mesh = SubResource("CylinderMesh_2e7ct")
+surface_material_override/0 = SubResource("StandardMaterial3D_wln47")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_vfs07")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.70149, 0, 0, 0, 1.70149, 0, 0, 0, 1.70149, 0.185738, 0.698799, -0.438721)
+mesh = SubResource("SphereMesh_mhptq")
+surface_material_override/0 = SubResource("StandardMaterial3D_qmuvm")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.7, 0, 0, 0, 1.7, 0, 0, 0, 1.7, -0.175817, 0.6885, -0.446856)
+mesh = SubResource("SphereMesh_mhptq")
+surface_material_override/0 = SubResource("StandardMaterial3D_qmuvm")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+
+[node name="Weapon" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1, 0)
+visible = false
+mesh = SubResource("CylinderMesh_adt87")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7cqcb")
+}
+
+[node name="HealthBar" parent="." instance=ExtResource("2_yyssb")]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 4, 0)
+visible = false
+is_player = true
+
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]

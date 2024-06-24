@@ -1,0 +1,162 @@
+[gd_scene load_steps=17 format=3 uid="uid://bd0uq1apwwi7f"]
+
+[ext_resource type="Script" path="res://Scripts/PrisonerEvents.gd" id="1_ik5wr"]
+[ext_resource type="Script" path="res://Scripts/PrisonerNPC.gd" id="1_lwvp4"]
+[ext_resource type="PackedScene" uid="uid://cfvnrvxcwfk37" path="res://Nodes/Bubble.tscn" id="3_ft6tx"]
+[ext_resource type="PackedScene" uid="uid://6j15b2jitl5h" path="res://Nodes/MagicStick.tscn" id="4_armb1"]
+[ext_resource type="PackedScene" uid="uid://35xjxctm1ifu" path="res://Nodes/HealthBar3D.tscn" id="5_dg41b"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2s70e"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wjm8q"]
+albedo_color = Color(0.552941, 0.705882, 0.968627, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_p0l7c"]
+top_radius = 0.2
+bottom_radius = 0.01
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x1w1s"]
+albedo_color = Color(0.25098, 0, 0.921569, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_w0ow4"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_3mnir"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7tasu"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_lwsmq"]
+radius = 7.928
+
+[sub_resource type="Animation" id="Animation_u5qth"]
+resource_name = "MagicStickMovement"
+length = 0.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("weapon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-1.5708, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("weapon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0400296, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.727622, 0.0357838, 0), Vector3(-0.727622, 0.0357838, 0), Vector3(-0.727622, 0.0357838, 0), Vector3(-0.727622, 0.0357838, 0.708764)]
+}
+
+[sub_resource type="Animation" id="Animation_2lave"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("weapon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("weapon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.727622, 0.0357838, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g1omp"]
+_data = {
+"MagicStickMovement": SubResource("Animation_u5qth"),
+"RESET": SubResource("Animation_2lave")
+}
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_ik5wr")
+
+[node name="NPC" type="CharacterBody3D" parent="." groups=["dynamic"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_lwvp4")
+
+[node name="BodyMesh" type="MeshInstance3D" parent="NPC"]
+mesh = SubResource("CapsuleMesh_2s70e")
+surface_material_override/0 = SubResource("StandardMaterial3D_wjm8q")
+
+[node name="NozeMesh" type="MeshInstance3D" parent="NPC"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.00320292, 0.490739, -0.433485)
+mesh = SubResource("CylinderMesh_p0l7c")
+surface_material_override/0 = SubResource("StandardMaterial3D_x1w1s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NPC"]
+shape = SubResource("CapsuleShape3D_w0ow4")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="NPC"]
+transform = Transform3D(1.70149, 0, 0, 0, 1.70149, 0, 0, 0, 1.70149, 0.185738, 0.698799, -0.438721)
+mesh = SubResource("SphereMesh_3mnir")
+surface_material_override/0 = SubResource("StandardMaterial3D_7tasu")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="NPC"]
+transform = Transform3D(1.7, 0, 0, 0, 1.7, 0, 0, 0, 1.7, -0.175817, 0.6885, -0.446856)
+mesh = SubResource("SphereMesh_3mnir")
+surface_material_override/0 = SubResource("StandardMaterial3D_7tasu")
+
+[node name="Area3D" type="Area3D" parent="NPC"]
+input_ray_pickable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NPC/Area3D"]
+shape = SubResource("CylinderShape3D_lwsmq")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="NPC"]
+path_desired_distance = 3.0
+target_desired_distance = 2.0
+avoidance_enabled = true
+
+[node name="bubble" parent="NPC" instance=ExtResource("3_ft6tx")]
+transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.13, 0, 1.94797, 0)
+visible = false
+
+[node name="SpotLight3D" type="SpotLight3D" parent="NPC"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.30783, 0)
+
+[node name="weapon" parent="NPC" instance=ExtResource("4_armb1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.727622, 0.0357838, 0)
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NPC"]
+libraries = {
+"": SubResource("AnimationLibrary_g1omp")
+}
+
+[node name="HealthBar" parent="NPC" instance=ExtResource("5_dg41b")]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 3, 0)
+visible = false
+is_player = true
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="body_entered" from="NPC/Area3D" to="NPC" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="NPC/Area3D" to="NPC" method="_on_area_3d_body_exited"]
+[connection signal="velocity_computed" from="NPC/NavigationAgent3D" to="NPC" method="_on_navigation_agent_3d_velocity_computed"]
