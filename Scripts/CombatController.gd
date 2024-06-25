@@ -14,11 +14,15 @@ func start_combat(_opponents : Array):
 	combat_mode.emit()
 	next_turn()
 	
+func _input(_event):
+	if Input.is_key_pressed(KEY_SPACE):
+		print("it's ",opponents[turn], " turn." )
+	
 func next_turn():
 	turn += 1
 	if turn>= opponents.size():
 		turn = 0
-	opponents[turn].turn_to_play = true
+	opponents[turn].set_turn()
 	#print("next turn : ",opponents[turn])
 
 func get_target(type : String):

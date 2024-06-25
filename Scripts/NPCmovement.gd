@@ -148,12 +148,18 @@ func start_combat():
 	if is_in_combat:
 		stop_combat()
 		return
+	isFollowingPlayer = false
+	is_in_combat = true
 	set_target(global_position)
+	
 	newVelocity = Vector3.ZERO
+	if(navigationAgent.avoidance_enabled):
+			navigationAgent.set_velocity(newVelocity)
+	else:
+		_on_navigation_agent_3d_velocity_computed(newVelocity)
+	
 	await create_tween().tween_interval(1).finished
 	health_bar.visible= true
-	is_in_combat = true
-	isFollowingPlayer = false
 	if target == null:
 		target = combat_controller.get_target("enemy")
 	
@@ -175,7 +181,7 @@ func set_target(_position : Vector3):
 		position_before_move = global_position
 		
 func try_attack(_position : Vector3):
-	target = combat_controller.target_validity(target,"enemy")
+
 	if(global_position.distance_squared_to(_position) > 81):
 		set_target(_position)
 		is_reaching_target = true
@@ -188,8 +194,10 @@ func start_attack():
 	play_animation()
 	await create_tween().tween_interval(1).finished
 	var health_left = target.take_damage(1)
-	if health_left == 0:
+	if health_left <= 0:
 		target = combat_controller.get_target("enemy")
+		#if target != null:
+			#print("new target is: ", target.name)
 	combat_controller.next_turn()
 	
 func take_damage(strength : float):
@@ -211,3 +219,10 @@ func disapear():
 	
 func play_animation():
 	pass
+
+func set_turn():
+	target = combat_controller.target_validity(target,"enemy")
+	if target != null:
+		turn_to_play = true
+	else:
+		print(self.name, " can't set target")

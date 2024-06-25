@@ -19,6 +19,7 @@ var is_in_combat = false
 var player
 var can_take_damage = false
 @export var has_key = false
+@export var has_potion = false
 
 func _ready():
 	navigationAgent = get_node("NavigationAgent3D")
@@ -81,9 +82,8 @@ func _on_input_event(_camera, event, _position, _normal, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == 1:
 			if event.is_pressed():
-				player.try_attack(global_position)
-				#print("enemy cliked")
 				can_take_damage = true
+				player.try_attack(global_position)
 				
 func ShowBubble():
 	var tween = create_tween()
@@ -109,12 +109,13 @@ func start_combat():
 	await create_tween().tween_interval(1).finished
 	health_bar.visible= true
 	is_in_combat = true
+	remove_from_group("dynamic")
 	if target == null:
 		target = combat_controller.get_target("ally")
 
 func try_attack(_position : Vector3):
 	#print("enemy try attacking target")
-	target = combat_controller.target_validity(target,"ally")
+	
 	#print("target is : ",target)
 	if(global_position.distance_squared_to(_position) > 9):
 		set_target(_position)
@@ -138,25 +139,20 @@ func start_attack():
 	await create_tween().tween_interval(1).finished
 	var health_left = target.take_damage(1)
 	#print("target health left : ", health_left)
-	if health_left == 0:
+	if health_left <= 0:
 		target = combat_controller.get_target("ally")
 	combat_controller.next_turn()
 		
 func take_damage(strength : float):
 	if !is_in_combat:
-		#print("enemy can't take damage")
 		return 0
-		
-	#print("enemy damage amount : ", strength)
 	health -= strength
 	
 	if health<=0:
-		#print("enemy sending signal")
 		disapear()
 	
 	health_bar.set_health(health*2)
 	can_take_damage =false
-	#print("enemy health left : ",health)
 	return health
 	
 func disapear():
@@ -165,6 +161,8 @@ func disapear():
 	combat_controller.remove_opponent(self)
 	if has_key:
 		$"../Items/key".global_position = position_before_move
+	if has_potion:
+		$"../Items/potion".global_position = position_before_move
 	
 func stop_combat():
 	#print("enemy : stopping combat")
@@ -177,6 +175,12 @@ func stop_combat():
 func get_attacked(_strength : float):
 	if !can_take_damage:
 		return
-	print(self.name," is taking damage")
+	#print(self.name," is taking damage")
 	take_damage(_strength)
 	
+func set_turn():
+	target = combat_controller.target_validity(target,"ally")
+	if target != null:
+		turn_to_play = true
+	else:
+		print(self.name, " can't set target")
