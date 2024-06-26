@@ -29,7 +29,8 @@ func _ready():
 	ground.mouse_clicked.connect(_init_move)
 	combat_controller = $"../CombatController"
 	combat_controller.combat_mode.connect(start_combat)
-	health_bar = $HealthBar
+	#health_bar = $HealthBar
+	health_bar = $SubViewport/Control
 
 func _init_move(_position : Vector3):
 	if !is_in_combat:
@@ -117,6 +118,7 @@ func try_interact(_position : Vector3):
 		target_type = InteractableType.INTERACTABLE
 	else:
 		custom_look_at(_position)
+		target_type = InteractableType.INTERACTABLE
 		start_interact()
 		
 	
@@ -147,8 +149,8 @@ func start_combat():
 		_on_navigation_agent_3d_velocity_computed(newVelocity)
 		
 	is_in_combat = true
-	await create_tween().tween_interval(1).finished
-	health_bar.visible = true
+	#await create_tween().tween_interval(1).finished
+	#health_bar.visible = true
 	
 func stop_combat():
 	#print("player : stoping combat")
@@ -156,6 +158,7 @@ func stop_combat():
 	turn_to_play = false
 	if health == 10:
 		health_bar.visible = false
+	$TurnIndicator.visible = false
 		
 func take_damage(_amount : float):
 	health -= _amount
@@ -196,8 +199,23 @@ func end_turn():
 	is_moving = false
 	turn_to_play = false
 	traveled_distance = 0
+	$TurnIndicator.visible = false
 	combat_controller.next_turn()
 
 func set_turn():
 	turn_to_play = true
+	$TurnIndicator.visible = true
 
+
+
+func _on_mouse_entered():
+	$Timer.stop()
+	$Sprite3D.visible = true
+
+
+func _on_mouse_exited():
+	$Timer.start(.5)
+
+
+func _on_timer_timeout():
+	$Sprite3D.visible = false

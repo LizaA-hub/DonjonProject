@@ -18,6 +18,7 @@ var smooth = 5
 var isFollowingPlayer = false
 var is_in_combat = false
 var health_bar
+var health_bar_display
 var target
 var combat_controller
 var turn_to_play = false
@@ -26,6 +27,7 @@ var health = 10
 var is_reaching_target = false
 var position_before_move
 var newVelocity
+var health_bar_timer
 
 func _ready():
 	randomize()
@@ -68,8 +70,7 @@ func _physics_process(delta):
 				set_target(global_position)
 				newVelocity = Vector3.ZERO
 				is_reaching_target = false
-				turn_to_play = false
-				combat_controller.next_turn()
+				end_turn()
 			else:
 				newVelocity = (nextPathPosition - global_position).normalized() * speed * delta
 			
@@ -158,8 +159,8 @@ func start_combat():
 	else:
 		_on_navigation_agent_3d_velocity_computed(newVelocity)
 	
-	await create_tween().tween_interval(1).finished
-	health_bar.visible= true
+	#await create_tween().tween_interval(1).finished
+	#health_bar.visible= true
 	if target == null:
 		target = combat_controller.get_target("enemy")
 	
@@ -169,6 +170,7 @@ func stop_combat():
 	isFollowingPlayer = true
 	if health == 10:
 		health_bar.visible = false
+	$TurnIndicator.visible = false
 	
 func custom_look_at(_position : Vector3):
 	var look_direction = _position
@@ -198,7 +200,7 @@ func start_attack():
 		target = combat_controller.get_target("enemy")
 		#if target != null:
 			#print("new target is: ", target.name)
-	combat_controller.next_turn()
+	end_turn()
 	
 func take_damage(strength : float):
 	if !is_in_combat:
@@ -222,7 +224,25 @@ func play_animation():
 
 func set_turn():
 	target = combat_controller.target_validity(target,"enemy")
+	$TurnIndicator.visible = true
 	if target != null:
 		turn_to_play = true
 	else:
 		print(self.name, " can't set target")
+		
+func end_turn():
+	if turn_to_play:
+		turn_to_play = false
+	combat_controller.next_turn()
+	$TurnIndicator.visible = false
+	
+func _on_mouse_entered():
+	health_bar_timer.stop()
+	health_bar_display.visible= true
+
+
+func _on_mouse_exited():
+	health_bar_timer.start(.5)
+
+func on_BHTimer_out():
+	health_bar_display.visible= false

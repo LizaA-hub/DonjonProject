@@ -23,7 +23,7 @@ var can_take_damage = false
 
 func _ready():
 	navigationAgent = get_node("NavigationAgent3D")
-	health_bar = $HealthBar
+	health_bar = $SubViewport/Control
 	combat_controller = $"../CombatController"
 	combat_controller.combat_mode.connect(start_combat)
 	player = $"../player"
@@ -51,9 +51,8 @@ func _physics_process(delta):
 				set_target(global_position)
 				newVelocity = Vector3.ZERO
 				is_reaching_target = false
-				turn_to_play = false
-				#print("enemy walked. next turn...")
-				combat_controller.next_turn()
+				end_turn()
+				
 			else:
 				newVelocity = (nextPathPosition - global_position).normalized() * speed * delta
 			
@@ -95,9 +94,6 @@ func choose(array):
 	array.shuffle()
 	return array.front()
 
-
-func _on_timer_timeout():
-	$Timer.wait_time = choose([0.5,1,1.5])
 	
 func start_combat():
 	if !visible:
@@ -106,8 +102,8 @@ func start_combat():
 	if is_in_combat:
 		stop_combat()
 		return
-	await create_tween().tween_interval(1).finished
-	health_bar.visible= true
+	#await create_tween().tween_interval(1).finished
+	#health_bar.visible= true
 	is_in_combat = true
 	remove_from_group("dynamic")
 	if target == null:
@@ -136,12 +132,15 @@ func set_target(_position : Vector3):
 func start_attack():
 	turn_to_play = false
 	#print("attacking target")
-	await create_tween().tween_interval(1).finished
+	await create_tween().tween_interval(0.5).finished
+	$AnimationPlayer.play("enemy_attack")
+	await create_tween().tween_interval(0.6).finished
+	$AnimationPlayer.stop()
 	var health_left = target.take_damage(1)
 	#print("target health left : ", health_left)
 	if health_left <= 0:
 		target = combat_controller.get_target("ally")
-	combat_controller.next_turn()
+	end_turn()
 		
 func take_damage(strength : float):
 	if !is_in_combat:
@@ -151,7 +150,7 @@ func take_damage(strength : float):
 	if health<=0:
 		disapear()
 	
-	health_bar.set_health(health*2)
+	health_bar.set_health(health)
 	can_take_damage =false
 	return health
 	
@@ -171,6 +170,7 @@ func stop_combat():
 	can_take_damage = false
 	if health == 10:
 		health_bar.visible = false
+	$TurnIndicator.visible = false
 
 func get_attacked(_strength : float):
 	if !can_take_damage:
@@ -180,7 +180,26 @@ func get_attacked(_strength : float):
 	
 func set_turn():
 	target = combat_controller.target_validity(target,"ally")
+	$TurnIndicator.visible = true
 	if target != null:
 		turn_to_play = true
 	else:
 		print(self.name, " can't set target")
+		
+func end_turn():
+	if turn_to_play:
+		turn_to_play = false
+	$TurnIndicator.visible = false
+	combat_controller.next_turn()
+
+
+func _on_mouse_entered():
+	$Timer.stop()
+	$Sprite3D.visible= true
+
+
+func _on_mouse_exited():
+	$Timer.start(.5)
+
+func _on_timer_timeout():
+	$Sprite3D.visible= false

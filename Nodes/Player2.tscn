@@ -1,7 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://cdwrdxs0arsup"]
+[gd_scene load_steps=17 format=3 uid="uid://cdwrdxs0arsup"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerController.gd" id="1_vfj0e"]
-[ext_resource type="PackedScene" uid="uid://35xjxctm1ifu" path="res://Nodes/HealthBar3D.tscn" id="2_yyssb"]
+[ext_resource type="PackedScene" uid="uid://bb2yrvkltufrg" path="res://Nodes/HealthBar2D.tscn" id="3_qouft"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3it27"]
 
@@ -90,6 +90,18 @@ _data = {
 "Weapon": SubResource("Animation_i2s2m")
 }
 
+[sub_resource type="SphereMesh" id="SphereMesh_g2m0q"]
+radius = 0.2
+height = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p7wnb"]
+albedo_color = Color(0.890196, 0.854902, 0.717647, 1)
+emission_enabled = true
+emission = Color(0.894118, 0.858824, 0.72549, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_y6y2i"]
+viewport_path = NodePath("SubViewport")
+
 [node name="CharacterBody3D" type="CharacterBody3D" groups=["EnemyTarget"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_vfj0e")
@@ -129,9 +141,33 @@ libraries = {
 "": SubResource("AnimationLibrary_7cqcb")
 }
 
-[node name="HealthBar" parent="." instance=ExtResource("2_yyssb")]
-transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 4, 0)
+[node name="TurnIndicator" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 visible = false
-is_player = true
+mesh = SubResource("SphereMesh_g2m0q")
+surface_material_override/0 = SubResource("StandardMaterial3D_p7wnb")
 
+[node name="SubViewport" type="SubViewport" parent="."]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(1152, 648)
+
+[node name="Control" parent="SubViewport" instance=ExtResource("3_qouft")]
+character_name = "Christine"
+is_ally = true
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 4, 0)
+visible = false
+billboard = 1
+texture = SubResource("ViewportTexture_y6y2i")
+region_enabled = true
+region_rect = Rect2(56, 24, 1048, 288)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

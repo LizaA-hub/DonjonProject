@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://bc6ck6l8ptdnn"]
+[gd_scene load_steps=49 format=3 uid="uid://bc6ck6l8ptdnn"]
 
 [ext_resource type="Script" path="res://Scripts/Floor.gd" id="1_8ila6"]
 [ext_resource type="PackedScene" uid="uid://cdwrdxs0arsup" path="res://Nodes/Player2.tscn" id="1_d1leb"]
@@ -110,6 +110,12 @@ size = Vector3(2, 2, 14)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ne3ds"]
 albedo_color = Color(0.356863, 0.356863, 0.356863, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ymbuj"]
+size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qgh0j"]
+albedo_color = Color(0, 0, 0, 1)
 
 [node name="Node3D" type="Node3D"]
 
@@ -578,6 +584,7 @@ player = NodePath("../player")
 transform = Transform3D(0.258819, -0.683013, 0.683013, 1.49012e-08, 0.707107, 0.707107, -0.965926, -0.183013, 0.183013, -7, -8, -2)
 light_color = Color(0.882353, 0.717647, 0.427451, 1)
 light_energy = 6.0
+light_cull_mask = 4294967291
 shadow_enabled = true
 spot_range = 20.0
 spot_angle = 8.0
@@ -1539,6 +1546,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 1, -58)
 
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="Borders/Node3D"]
 radius = 3.0
+
+[node name="floor" type="MeshInstance3D" parent="Borders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -32)
+mesh = SubResource("PlaneMesh_ymbuj")
+surface_material_override/0 = SubResource("StandardMaterial3D_qgh0j")
 
 [connection signal="input_event" from="Bar/clickable" to="Bar" method="_on_clickable_input_event"]
 [connection signal="body_entered" from="LigthArea/corridorArea" to="LigthArea/corridorArea" method="_on_body_entered"]

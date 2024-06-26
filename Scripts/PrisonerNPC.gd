@@ -4,10 +4,13 @@ signal start_interaction
 
 func _ready():
 	timer = $Timer
+	health_bar_timer = $HBTimer
+	health_bar_timer.timeout.connect(on_BHTimer_out)
 	
 	MaxDistance = 3
 	
-	health_bar = $HealthBar
+	health_bar = $SubViewport/Control
+	health_bar_display = $Sprite3D
 	
 	ShowBubble("Sad")
 	get_node("/root/Node3D/Bar").is_free.connect(get_free)
@@ -37,3 +40,4 @@ func play_animation():
 	$AnimationPlayer.play("MagicStickMovement")
 	await create_tween().tween_interval(1).finished
 	$AnimationPlayer.stop()
+
