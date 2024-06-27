@@ -107,6 +107,7 @@ viewport_path = NodePath("SubViewport")
 [node name="CharacterBody3D" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_hnlpk")
+pseudo = "Lilly"
 
 [node name="BodyMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_aiw2x")
@@ -174,7 +175,6 @@ transparent_bg = true
 size = Vector2i(1152, 648)
 
 [node name="Control" parent="SubViewport" instance=ExtResource("5_sknn7")]
-character_name = "Lily"
 is_ally = true
 
 [node name="Sprite3D" type="Sprite3D" parent="."]

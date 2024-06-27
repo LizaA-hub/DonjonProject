@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://bc6ck6l8ptdnn"]
+[gd_scene load_steps=52 format=3 uid="uid://bc6ck6l8ptdnn"]
 
 [ext_resource type="Script" path="res://Scripts/Floor.gd" id="1_8ila6"]
 [ext_resource type="PackedScene" uid="uid://cdwrdxs0arsup" path="res://Nodes/Player2.tscn" id="1_d1leb"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Scripts/BreakableDoor.gd" id="9_1ohrn"]
 [ext_resource type="Script" path="res://Scripts/DoorsMovement.gd" id="9_153yv"]
 [ext_resource type="PackedScene" uid="uid://35xjxctm1ifu" path="res://Nodes/HealthBar3D.tscn" id="9_o4031"]
+[ext_resource type="PackedScene" uid="uid://bb2yrvkltufrg" path="res://Nodes/HealthBar2D.tscn" id="10_g6u35"]
 [ext_resource type="PackedScene" uid="uid://jxrys8w1v6m4" path="res://Nodes/chest.tscn" id="11_ijj81"]
 [ext_resource type="PackedScene" uid="uid://be3cck75bsi27" path="res://Nodes/PushButton.tscn" id="11_x8gs4"]
 [ext_resource type="PackedScene" uid="uid://c4oivlvm7wr1m" path="res://Nodes/Enemy3.tscn" id="12_3c721"]
@@ -16,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://bb40vuwqxwqur" path="res://Nodes/key.tscn" id="13_pbofa"]
 [ext_resource type="PackedScene" uid="uid://drdqnxmx618si" path="res://Nodes/PrisonerNPC.tscn" id="14_6ljua"]
 [ext_resource type="PackedScene" uid="uid://bly5ffn0su80" path="res://Nodes/Potion.tscn" id="14_huusp"]
+[ext_resource type="PackedScene" uid="uid://bc81gd3bnh2gq" path="res://Nodes/CombatUI.tscn" id="18_vxpo1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ujqwp"]
 sky_horizon_color = Color(0.59625, 0.6135, 0.6375, 1)
@@ -83,6 +85,9 @@ albedo_color = Color(0.627451, 0.486275, 0.411765, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m2d6k"]
 size = Vector3(8, 4, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_kforw"]
+viewport_path = NodePath("Props/BreakableDoor/SubViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m2emn"]
 size = Vector3(2.2, 2, 8)
@@ -570,15 +575,13 @@ shape = SubResource("BoxShape3D_dkh73")
 layers = 2
 mesh = SubResource("BoxMesh_732n2")
 
-[node name="player" parent="." instance=ExtResource("1_d1leb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-
 [node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18, 0)
+current = true
 size = 27.257
 script = ExtResource("3_i5uo2")
 start_position = Vector3(14, 16, 4)
-player = NodePath("../player")
+player = NodePath("../PlayerSubViewport/player")
 
 [node name="SpotLight3D2" type="SpotLight3D" parent="Camera3D"]
 transform = Transform3D(0.258819, -0.683013, 0.683013, 1.49012e-08, 0.707107, 0.707107, -0.965926, -0.183013, 0.183013, -7, -8, -2)
@@ -884,6 +887,24 @@ shape = SubResource("BoxShape3D_m2d6k")
 
 [node name="HB" parent="Props/BreakableDoor" instance=ExtResource("9_o4031")]
 transform = Transform3D(-1, 0, -4.37114e-08, 0, 0.5, 0, 8.74228e-08, 0, -0.5, 0, 3, 0)
+visible = false
+
+[node name="SubViewport" type="SubViewport" parent="Props/BreakableDoor"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(1152, 648)
+
+[node name="Control" parent="Props/BreakableDoor/SubViewport" instance=ExtResource("10_g6u35")]
+
+[node name="Sprite3D" type="Sprite3D" parent="Props/BreakableDoor"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 4, 0)
+visible = false
+billboard = 1
+texture = SubResource("ViewportTexture_kforw")
+region_enabled = true
+region_rect = Rect2(56, 24, 1048, 288)
+
+[node name="Timer" type="Timer" parent="Props/BreakableDoor"]
 
 [node name="chest" parent="Props" instance=ExtResource("11_ijj81")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.892917, -24)
@@ -892,31 +913,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.892917, -24)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0.865, -24)
 script = ExtResource("2_ky2oe")
 
-[node name="Enemy" parent="." groups=["enemy"] instance=ExtResource("12_3c721")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1, -63.7042)
-has_key = true
-
 [node name="CombatController" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("13_0w77b")
 
 [node name="Items" type="Node" parent="."]
 
 [node name="key" parent="Items" groups=["environment"] instance=ExtResource("13_pbofa")]
+unique_name_in_owner = true
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 21.5944, 1.63439, -44.8272)
 
 [node name="potion" parent="Items" groups=["dynamic"] instance=ExtResource("14_huusp")]
+unique_name_in_owner = true
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -6, 1, -74)
-
-[node name="prisoner" parent="." groups=["dynamic"] instance=ExtResource("14_6ljua")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.5, -72)
-
-[node name="Enemy2" parent="." groups=["enemy"] instance=ExtResource("12_3c721")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -42, 1, -32)
-has_key = true
-
-[node name="Enemy3" parent="." groups=["enemy"] instance=ExtResource("12_3c721")]
-transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -42, 1, -16)
-has_potion = true
 
 [node name="Borders" type="Node" parent="."]
 
@@ -1552,6 +1561,67 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -32)
 mesh = SubResource("PlaneMesh_ymbuj")
 surface_material_override/0 = SubResource("StandardMaterial3D_qgh0j")
 
+[node name="PlayerSubViewport" type="SubViewport" parent="."]
+unique_name_in_owner = true
+render_target_update_mode = 1
+
+[node name="player" parent="PlayerSubViewport" node_paths=PackedStringArray("viewport") instance=ExtResource("1_d1leb")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+viewport = NodePath("..")
+
+[node name="Camera3D" type="Camera3D" parent="PlayerSubViewport/player"]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 2, 0.64, -2)
+fov = 48.2
+
+[node name="Enemy1SubViewport" type="SubViewport" parent="."]
+
+[node name="Enemy" parent="Enemy1SubViewport" node_paths=PackedStringArray("viewport") groups=["enemy"] instance=ExtResource("12_3c721")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1, -63.7042)
+has_key = true
+viewport = NodePath("..")
+
+[node name="Camera3D" type="Camera3D" parent="Enemy1SubViewport/Enemy"]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 2, 0, -2)
+fov = 51.1
+
+[node name="Enemy2SubViewport" type="SubViewport" parent="."]
+render_target_update_mode = 1
+
+[node name="Enemy2" parent="Enemy2SubViewport" node_paths=PackedStringArray("viewport") groups=["enemy"] instance=ExtResource("12_3c721")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -42, 1, -32)
+has_key = true
+viewport = NodePath("..")
+
+[node name="Camera3D" type="Camera3D" parent="Enemy2SubViewport/Enemy2"]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 2, 0, -2)
+fov = 41.2
+
+[node name="Enemy3SubViewport" type="SubViewport" parent="."]
+render_target_update_mode = 1
+
+[node name="Enemy3" parent="Enemy3SubViewport" node_paths=PackedStringArray("viewport") groups=["enemy"] instance=ExtResource("12_3c721")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -42, 1, -16)
+has_potion = true
+viewport = NodePath("..")
+
+[node name="Camera3D" type="Camera3D" parent="Enemy3SubViewport/Enemy3"]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 2, 0, -1.99998)
+fov = 38.2
+
+[node name="PrisonerSubViewport" type="SubViewport" parent="."]
+
+[node name="prisoner" parent="PrisonerSubViewport" groups=["dynamic"] instance=ExtResource("14_6ljua")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.5, -72)
+max_health = 10
+
+[node name="Camera3D" type="Camera3D" parent="PrisonerSubViewport/prisoner"]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 2, 0.62, -2)
+fov = 43.2
+
+[node name="Control" parent="." instance=ExtResource("18_vxpo1")]
+
 [connection signal="input_event" from="Bar/clickable" to="Bar" method="_on_clickable_input_event"]
 [connection signal="body_entered" from="LigthArea/corridorArea" to="LigthArea/corridorArea" method="_on_body_entered"]
 [connection signal="body_exited" from="LigthArea/corridorArea" to="LigthArea/corridorArea" method="_on_body_exited"]
@@ -1572,4 +1642,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_qgh0j")
 [connection signal="input_event" from="Doors/StaticBody3D" to="Doors" method="_on_static_body_3d_input_event"]
 [connection signal="input_event" from="Doors/StaticBody3D3" to="Doors" method="_on_static_body_3d_3_input_event"]
 [connection signal="input_event" from="Props/BreakableDoor" to="Props/BreakableDoor" method="_on_input_event"]
+[connection signal="mouse_entered" from="Props/BreakableDoor" to="Props/BreakableDoor" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Props/BreakableDoor" to="Props/BreakableDoor" method="_on_mouse_exited"]
+[connection signal="timeout" from="Props/BreakableDoor/Timer" to="Props/BreakableDoor" method="_on_timer_timeout"]
 [connection signal="input_event" from="Props/button" to="Doors" method="_on_button_input_event"]

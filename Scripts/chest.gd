@@ -4,7 +4,7 @@ var can_open
 var is_empty = false
 
 func _ready():
-	player = $"../../player"
+	player = %player
 	player.interact.connect(open)
 	
 	

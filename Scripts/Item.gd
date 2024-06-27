@@ -7,7 +7,7 @@ enum types {KEY,HEALTH_POTION}
 @export var type : types
 
 func _ready():
-	player = $"../../player"
+	player = %player
 	player.interact.connect(pick_up)
 
 func _on_input_event(_camera, event, _position, _normal, _shape_idx):

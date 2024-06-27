@@ -11,6 +11,8 @@ func _ready():
 	
 	health_bar = $SubViewport/Control
 	health_bar_display = $Sprite3D
+	health_bar.set_character_name(pseudo)
+	health_bar.max_health = max_health
 	
 	ShowBubble("Sad")
 	get_node("/root/Node3D/Bar").is_free.connect(get_free)

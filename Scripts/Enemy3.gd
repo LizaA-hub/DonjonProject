@@ -3,7 +3,8 @@ var target
 var navigationAgent: NavigationAgent3D
 var speed = 200
 var health_bar
-var health = 5
+@export var max_health : int = 5
+var health
 var direction = Vector3.RIGHT
 var newPosition
 var combat_controller
@@ -20,13 +21,18 @@ var player
 var can_take_damage = false
 @export var has_key = false
 @export var has_potion = false
+@export var pseudo : String
+@export var viewport : SubViewport
 
 func _ready():
 	navigationAgent = get_node("NavigationAgent3D")
 	health_bar = $SubViewport/Control
-	combat_controller = $"../CombatController"
+	health_bar.set_character_name(pseudo)
+	health = max_health
+	health_bar.max_health = max_health
+	combat_controller =%CombatController
 	combat_controller.combat_mode.connect(start_combat)
-	player = $"../player"
+	player = %player
 	player.interact.connect(get_attacked)
 	
 func _physics_process(delta):
@@ -159,9 +165,9 @@ func disapear():
 	global_position.y = -10
 	combat_controller.remove_opponent(self)
 	if has_key:
-		$"../Items/key".global_position = position_before_move
+		%key.global_position = position_before_move
 	if has_potion:
-		$"../Items/potion".global_position = position_before_move
+		%potion.global_position = position_before_move
 	
 func stop_combat():
 	#print("enemy : stopping combat")

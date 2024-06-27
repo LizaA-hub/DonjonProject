@@ -7,7 +7,7 @@ var open_position
 signal is_free
 
 func _ready():
-	player = $"../player"
+	player = %player
 	player.interact.connect(move_down)
 	open_position= global_position
 	open_position.y = -10

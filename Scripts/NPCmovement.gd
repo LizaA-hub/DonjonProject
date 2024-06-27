@@ -23,13 +23,17 @@ var target
 var combat_controller
 var turn_to_play = false
 #var can_take_damage = false
-var health = 10
+var health
 var is_reaching_target = false
 var position_before_move
 var newVelocity
 var health_bar_timer
+@export var viewport : SubViewport
+@export var pseudo : String
+@export var max_health : int = 10
 
 func _ready():
+	health = max_health
 	randomize()
 	startPosition = position
 

@@ -4,19 +4,22 @@ var navigation_region
 signal combat_mode
 var opponents : Array
 var turn : int = -1
+var CombatUI 
 
 func _ready():
 	navigation_region = $"../NavigationRegion3D"
 	navigation_region.combat_started.connect(start_combat)
+	CombatUI = $"../Control"
 	
 func start_combat(_opponents : Array):
 	opponents = _opponents
 	combat_mode.emit()
+	CombatUI.set_ui(opponents)
 	next_turn()
 	
-func _input(_event):
-	if Input.is_key_pressed(KEY_SPACE):
-		print("it's ",opponents[turn], " turn." )
+#func _input(_event):
+	#if Input.is_key_pressed(KEY_SPACE):
+		#print("it's ",opponents[turn], " turn." )
 	
 func next_turn():
 	turn += 1

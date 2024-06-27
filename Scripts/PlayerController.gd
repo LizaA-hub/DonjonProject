@@ -22,15 +22,21 @@ var position_before_move
 var can_open_door = false
 var traveled_distance = 0
 var is_moving = false
+@export var pseudo : String
+@export var viewport : SubViewport
+@export var max_health : int = 10
 
 
 func _ready():
-	var ground = $"../NavigationRegion3D"
+	var ground = $"../../NavigationRegion3D"
 	ground.mouse_clicked.connect(_init_move)
-	combat_controller = $"../CombatController"
+	combat_controller = $"../../CombatController"
 	combat_controller.combat_mode.connect(start_combat)
 	#health_bar = $HealthBar
 	health_bar = $SubViewport/Control
+	health_bar.set_character_name(pseudo)
+	health_bar.max_health = max_health
+	health = max_health
 
 func _init_move(_position : Vector3):
 	if !is_in_combat:

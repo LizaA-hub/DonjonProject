@@ -1,8 +1,8 @@
 extends Control
 
-@export var max_health : float = 10
+var max_health : float = 10
 var health
-@export var character_name : String
+var character_name : String
 var progress_bar
 var name_display
 var value_display
@@ -13,8 +13,8 @@ var value_display
 func _ready():
 	health = max_health
 	name_display = $Label
-	if character_name != "":
-		name_display.text = character_name
+	#if character_name != "":
+		#name_display.text = character_name
 	progress_bar = $TextureProgressBar
 	progress_bar.max_value = max_health
 	value_display = $Label2
@@ -30,3 +30,5 @@ func set_health(_value : float):
 	else:
 		progress_bar.tint_progress = red
 	
+func set_character_name(pseudo : String):
+	name_display.text = pseudo

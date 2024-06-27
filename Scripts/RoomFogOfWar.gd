@@ -1,7 +1,7 @@
 extends Area3D
 var isVisible = false
 var is_lighten = false
-@onready var player = $"../../player"
+@onready var player = %player
 @export var Adjacent1 : Area3D
 @export var Adjacent2 : Area3D
 @export var Adjacent3 : Area3D

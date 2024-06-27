@@ -11,8 +11,8 @@ var door_to_move : int
 
 func _ready():
 	get_node("/root/Node3D/Bar").is_free.connect(NPC_free)
-	$"../prisoner".start_interaction.connect(move_down)
-	player = get_node("/root/Node3D/player")
+	%prisoner.start_interaction.connect(move_down)
+	player = %player
 	player.interact.connect(open_door)
 
 
