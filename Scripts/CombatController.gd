@@ -9,12 +9,10 @@ var CombatUI
 func _ready():
 	navigation_region = $"../NavigationRegion3D"
 	navigation_region.combat_started.connect(start_combat)
-	CombatUI = $"../Control"
 	
 func start_combat(_opponents : Array):
 	opponents = _opponents
 	combat_mode.emit()
-	CombatUI.set_ui(opponents)
 	next_turn()
 	
 #func _input(_event):

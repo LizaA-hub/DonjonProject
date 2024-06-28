@@ -3,16 +3,19 @@ extends DefaultNPC
 signal start_interaction
 
 func _ready():
-	timer = $Timer
-	health_bar_timer = $HBTimer
-	health_bar_timer.timeout.connect(on_BHTimer_out)
+	startPosition = global_position
+	
+	timer = $MoveTimer
+	timer.timeout.connect(_on_move_timer_timeout)
+	health_bar_timer = $Timer
+	health_bar_timer.timeout.connect(_on_timer_timeout)
 	
 	MaxDistance = 3
 	
 	health_bar = $SubViewport/Control
 	health_bar_display = $Sprite3D
-	health_bar.set_character_name(pseudo)
-	health_bar.max_health = max_health
+	health = max_health
+	health_bar.initialize(pseudo,max_health,health_changed)
 	
 	ShowBubble("Sad")
 	get_node("/root/Node3D/Bar").is_free.connect(get_free)
@@ -20,7 +23,7 @@ func _ready():
 
 func get_free():
 	ShowBubble("Love",2)
-	combat_controller = $"../CombatController"
+	combat_controller = %CombatController
 	combat_controller.combat_mode.connect(start_combat)
 	await create_tween().tween_interval(1).finished
 	isFollowingPlayer = true
@@ -42,4 +45,3 @@ func play_animation():
 	$AnimationPlayer.play("MagicStickMovement")
 	await create_tween().tween_interval(1).finished
 	$AnimationPlayer.stop()
-

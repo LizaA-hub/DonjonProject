@@ -11,14 +11,14 @@ var value_display
 @export var red : Color
 
 func _ready():
-	health = max_health
 	name_display = $Label
-	#if character_name != "":
-		#name_display.text = character_name
 	progress_bar = $TextureProgressBar
-	progress_bar.max_value = max_health
 	value_display = $Label2
-	set_health(health)
+	
+func initialize(pseudo : String, _max_health : int, _signal:Signal):
+	set_character_name(pseudo)
+	set_max_health(_max_health)
+	set_signal(_signal)
 	
 func set_health(_value : float):
 	health = _value
@@ -32,3 +32,12 @@ func set_health(_value : float):
 	
 func set_character_name(pseudo : String):
 	name_display.text = pseudo
+	
+func set_max_health(_value):
+	max_health = _value
+	progress_bar.max_value = max_health
+	health = max_health
+	set_health(health)
+	
+func set_signal(_signal : Signal):
+	_signal.connect(set_health)

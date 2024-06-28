@@ -105,6 +105,8 @@ viewport_path = NodePath("SubViewport")
 [node name="CharacterBody3D" type="CharacterBody3D" groups=["EnemyTarget"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_vfj0e")
+speed = 300.0
+max_health = 10
 pseudo = "christine"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

@@ -49,7 +49,7 @@ func _on_body_entered(body):
 				#print(node.name)
 				node.visible = true
 			if node.is_in_group("enemy"):
-				node.ShowBubble()
+				node.ShowBubble("Surprise",2)
 				opponents.append(node)
 				
 		toggle_adjacent_visibility(true)

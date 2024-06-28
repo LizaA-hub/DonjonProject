@@ -1,35 +1,15 @@
-extends CharacterBody3D
-var target
-var navigationAgent: NavigationAgent3D
-var speed = 200
-var health_bar
-@export var max_health : int = 5
-var health
-var direction = Vector3.RIGHT
-var newPosition
-var combat_controller
-var turn_to_play = false
-var is_reaching_target = false
-var look_direction
-var position_before_move
-var newVelocity
-var fall
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-var mass =4 
-var is_in_combat = false
+extends Character
+
 var player
-var can_take_damage = false
 @export var has_key = false
 @export var has_potion = false
-@export var pseudo : String
-@export var viewport : SubViewport
 
+#region GodotFunctions
 func _ready():
-	navigationAgent = get_node("NavigationAgent3D")
 	health_bar = $SubViewport/Control
-	health_bar.set_character_name(pseudo)
 	health = max_health
-	health_bar.max_health = max_health
+	health_bar.initialize(pseudo,max_health,health_changed)
+	
 	combat_controller =%CombatController
 	combat_controller.combat_mode.connect(start_combat)
 	player = %player
@@ -68,20 +48,9 @@ func _physics_process(delta):
 				_on_navigation_agent_3d_velocity_computed(newVelocity)
 		else:
 			try_attack(target.global_position)
-	
-	#if(is_on_floor()):
-		#fall=0
-	#else:
-		#fall += -gravity * delta
-	#velocity.y = fall*mass
 			
 	move_and_slide()
 
-
-func _on_navigation_agent_3d_velocity_computed(safe_velocity):
-	velocity = safe_velocity
-		
-	move_and_slide()
 	
 func _on_input_event(_camera, event, _position, _normal, _shape_idx):
 	if event is InputEventMouseButton:
@@ -89,76 +58,46 @@ func _on_input_event(_camera, event, _position, _normal, _shape_idx):
 			if event.is_pressed():
 				can_take_damage = true
 				player.try_attack(global_position)
-				
-func ShowBubble():
-	var tween = create_tween()
-	tween.tween_property($bubble,"visible",true,0.1)
-	$bubble.DisplayEmote("Surprise")
-	tween.tween_property($bubble,"visible",false,3)
 
-func choose(array):
-	array.shuffle()
-	return array.front()
-
+#endregion
 	
 func start_combat():
 	if !visible:
 		return
-	#print(self.name, " is starting combat")
+
 	if is_in_combat:
 		stop_combat()
 		return
-	#await create_tween().tween_interval(1).finished
-	#health_bar.visible= true
+
 	is_in_combat = true
 	remove_from_group("dynamic")
 	if target == null:
 		target = combat_controller.get_target("ally")
 
 func try_attack(_position : Vector3):
-	#print("enemy try attacking target")
-	
-	#print("target is : ",target)
+
 	if(global_position.distance_squared_to(_position) > 9):
 		set_target(_position)
 		is_reaching_target = true
-		#print("target too far")
-		#print("enemy is reaching target")
+
 	else:
 		look_direction = _position
 		look_direction.y = global_position.y
 		look_at(look_direction)
 		start_attack()
-	
-func set_target(_position : Vector3):
-		navigationAgent.target_position = _position
-		
-		position_before_move = global_position
 		
 func start_attack():
 	turn_to_play = false
-	#print("attacking target")
+
 	await create_tween().tween_interval(0.5).finished
 	$AnimationPlayer.play("enemy_attack")
 	await create_tween().tween_interval(0.6).finished
 	$AnimationPlayer.stop()
 	var health_left = target.take_damage(1)
-	#print("target health left : ", health_left)
+
 	if health_left <= 0:
 		target = combat_controller.get_target("ally")
 	end_turn()
-		
-func take_damage(strength : float):
-	if !is_in_combat:
-		return 0
-	health -= strength
-	
-	if health<=0:
-		disapear()
-	
-	health_bar.set_health(health)
-	can_take_damage =false
-	return health
 	
 func disapear():
 	position_before_move = global_position
@@ -168,20 +107,11 @@ func disapear():
 		%key.global_position = position_before_move
 	if has_potion:
 		%potion.global_position = position_before_move
-	
-func stop_combat():
-	#print("enemy : stopping combat")
-	turn_to_play = false
-	is_in_combat = false
-	can_take_damage = false
-	if health == 10:
-		health_bar.visible = false
-	$TurnIndicator.visible = false
 
 func get_attacked(_strength : float):
 	if !can_take_damage:
 		return
-	#print(self.name," is taking damage")
+
 	take_damage(_strength)
 	
 func set_turn():
@@ -197,15 +127,3 @@ func end_turn():
 		turn_to_play = false
 	$TurnIndicator.visible = false
 	combat_controller.next_turn()
-
-
-func _on_mouse_entered():
-	$Timer.stop()
-	$Sprite3D.visible= true
-
-
-func _on_mouse_exited():
-	$Timer.start(.5)
-
-func _on_timer_timeout():
-	$Sprite3D.visible= false

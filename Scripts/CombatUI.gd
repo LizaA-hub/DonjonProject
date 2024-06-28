@@ -4,29 +4,37 @@ var viewport
 var opponents : Array
 var slots : Array
 var slot_template
+var vertical_container
 
 func _ready():
-	#viewport = %SubViewport
-	#$PanelContainer/ScrollContainer/VBoxContainer/HBoxContainer4/TextureRect.set_texture(viewport.get_texture())
-	slots = $PanelContainer/ScrollContainer/VBoxContainer.get_children()
+	var navigation_region = $"../NavigationRegion3D"
+	navigation_region.combat_started.connect(set_ui)
+	
+	vertical_container = $PanelContainer/ScrollContainer/VBoxContainer
+	slots = vertical_container.get_children()
 	slot_template = slots[0]
+	
+	var combat_controller = %CombatController
+	combat_controller.combat_mode.connect(close_UI)
 
 func set_ui(_opponents):
 	opponents = _opponents
 	var gap = opponents.size() - slots.size()
 	if gap >0:
 		for i in gap:
-			slots.append(slot_template.duplicate())
+			var new_slot = slot_template.duplicate()
+			vertical_container.add_child(new_slot)
+			slots.append(new_slot)
 			
 	for i in slots.size():
-		slots[i].set_texture(opponents[i].viewport)
-		slots[i].display_name(opponents[i].pseudo)
-		slots[i].set_max_health(opponents[i].max_health)
-		slots[i].set_health(opponents[i].health)
+		slots[i].initialize(opponents[i])
 		
 	$PanelContainer.visible = true
 	
 func close_UI():
+	if !$PanelContainer.visible:
+		return
+		
 	$PanelContainer.visible = false
 	if slots.size() >2:
 		var gap = slots.size()-2

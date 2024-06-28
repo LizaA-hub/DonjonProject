@@ -1,7 +1,7 @@
 extends EnvironmentAsset
 
 var can_take_damage = false
-var health = 10
+var health = 5
 var player
 var health_bar
 
@@ -10,6 +10,7 @@ func _ready():
 	player.interact.connect(take_damage)
 	health_bar = $SubViewport/Control
 	health_bar.set_character_name( "door")
+	health_bar.set_max_health(health)
 
 func _on_input_event(_camera, event, _position, _normal, _shape_idx):
 	if event is InputEventMouseButton:

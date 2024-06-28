@@ -1,52 +1,29 @@
-extends CharacterBody3D
+extends Character
 
-var speed = 400 # movement speed$
+#movement variable
 var Direction = Vector3.ZERO
 var lookDirection
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-var fall :float
-var mass =4 
-@onready var navigationAgent: NavigationAgent3D = get_node("NavigationAgent3D")
-signal interact(strengh:float)
-var has_weapon = false
-var is_reaching_target = false
-var newVelocity
-enum InteractableType {ATTACKABLE,INTERACTABLE}
-var target_type : InteractableType
-var is_in_combat = false
-var combat_controller
-var health = 10
-var health_bar
-var turn_to_play = false
-var position_before_move
-var can_open_door = false
 var traveled_distance = 0
 var is_moving = false
-@export var pseudo : String
-@export var viewport : SubViewport
-@export var max_health : int = 10
 
+#interaction variable
+signal interact(strengh:float)
+var has_weapon = false
+enum InteractableType {ATTACKABLE,INTERACTABLE}
+var target_type : InteractableType
+var can_open_door = false
 
+#region GodotFunctions
 func _ready():
 	var ground = $"../../NavigationRegion3D"
 	ground.mouse_clicked.connect(_init_move)
 	combat_controller = $"../../CombatController"
 	combat_controller.combat_mode.connect(start_combat)
-	#health_bar = $HealthBar
-	health_bar = $SubViewport/Control
-	health_bar.set_character_name(pseudo)
-	health_bar.max_health = max_health
-	health = max_health
 
-func _init_move(_position : Vector3):
-	if !is_in_combat:
-		set_target(_position)
-	else:
-		if is_moving or !turn_to_play:
-			return
-		set_target(_position)
-		is_moving = true
-		position_before_move = global_position
+	health_bar = $SubViewport/Control
+	health = max_health
+	health_bar.initialize(pseudo,max_health,health_changed)
+
 
 func _physics_process(delta):
 
@@ -84,17 +61,20 @@ func _physics_process(delta):
 	velocity.y = fall*mass
 	
 	move_and_slide()
-		
-
-func _on_navigation_agent_3d_velocity_computed(safe_velocity):
-	velocity = safe_velocity
-		
-	move_and_slide()
-
 	
-func set_target(_position : Vector3):
-	navigationAgent.target_position = _position
+#endregion
 
+func _init_move(_position : Vector3):
+	if !is_in_combat:
+		set_target(_position)
+	else:
+		if is_moving or !turn_to_play:
+			return
+		set_target(_position)
+		is_moving = true
+		position_before_move = global_position
+
+#region CombatFunctions
 func move_weapon():
 	$AnimationPlayer.play("Weapon")
 		
@@ -117,25 +97,6 @@ func start_attack():
 	if is_in_combat:
 		end_turn()
 		
-func try_interact(_position : Vector3):
-	if(global_position.distance_squared_to(_position) > 9):
-		set_target(_position)
-		is_reaching_target = true
-		target_type = InteractableType.INTERACTABLE
-	else:
-		custom_look_at(_position)
-		target_type = InteractableType.INTERACTABLE
-		start_interact()
-		
-	
-func start_interact():
-	#print(target_type)
-	match(target_type):
-		InteractableType.ATTACKABLE:
-			start_attack()
-		InteractableType.INTERACTABLE:
-			interact.emit(0)
-
 func unlock_weapon():
 	$Weapon.visible = true
 	has_weapon = true
@@ -155,52 +116,11 @@ func start_combat():
 		_on_navigation_agent_3d_velocity_computed(newVelocity)
 		
 	is_in_combat = true
-	#await create_tween().tween_interval(1).finished
-	#health_bar.visible = true
-	
-func stop_combat():
-	#print("player : stoping combat")
-	is_in_combat = false
-	turn_to_play = false
-	if health == 10:
-		health_bar.visible = false
-	$TurnIndicator.visible = false
-		
-func take_damage(_amount : float):
-	health -= _amount
-	if health<=0:
-		disapear()
-	health_bar.set_health(health)
-	return health
 	
 func disapear():#game over
 	global_position.y = -10
 	combat_controller.remove_opponent(self)
 	
-func pick_up_key():
-	can_open_door = true
-
-func door_opening(door : Vector3):
-	is_in_combat = true
-	var ally = $"../prisoner"
-	custom_look_at(ally.global_position)
-	await create_tween().tween_interval(1).finished
-	custom_look_at(door)
-	await create_tween().tween_interval(1).finished
-	is_in_combat = false
-
-	
-func custom_look_at(_position : Vector3):
-	var look_direction = _position
-	look_direction.y = global_position.y
-	look_at(look_direction)
-
-func heal(amount : float):
-	health += amount
-	if health>10:
-		health = 10 
-	health_bar.set_health(health)
-
 func end_turn():
 	is_moving = false
 	turn_to_play = false
@@ -211,17 +131,41 @@ func end_turn():
 func set_turn():
 	turn_to_play = true
 	$TurnIndicator.visible = true
+#endregion
+	
+func try_interact(_position : Vector3):
+	if(global_position.distance_squared_to(_position) > 9):
+		set_target(_position)
+		is_reaching_target = true
+		target_type = InteractableType.INTERACTABLE
+	else:
+		custom_look_at(_position)
+		target_type = InteractableType.INTERACTABLE
+		start_interact()
+		
+func start_interact():
+	#print(target_type)
+	match(target_type):
+		InteractableType.ATTACKABLE:
+			start_attack()
+		InteractableType.INTERACTABLE:
+			interact.emit(0)
+	
+func pick_up_key():
+	can_open_door = true
 
+func door_opening(door : Vector3):
+	is_in_combat = true
+	var ally = %prisoner
+	custom_look_at(ally.global_position)
+	await create_tween().tween_interval(1).finished
+	custom_look_at(door)
+	await create_tween().tween_interval(1).finished
+	is_in_combat = false
 
+func heal(amount : float):
+	health += amount
+	if health>10:
+		health = 10 
+	health_bar.set_health(health)
 
-func _on_mouse_entered():
-	$Timer.stop()
-	$Sprite3D.visible = true
-
-
-func _on_mouse_exited():
-	$Timer.start(.5)
-
-
-func _on_timer_timeout():
-	$Sprite3D.visible = false
