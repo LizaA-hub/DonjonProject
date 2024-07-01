@@ -91,4 +91,12 @@ func custom_look_at(_position : Vector3):
 	look_direction = _position
 	look_direction.y = global_position.y
 	look_at(look_direction)
+	
+func _on_input_event(_camera, event, _position, _normal, _shape_idx):
+	if event is InputEventMouseButton:
+		if event.button_index == 1:
+			if event.is_pressed():
+				on_left_click()
 
+func on_left_click():
+	pass

@@ -1,19 +1,19 @@
-extends HBoxContainer
+extends MarginContainer
 var current_displayed_character
 
 
 func set_texture(viewport : Viewport):
 	viewport.actualize()
-	$TextureRect.set_texture(viewport.get_texture())
+	$HBoxContainer/TextureRect.set_texture(viewport.get_texture())
 	
 func display_name(_name : String):
-	$VBoxContainer/Name.text = _name
+	$HBoxContainer/VBoxContainer/Name.text = _name
 
 func set_max_health(_max : int):
-	$VBoxContainer/LifeBar.max_value = _max
+	$HBoxContainer/VBoxContainer/LifeBar.max_value = _max
 	
 func set_health(_value : int):
-	$VBoxContainer/LifeBar.value = _value
+	$HBoxContainer/VBoxContainer/LifeBar.value = _value
 	
 func initialize(character):
 	if current_displayed_character != null and current_displayed_character.health_changed.is_connected(set_health):

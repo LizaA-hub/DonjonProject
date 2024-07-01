@@ -12,6 +12,10 @@ var has_weapon = false
 enum InteractableType {ATTACKABLE,INTERACTABLE}
 var target_type : InteractableType
 var can_open_door = false
+var interaction_ui
+
+#combatvariable
+signal player_turn(bool)
 
 #region GodotFunctions
 func _ready():
@@ -23,6 +27,8 @@ func _ready():
 	health_bar = $SubViewport/Control
 	health = max_health
 	health_bar.initialize(pseudo,max_health,health_changed)
+	
+	interaction_ui = %InteractionUI
 
 
 func _physics_process(delta):
@@ -127,10 +133,12 @@ func end_turn():
 	traveled_distance = 0
 	$TurnIndicator.visible = false
 	combat_controller.next_turn()
+	player_turn.emit(false)
 
 func set_turn():
 	turn_to_play = true
 	$TurnIndicator.visible = true
+	player_turn.emit(true)
 #endregion
 	
 func try_interact(_position : Vector3):
@@ -169,3 +177,24 @@ func heal(amount : float):
 		health = 10 
 	health_bar.set_health(health)
 
+func stop_combat():
+	turn_to_play = false
+	is_in_combat = false
+	can_take_damage = false
+	$TurnIndicator.visible = false
+	player_turn.emit(false)
+	
+func toggle_interaction_panel(open :bool, _target):
+	if is_in_combat and !turn_to_play:
+		return
+		
+	interaction_ui.visible = open
+	if(_target.is_in_group("enemy")):
+		interaction_ui.set_buttons("enemy")
+	elif(_target.is_in_group("ally")):
+		interaction_ui.set_buttons("ally")
+	else:
+		print("left click interaction : target group not recognized")
+	
+func on_left_click():
+	toggle_interaction_panel(true, self)

@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqyp7etdwplcb"]
+
+[ext_resource type="Script" path="res://Scripts/playerTurnUI.gd" id="1_4orlb"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_oa5qd"]
+font_size = 30
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+script = ExtResource("1_4orlb")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -73.0
+offset_top = 14.0
+offset_right = 74.0
+offset_bottom = 56.0
+grow_horizontal = 2
+text = "Your turn!"
+label_settings = SubResource("LabelSettings_oa5qd")

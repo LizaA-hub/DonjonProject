@@ -1,0 +1,238 @@
+[gd_scene load_steps=8 format=3 uid="uid://d1ydsioaq4v76"]
+
+[ext_resource type="Script" path="res://Scripts/CombatUI.gd" id="1_048ev"]
+[ext_resource type="Texture2D" uid="uid://vijj406lsg5l" path="res://Textures/EmojiHappy.tga" id="1_ata4o"]
+[ext_resource type="Script" path="res://Scripts/CombatUISlot.gd" id="2_swasb"]
+[ext_resource type="Texture2D" uid="uid://bejg0tv4sa0ba" path="res://Textures/HealthBarFond.tga" id="4_0up6o"]
+[ext_resource type="Texture2D" uid="uid://cijaca7qio8tx" path="res://Textures/HealthBarFill.tga" id="5_546nj"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3fxel"]
+viewport_path = NodePath("PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/LifeBar/SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ccs3c"]
+viewport_path = NodePath("PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/LifeBar/SubViewport2")
+
+[node name="ScrollContainer" type="ScrollContainer"]
+clip_contents = false
+custom_minimum_size = Vector2(200, 270)
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -135.0
+offset_right = 200.0
+offset_bottom = 135.0
+grow_vertical = 2
+script = ExtResource("1_048ev")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("2_swasb")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_ata4o")
+expand_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 1
+
+[node name="Name" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Name"
+
+[node name="LifeBar" type="TextureProgressBar" parent="PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+max_value = 10.0
+value = 7.0
+texture_under = SubResource("ViewportTexture_3fxel")
+texture_progress = SubResource("ViewportTexture_ccs3c")
+tint_progress = Color(0.858824, 0.396078, 0.329412, 1)
+
+[node name="SubViewport" type="SubViewport" parent="PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/LifeBar"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(150, 10)
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/LifeBar/SubViewport"]
+custom_minimum_size = Vector2(150, 10)
+offset_right = 150.0
+offset_bottom = 10.0
+texture = ExtResource("4_0up6o")
+expand_mode = 3
+
+[node name="SubViewport2" type="SubViewport" parent="PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/LifeBar"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(150, 10)
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/LifeBar/SubViewport2"]
+custom_minimum_size = Vector2(150, 10)
+offset_right = 150.0
+offset_bottom = 10.0
+texture = ExtResource("5_546nj")
+expand_mode = 3
+
+[node name="TextureProgressBar2" type="TextureProgressBar" parent="PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+max_value = 10.0
+value = 7.0
+texture_under = SubResource("ViewportTexture_3fxel")
+texture_progress = SubResource("ViewportTexture_ccs3c")
+tint_progress = Color(0.4, 0.552941, 0.85098, 1)
+
+[node name="SubViewport" type="SubViewport" parent="PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/TextureProgressBar2"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(150, 10)
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/TextureProgressBar2/SubViewport"]
+custom_minimum_size = Vector2(150, 10)
+offset_right = 150.0
+offset_bottom = 10.0
+texture = ExtResource("4_0up6o")
+expand_mode = 3
+
+[node name="SubViewport2" type="SubViewport" parent="PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/TextureProgressBar2"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(150, 10)
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/TextureProgressBar2/SubViewport2"]
+custom_minimum_size = Vector2(150, 10)
+offset_right = 150.0
+offset_bottom = 10.0
+texture = ExtResource("5_546nj")
+expand_mode = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("2_swasb")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_ata4o")
+expand_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 1
+
+[node name="Name" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Name"
+
+[node name="LifeBar" type="TextureProgressBar" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+max_value = 10.0
+value = 7.0
+texture_under = SubResource("ViewportTexture_3fxel")
+texture_progress = SubResource("ViewportTexture_ccs3c")
+tint_progress = Color(0.858824, 0.396078, 0.329412, 1)
+
+[node name="SubViewport" type="SubViewport" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer/LifeBar"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(150, 10)
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer/LifeBar/SubViewport"]
+custom_minimum_size = Vector2(150, 10)
+offset_right = 150.0
+offset_bottom = 10.0
+texture = ExtResource("4_0up6o")
+expand_mode = 3
+
+[node name="SubViewport2" type="SubViewport" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer/LifeBar"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(150, 10)
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer/LifeBar/SubViewport2"]
+custom_minimum_size = Vector2(150, 10)
+offset_right = 150.0
+offset_bottom = 10.0
+texture = ExtResource("5_546nj")
+expand_mode = 3
+
+[node name="TextureProgressBar2" type="TextureProgressBar" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+max_value = 10.0
+value = 7.0
+texture_under = SubResource("ViewportTexture_3fxel")
+texture_progress = SubResource("ViewportTexture_ccs3c")
+tint_progress = Color(0.4, 0.552941, 0.85098, 1)
+
+[node name="SubViewport" type="SubViewport" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer/TextureProgressBar2"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(150, 10)
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer/TextureProgressBar2/SubViewport"]
+custom_minimum_size = Vector2(150, 10)
+offset_right = 150.0
+offset_bottom = 10.0
+texture = ExtResource("4_0up6o")
+expand_mode = 3
+
+[node name="SubViewport2" type="SubViewport" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer/TextureProgressBar2"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(150, 10)
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer/TextureProgressBar2/SubViewport2"]
+custom_minimum_size = Vector2(150, 10)
+offset_right = 150.0
+offset_bottom = 10.0
+texture = ExtResource("5_546nj")
+expand_mode = 3

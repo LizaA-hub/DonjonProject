@@ -102,7 +102,7 @@ emission = Color(0.894118, 0.858824, 0.72549, 1)
 [sub_resource type="ViewportTexture" id="ViewportTexture_y6y2i"]
 viewport_path = NodePath("SubViewport")
 
-[node name="CharacterBody3D" type="CharacterBody3D" groups=["EnemyTarget"]]
+[node name="CharacterBody3D" type="CharacterBody3D" groups=["ally"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_vfj0e")
 speed = 300.0
@@ -169,6 +169,7 @@ region_rect = Rect2(56, 24, 1048, 288)
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
 
+[connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]

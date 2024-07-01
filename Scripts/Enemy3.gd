@@ -50,14 +50,10 @@ func _physics_process(delta):
 			try_attack(target.global_position)
 			
 	move_and_slide()
-
 	
-func _on_input_event(_camera, event, _position, _normal, _shape_idx):
-	if event is InputEventMouseButton:
-		if event.button_index == 1:
-			if event.is_pressed():
-				can_take_damage = true
-				player.try_attack(global_position)
+func on_left_click():
+	can_take_damage = true
+	player.toggle_interaction_panel(true,self)
 
 #endregion
 	

@@ -81,7 +81,7 @@ emission = Color(0.894118, 0.858824, 0.72549, 1)
 [sub_resource type="ViewportTexture" id="ViewportTexture_q3lnd"]
 viewport_path = NodePath("SubViewport")
 
-[node name="Enemy" type="CharacterBody3D" groups=["dynamic"]]
+[node name="Enemy" type="CharacterBody3D" groups=["dynamic", "enemy"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("1_qetku")
 pseudo = "Gisèle"

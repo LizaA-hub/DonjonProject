@@ -1,4 +1,4 @@
-extends Control
+extends ScrollContainer
 
 var viewport
 var opponents : Array
@@ -10,12 +10,14 @@ func _ready():
 	var navigation_region = $"../NavigationRegion3D"
 	navigation_region.combat_started.connect(set_ui)
 	
-	vertical_container = $PanelContainer/ScrollContainer/VBoxContainer
+	vertical_container = $PanelContainer/VBoxContainer
 	slots = vertical_container.get_children()
 	slot_template = slots[0]
 	
 	var combat_controller = %CombatController
 	combat_controller.combat_mode.connect(close_UI)
+	
+	$PanelContainer.visible = false
 
 func set_ui(_opponents):
 	opponents = _opponents
@@ -41,3 +43,4 @@ func close_UI():
 		for i in gap:
 			slots[i+2].queue_free()
 		slots.resize(2)
+
