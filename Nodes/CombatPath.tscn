@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://5uog10x5xbef"]
+
+[ext_resource type="Script" path="res://Nodes/CombatPath.gd" id="1_8a3xn"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_dqcoe"]
+inner_radius = 1.2
+outer_radius = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qfkd6"]
+shading_mode = 0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_p4oma"]
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hfeat"]
+shading_mode = 0
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_8a3xn")
+
+[node name="Target" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Target"]
+mesh = SubResource("TorusMesh_dqcoe")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_qfkd6")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Target"]
+mesh = SubResource("CylinderMesh_p4oma")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_hfeat")

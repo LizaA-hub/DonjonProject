@@ -141,7 +141,7 @@ visible = false
 billboard = 1
 texture = SubResource("ViewportTexture_q3lnd")
 region_enabled = true
-region_rect = Rect2(48, 16, 1056, 320)
+region_rect = Rect2(48, 16, 1056, 392)
 
 [node name="SubViewport" type="SubViewport" parent="."]
 disable_3d = true

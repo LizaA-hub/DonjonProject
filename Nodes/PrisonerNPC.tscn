@@ -185,7 +185,7 @@ visible = false
 billboard = 1
 texture = SubResource("ViewportTexture_4ti85")
 region_enabled = true
-region_rect = Rect2(56, 24, 1048, 296)
+region_rect = Rect2(56, 24, 1048, 368)
 
 [node name="Timer" type="Timer" parent="."]
 

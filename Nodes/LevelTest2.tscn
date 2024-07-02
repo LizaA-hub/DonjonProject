@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://bc6ck6l8ptdnn"]
+[gd_scene load_steps=54 format=3 uid="uid://bc6ck6l8ptdnn"]
 
 [ext_resource type="Script" path="res://Scripts/Floor.gd" id="1_8ila6"]
 [ext_resource type="PackedScene" uid="uid://cdwrdxs0arsup" path="res://Nodes/Player2.tscn" id="1_d1leb"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://Scripts/PrisonMovement.gd" id="7_aoa8v"]
 [ext_resource type="Script" path="res://Scripts/BreakableDoor.gd" id="9_1ohrn"]
 [ext_resource type="Script" path="res://Scripts/DoorsMovement.gd" id="9_153yv"]
-[ext_resource type="PackedScene" uid="uid://35xjxctm1ifu" path="res://Nodes/HealthBar3D.tscn" id="9_o4031"]
 [ext_resource type="PackedScene" uid="uid://bb2yrvkltufrg" path="res://Nodes/HealthBar2D.tscn" id="10_g6u35"]
 [ext_resource type="PackedScene" uid="uid://jxrys8w1v6m4" path="res://Nodes/chest.tscn" id="11_ijj81"]
 [ext_resource type="PackedScene" uid="uid://be3cck75bsi27" path="res://Nodes/PushButton.tscn" id="11_x8gs4"]
@@ -19,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://bly5ffn0su80" path="res://Nodes/Potion.tscn" id="14_huusp"]
 [ext_resource type="Script" path="res://Scripts/Viewport.gd" id="15_7d5rg"]
 [ext_resource type="PackedScene" uid="uid://cqyp7etdwplcb" path="res://Nodes/playerTurnUI.tscn" id="20_7xuso"]
-[ext_resource type="PackedScene" uid="uid://d1ydsioaq4v76" path="res://Nodes/UITestwiptscn.tscn" id="21_0kfec"]
+[ext_resource type="PackedScene" uid="uid://d1ydsioaq4v76" path="res://Nodes/CharacterStatesUI.tscn" id="21_0kfec"]
 [ext_resource type="PackedScene" uid="uid://dgavmndrtv4" path="res://Nodes/ActionsUI.tscn" id="21_lq0bm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ujqwp"]
@@ -888,10 +887,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_qqrwx")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Props/BreakableDoor"]
 shape = SubResource("BoxShape3D_m2d6k")
 
-[node name="HB" parent="Props/BreakableDoor" instance=ExtResource("9_o4031")]
-transform = Transform3D(-1, 0, -4.37114e-08, 0, 0.5, 0, 8.74228e-08, 0, -0.5, 0, 3, 0)
-visible = false
-
 [node name="SubViewport" type="SubViewport" parent="Props/BreakableDoor"]
 disable_3d = true
 transparent_bg = true
@@ -1635,7 +1630,7 @@ fov = 43.2
 [node name="InteractionUI" parent="." instance=ExtResource("21_lq0bm")]
 unique_name_in_owner = true
 
-[node name="ScrollContainer" parent="." instance=ExtResource("21_0kfec")]
+[node name="CharactersStates" parent="." instance=ExtResource("21_0kfec")]
 
 [connection signal="input_event" from="Bar/clickable" to="Bar" method="_on_clickable_input_event"]
 [connection signal="body_entered" from="LigthArea/corridorArea" to="LigthArea/corridorArea" method="_on_body_entered"]

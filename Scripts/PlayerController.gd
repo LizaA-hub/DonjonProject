@@ -3,7 +3,7 @@ extends Character
 #movement variable
 var Direction = Vector3.ZERO
 var lookDirection
-var traveled_distance = 0
+var travel_distance_left = 4
 var is_moving = false
 
 #interaction variable
@@ -16,6 +16,7 @@ var interaction_ui
 
 #combatvariable
 signal player_turn(bool)
+var attack_zone
 
 #region GodotFunctions
 func _ready():
@@ -23,25 +24,31 @@ func _ready():
 	ground.mouse_clicked.connect(_init_move)
 	combat_controller = $"../../CombatController"
 	combat_controller.combat_mode.connect(start_combat)
+	attack_zone = $AttackZone
 
 	health_bar = $SubViewport/Control
 	health = max_health
-	health_bar.initialize(pseudo,max_health,health_changed)
+	energy = max_energy
+	health_bar.initialize(pseudo,max_health,health_changed,max_energy,energy_changed)
 	
 	interaction_ui = %InteractionUI
+	
+	$CombatPath.initialize(ground.mouse_hover)
+	#$CombatPath.visible = false
 
 
 func _physics_process(delta):
 
-	if navigationAgent.is_navigation_finished():
+	if navigationAgent.is_navigation_finished() and !is_in_combat:
 		return
 
 	custom_look_at(navigationAgent.target_position)
 	var nextPathPosition: Vector3 = navigationAgent.get_next_path_position()
 	
 	if is_in_combat:
-		traveled_distance +=  global_position.distance_squared_to(position_before_move) 
-		if traveled_distance >= 16:
+		#traveled_distance +=  global_position.distance_squared_to(position_before_move) 
+		
+		if travel_distance_left <= 0:
 			set_target(global_position)
 			newVelocity = Vector3.ZERO
 			is_reaching_target = false
@@ -67,7 +74,7 @@ func _physics_process(delta):
 	velocity.y = fall*mass
 	
 	move_and_slide()
-	
+
 #endregion
 
 func _init_move(_position : Vector3):
@@ -78,29 +85,34 @@ func _init_move(_position : Vector3):
 			return
 		set_target(_position)
 		is_moving = true
-		position_before_move = global_position
+		
 
 #region CombatFunctions
 func move_weapon():
 	$AnimationPlayer.play("Weapon")
 		
-func try_attack(_position : Vector3):
+func try_attack(_target):
 	if is_in_combat and !turn_to_play:
 		return
 		
-	if(global_position.distance_squared_to(_position) > 9):
-		_init_move(_position)
+	var target_position = _target.global_position
+		
+	if !can_attack(target_position):
+		_init_move(target_position)
 		is_reaching_target = true
 		target_type = InteractableType.ATTACKABLE
 	else:
-		custom_look_at(_position)
+		custom_look_at(target_position)
 		start_attack()
 		
 func start_attack():
 	if has_weapon:
 		move_weapon()
 		interact.emit(1)
+		
 	if is_in_combat:
+		energy -= 1
+		energy_changed.emit(energy)
 		end_turn()
 		
 func unlock_weapon():
@@ -114,7 +126,7 @@ func start_combat():
 		
 	set_target(global_position)
 	newVelocity = Vector3.ZERO
-	traveled_distance = 0
+	travel_distance_left = 4
 	
 	if(navigationAgent.avoidance_enabled):
 		navigationAgent.set_velocity(newVelocity)
@@ -123,6 +135,9 @@ func start_combat():
 		
 	is_in_combat = true
 	
+	attack_zone.visible = true
+	$CombatPath.visible = true
+	
 func disapear():#game over
 	global_position.y = -10
 	combat_controller.remove_opponent(self)
@@ -130,15 +145,25 @@ func disapear():#game over
 func end_turn():
 	is_moving = false
 	turn_to_play = false
-	traveled_distance = 0
+	travel_distance_left = 4
 	$TurnIndicator.visible = false
 	combat_controller.next_turn()
 	player_turn.emit(false)
+	if target != null:
+		if target.health <= 0:
+			close_interaction_panel()
+	
 
 func set_turn():
 	turn_to_play = true
 	$TurnIndicator.visible = true
 	player_turn.emit(true)
+	if target != null:
+		if target.health > 0:
+			interaction_ui.set_buttons(get_target_type(target))
+			
+	position_before_move = global_position
+	travel_distance_left = 4
 #endregion
 	
 func try_interact(_position : Vector3):
@@ -183,18 +208,44 @@ func stop_combat():
 	can_take_damage = false
 	$TurnIndicator.visible = false
 	player_turn.emit(false)
+	close_interaction_panel()
+	attack_zone.visible = false
+	$CombatPath.visible = false
 	
-func toggle_interaction_panel(open :bool, _target):
+func open_interaction_panel(open :bool, _target):
 	if is_in_combat and !turn_to_play:
 		return
-		
+	
+	target = _target
+	interaction_ui.set_target(target)
+	
 	interaction_ui.visible = open
+	interaction_ui.set_buttons(get_target_type(target))
+	
+		
+func get_target_type(_target):
 	if(_target.is_in_group("enemy")):
-		interaction_ui.set_buttons("enemy")
+		return "enemy"
 	elif(_target.is_in_group("ally")):
-		interaction_ui.set_buttons("ally")
+		return"ally"
 	else:
 		print("left click interaction : target group not recognized")
+		return "ally"
 	
 func on_left_click():
-	toggle_interaction_panel(true, self)
+	open_interaction_panel(true, self)
+
+func close_interaction_panel():
+	interaction_ui.set_target(null)
+	interaction_ui.visible = false
+	
+func can_attack(_target : Vector3):
+	if global_position.distance_squared_to(_target) > 9:
+		return false
+	else: return true
+	
+func can_move_attack(_target : Vector3):
+	if global_position.distance_squared_to(_target) > 16:
+		return false
+	else: return true
+

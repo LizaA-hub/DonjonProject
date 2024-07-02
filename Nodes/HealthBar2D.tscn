@@ -35,7 +35,7 @@ grow_horizontal = 2
 text = "Blase"
 label_settings = SubResource("LabelSettings_uw0v5")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+[node name="HealthBar" type="TextureProgressBar" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -70,3 +70,23 @@ grow_vertical = 2
 text = "5/10"
 label_settings = SubResource("LabelSettings_ajpj0")
 horizontal_alignment = 1
+
+[node name="EnergyBar" type="TextureProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -512.0
+offset_top = -42.0
+offset_right = 512.0
+offset_bottom = 214.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.5)
+max_value = 10.0
+value = 5.0
+texture_under = ExtResource("1_dorl4")
+texture_progress = ExtResource("2_imry5")
+tint_progress = Color(0.34902, 0.533333, 0.901961, 1)

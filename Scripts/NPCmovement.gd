@@ -140,6 +140,8 @@ func start_attack():
 	play_animation()
 	await create_tween().tween_interval(1).finished
 	var health_left = target.take_damage(1)
+	energy -= 1
+	energy_changed.emit(energy)
 	if health_left <= 0:
 		target = combat_controller.get_target("enemy")
 

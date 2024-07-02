@@ -42,31 +42,60 @@ text = "ATTACK"
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 
-[node name="AttackButton" type="Button" parent="VBoxContainer/SpecialAttackButton"]
+[node name="Button" type="Button" parent="VBoxContainer/SpecialAttackButton"]
 custom_minimum_size = Vector2(180, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "ATTACK"
+text = "ATTACK SPE."
+
+[node name="Move" type="MarginContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+
+[node name="MoveButton" type="Button" parent="VBoxContainer/Move"]
+custom_minimum_size = Vector2(180, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "REACH"
+
+[node name="MoveAttack" type="MarginContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+
+[node name="MoveAttackButton" type="Button" parent="VBoxContainer/MoveAttack"]
+custom_minimum_size = Vector2(180, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "REACH AND ATTACK"
 
 [node name="UseObjectButton" type="MarginContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 
-[node name="AttackButton" type="Button" parent="VBoxContainer/UseObjectButton"]
+[node name="Button" type="Button" parent="VBoxContainer/UseObjectButton"]
 custom_minimum_size = Vector2(180, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "ATTACK"
+text = "USE OBJECT"
 
 [node name="EndTurnButton" type="MarginContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 
-[node name="AttackButton" type="Button" parent="VBoxContainer/EndTurnButton"]
+[node name="Button" type="Button" parent="VBoxContainer/EndTurnButton"]
 custom_minimum_size = Vector2(180, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "ATTACK"
+text = "END TURN"
+
+[connection signal="button_down" from="VBoxContainer/AttackButton/AttackButton" to="." method="_on_attack_button_button_down"]
+[connection signal="button_down" from="VBoxContainer/SpecialAttackButton/Button" to="." method="_on_button_button_down"]
+[connection signal="button_down" from="VBoxContainer/Move/MoveButton" to="." method="_on_move_button_button_down"]
+[connection signal="button_down" from="VBoxContainer/MoveAttack/MoveAttackButton" to="." method="_on_move_attack_button_button_down"]
+[connection signal="button_down" from="VBoxContainer/UseObjectButton/Button" to="." method="_on_button_button_down"]
+[connection signal="button_down" from="VBoxContainer/EndTurnButton/Button" to="." method="_on_button_button_down"]

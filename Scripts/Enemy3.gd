@@ -8,7 +8,8 @@ var player
 func _ready():
 	health_bar = $SubViewport/Control
 	health = max_health
-	health_bar.initialize(pseudo,max_health,health_changed)
+	energy = max_energy
+	health_bar.initialize(pseudo,max_health,health_changed,max_energy,energy_changed)
 	
 	combat_controller =%CombatController
 	combat_controller.combat_mode.connect(start_combat)
@@ -53,7 +54,7 @@ func _physics_process(delta):
 	
 func on_left_click():
 	can_take_damage = true
-	player.toggle_interaction_panel(true,self)
+	player.open_interaction_panel(true,self)
 
 #endregion
 	
@@ -90,6 +91,9 @@ func start_attack():
 	await create_tween().tween_interval(0.6).finished
 	$AnimationPlayer.stop()
 	var health_left = target.take_damage(1)
+	
+	energy -= 1
+	energy_changed.emit(energy)
 
 	if health_left <= 0:
 		target = combat_controller.get_target("ally")

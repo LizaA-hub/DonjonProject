@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://cdwrdxs0arsup"]
+[gd_scene load_steps=20 format=3 uid="uid://cdwrdxs0arsup"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerController.gd" id="1_vfj0e"]
+[ext_resource type="PackedScene" uid="uid://5uog10x5xbef" path="res://Nodes/CombatPath.tscn" id="3_lgu3o"]
 [ext_resource type="PackedScene" uid="uid://bb2yrvkltufrg" path="res://Nodes/HealthBar2D.tscn" id="3_qouft"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3it27"]
@@ -102,6 +103,16 @@ emission = Color(0.894118, 0.858824, 0.72549, 1)
 [sub_resource type="ViewportTexture" id="ViewportTexture_y6y2i"]
 viewport_path = NodePath("SubViewport")
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_qyw7r"]
+top_radius = 3.0
+bottom_radius = 3.0
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d7p42"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.745098, 0.737255, 0.309804, 0.129412)
+
 [node name="CharacterBody3D" type="CharacterBody3D" groups=["ally"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_vfj0e")
@@ -164,10 +175,20 @@ visible = false
 billboard = 1
 texture = SubResource("ViewportTexture_y6y2i")
 region_enabled = true
-region_rect = Rect2(56, 24, 1048, 288)
+region_rect = Rect2(56, 24, 1048, 368)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
+
+[node name="AttackZone" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.764482, 0)
+visible = false
+mesh = SubResource("CylinderMesh_qyw7r")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_d7p42")
+
+[node name="CombatPath" parent="." instance=ExtResource("3_lgu3o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

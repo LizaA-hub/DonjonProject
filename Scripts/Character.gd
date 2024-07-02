@@ -17,10 +17,15 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var mass =4 
 
 
-#health variable
+#health and energy variable
 var health_bar
 @export var max_health : int = 5
 var health
+@export var max_energy : int = 10
+var energy
+signal health_changed(float)
+signal energy_changed(float)
+var refill_timer = 0
 
 #combat variable
 var combat_controller
@@ -30,7 +35,6 @@ var can_take_damage = false
 
 @export var pseudo : String
 @export var viewport : SubViewport
-signal health_changed(float)
 
 #region GodotFunction
 func _on_navigation_agent_3d_velocity_computed(safe_velocity):
@@ -47,6 +51,17 @@ func _on_mouse_exited():
 
 func _on_timer_timeout():
 	$Sprite3D.visible= false
+	
+func _process(delta):
+	if is_in_combat:
+		return
+		
+	if energy < max_energy:
+		if refill_timer < 1:
+			refill_timer += delta
+		else:
+			refill_energy()
+			refill_timer = 0
 #endregion
 				
 func ShowBubble(emote : String, duration : float = 0):
@@ -100,3 +115,8 @@ func _on_input_event(_camera, event, _position, _normal, _shape_idx):
 
 func on_left_click():
 	pass
+	
+func refill_energy():
+	if energy != max_energy:
+		energy+=1
+		energy_changed.emit(energy)
