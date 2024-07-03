@@ -58,7 +58,7 @@ radius = 0.25
 [sub_resource type="BoxShape3D" id="BoxShape3D_tuars"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_avv47"]
-size = Vector3(8, 2, 23.5)
+size = Vector3(8, 2, 24)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xdglx"]
 size = Vector3(8, 2, 15.5)
@@ -756,6 +756,7 @@ script = ExtResource("4_t8an6")
 Adjacent1 = NodePath("../FisrtRoomArea")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LigthArea/corridorArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.11)
 shape = SubResource("BoxShape3D_avv47")
 
 [node name="corridorArea5" type="Area3D" parent="LigthArea" node_paths=PackedStringArray("Adjacent1")]

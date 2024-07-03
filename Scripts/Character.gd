@@ -103,6 +103,8 @@ func stop_combat():
 	$TurnIndicator.visible = false
 	
 func custom_look_at(_position : Vector3):
+	if _position == global_position:
+		return
 	look_direction = _position
 	look_direction.y = global_position.y
 	look_at(look_direction)

@@ -118,6 +118,7 @@ func set_turn():
 	target = combat_controller.target_validity(target,"ally")
 	$TurnIndicator.visible = true
 	if target != null:
+		await create_tween().tween_interval(0.6).finished
 		turn_to_play = true
 	else:
 		print(self.name, " can't set target")

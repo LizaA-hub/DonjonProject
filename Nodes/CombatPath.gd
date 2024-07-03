@@ -2,10 +2,13 @@ extends Node3D
 
 var player
 var current_line
+@onready var destination = global_position
+var drawing_line = false
 
-func initialize(mouse_signal):
+func initialize(mouse_signal, exit_mouse_signal):
 	player = get_parent()
 	mouse_signal.connect(draw_mouse_line)
+	exit_mouse_signal.connect(hide_line)
 	
 
 func draw_line(origin:Vector3,end : Vector3, color = Color.WHITE) -> MeshInstance3D:
@@ -24,20 +27,35 @@ func draw_line(origin:Vector3,end : Vector3, color = Color.WHITE) -> MeshInstanc
 	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	material.albedo_color = color
 	
-	add_child(mesh_instance)
+	get_tree().get_root().add_child(mesh_instance)
 	
 	return mesh_instance
 	
 func draw_mouse_line(_position : Vector3):
-	var destination = _position
 	if current_line != null:
 		current_line.queue_free()
-		
-	#var distance = global_position.distance_squared_to(destination)
-	#if distance > 16:
-		#destination = _position.normalized() * 4
-	destination.y = 0.6
-	current_line = draw_line(global_position,destination)
+	
+	var origin = global_position
+	
+	var distance = min(origin.distance_to(_position), 5)
+	destination = origin - ((origin - _position).normalized() * distance)
+	destination.y = 0.5
+	origin.y = 0.5
+	current_line = draw_line(origin,destination)
+	if !$Target.visible:
+		$Target.visible=true
 	$Target.global_position = destination
 	
+func deactivate(_signal, mouse_exit_signal):
+	_signal.disconnect(draw_mouse_line)
+	mouse_exit_signal.disconnect(hide_line)
+	
+func get_target_position():
+	return destination
+	
 
+
+func hide_line():
+	if current_line != null:
+		current_line.queue_free()
+	$Target.visible=false

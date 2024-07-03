@@ -5,6 +5,7 @@ var Direction = Vector3.ZERO
 var lookDirection
 var travel_distance_left = 4
 var is_moving = false
+var ground
 
 #interaction variable
 signal interact(strengh:float)
@@ -17,14 +18,16 @@ var interaction_ui
 #combatvariable
 signal player_turn(bool)
 var attack_zone
+var combat_path
 
 #region GodotFunctions
 func _ready():
-	var ground = $"../../NavigationRegion3D"
+	ground = $"../../NavigationRegion3D"
 	ground.mouse_clicked.connect(_init_move)
 	combat_controller = $"../../CombatController"
 	combat_controller.combat_mode.connect(start_combat)
 	attack_zone = $AttackZone
+	combat_path = $CombatPath
 
 	health_bar = $SubViewport/Control
 	health = max_health
@@ -33,7 +36,6 @@ func _ready():
 	
 	interaction_ui = %InteractionUI
 	
-	$CombatPath.initialize(ground.mouse_hover)
 	#$CombatPath.visible = false
 
 
@@ -41,24 +43,30 @@ func _physics_process(delta):
 
 	if navigationAgent.is_navigation_finished() and !is_in_combat:
 		return
+	elif navigationAgent.is_navigation_finished() and is_in_combat and !is_moving:
+		return
 
 	custom_look_at(navigationAgent.target_position)
 	var nextPathPosition: Vector3 = navigationAgent.get_next_path_position()
 	
-	if is_in_combat:
-		#traveled_distance +=  global_position.distance_squared_to(position_before_move) 
-		
-		if travel_distance_left <= 0:
-			set_target(global_position)
-			newVelocity = Vector3.ZERO
-			is_reaching_target = false
-			end_turn()
+	if is_in_combat and navigationAgent.is_navigation_finished() and is_moving:
+		set_target(global_position)
+		newVelocity = Vector3.ZERO
+		is_moving = false
+		end_turn()
 	
 	if (is_reaching_target and navigationAgent.distance_to_target() <= 3):
 		set_target(global_position)
 		newVelocity = Vector3.ZERO
 		is_reaching_target = false
+		is_moving = false
 		start_interact()
+		
+	if is_in_combat and (global_position.distance_squared_to(position_before_move) >= 25):
+		set_target(global_position)
+		newVelocity = Vector3.ZERO
+		is_reaching_target = false
+		end_turn()
 	
 	newVelocity = (nextPathPosition - global_position).normalized() * speed * delta
 	
@@ -80,10 +88,15 @@ func _physics_process(delta):
 func _init_move(_position : Vector3):
 	if !is_in_combat:
 		set_target(_position)
+		if is_reaching_target:
+			is_reaching_target = false
 	else:
 		if is_moving or !turn_to_play:
 			return
-		set_target(_position)
+		if is_reaching_target:
+			set_target(_position)
+		else:
+			set_target(combat_path.get_target_position())
 		is_moving = true
 		
 
@@ -98,8 +111,8 @@ func try_attack(_target):
 	var target_position = _target.global_position
 		
 	if !can_attack(target_position):
-		_init_move(target_position)
 		is_reaching_target = true
+		_init_move(target_position)
 		target_type = InteractableType.ATTACKABLE
 	else:
 		custom_look_at(target_position)
@@ -126,7 +139,6 @@ func start_combat():
 		
 	set_target(global_position)
 	newVelocity = Vector3.ZERO
-	travel_distance_left = 4
 	
 	if(navigationAgent.avoidance_enabled):
 		navigationAgent.set_velocity(newVelocity)
@@ -137,6 +149,7 @@ func start_combat():
 	
 	attack_zone.visible = true
 	$CombatPath.visible = true
+	$CombatPath.initialize(ground.mouse_hover, ground.mouse_not_on_ground)
 	
 func disapear():#game over
 	global_position.y = -10
@@ -145,7 +158,6 @@ func disapear():#game over
 func end_turn():
 	is_moving = false
 	turn_to_play = false
-	travel_distance_left = 4
 	$TurnIndicator.visible = false
 	combat_controller.next_turn()
 	player_turn.emit(false)
@@ -210,6 +222,7 @@ func stop_combat():
 	player_turn.emit(false)
 	close_interaction_panel()
 	attack_zone.visible = false
+	$CombatPath.deactivate(ground.mouse_hover, ground.mouse_not_on_ground)
 	$CombatPath.visible = false
 	
 func open_interaction_panel(open :bool, _target):
@@ -245,7 +258,7 @@ func can_attack(_target : Vector3):
 	else: return true
 	
 func can_move_attack(_target : Vector3):
-	if global_position.distance_squared_to(_target) > 16:
+	if global_position.distance_squared_to(_target) > 25:
 		return false
 	else: return true
 
