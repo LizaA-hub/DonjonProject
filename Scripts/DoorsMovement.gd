@@ -56,7 +56,7 @@ func move_down(value = 1):
 func _on_static_body_3d_input_event(_camera, event, _position, _normal, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == 1:
-			if event.is_pressed() and has_ally:
+			if event.is_pressed() and player.can_open_door():
 				player.try_interact(_position)
 				can_move = true
 				door_to_move = 2
@@ -65,7 +65,7 @@ func _on_static_body_3d_input_event(_camera, event, _position, _normal, _shape_i
 func _on_button_input_event(_camera, event, _position, _normal, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == 1:
-			if event.is_pressed() and has_ally:
+			if event.is_pressed():
 				player.try_interact(_position)
 				can_move = true
 				door_to_move = 3

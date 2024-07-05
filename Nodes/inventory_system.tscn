@@ -1,0 +1,1862 @@
+[gd_scene load_steps=55 format=3 uid="uid://iooxa887vj1g"]
+
+[ext_resource type="Script" path="res://Scripts/inventory_system.gd" id="1_52ul8"]
+[ext_resource type="Script" path="res://Scripts/Slot.gd" id="2_com8o"]
+[ext_resource type="Texture2D" uid="uid://daa345nnbn183" path="res://Textures/BluePotion.tga" id="3_dkglm"]
+[ext_resource type="Texture2D" uid="uid://dlbxse3j46k4l" path="res://Textures/WhiteSquare.tga" id="4_mf7eb"]
+[ext_resource type="Texture2D" uid="uid://dilebf51ksgis" path="res://Textures/blackSquare.tga" id="5_vmf8w"]
+[ext_resource type="Texture2D" uid="uid://cegc0sxk04vop" path="res://Textures/BorderSquare.tga" id="6_bfjot"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_04tii"]
+viewport_path = NodePath("Inventory/BGTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_aw1cl"]
+viewport_path = NodePath("Inventory/GridContainer/Slot1/BGSlot/TextureButton/ItemDisplay")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_hwoqy"]
+viewport_path = NodePath("Inventory/GridContainer/Slot1/BGSlot/TextureButton/PressedTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_55oun"]
+viewport_path = NodePath("Inventory/GridContainer/Slot1/BGSlot/TextureButton/HoverTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_xs1rm"]
+viewport_path = NodePath("Inventory/GridContainer/Slot1/BGSlot/TextureButton/DisableTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_biujw"]
+viewport_path = NodePath("Inventory/SlectedTexture")
+
+[sub_resource type="Theme" id="Theme_10mcr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nd6f6"]
+font_size = 25
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_nya1v"]
+viewport_path = NodePath("Inventory/GridContainer/Slot2/BGSlot/TextureButton/ItemDisplay")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_1akdq"]
+viewport_path = NodePath("Inventory/GridContainer/Slot2/BGSlot/TextureButton/PressedTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_xrun0"]
+viewport_path = NodePath("Inventory/GridContainer/Slot2/BGSlot/TextureButton/HoverTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_d024a"]
+viewport_path = NodePath("Inventory/GridContainer/Slot2/BGSlot/TextureButton/DisableTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wf266"]
+viewport_path = NodePath("Inventory/SlectedTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_dsi51"]
+viewport_path = NodePath("Inventory/GridContainer/Slot3/BGSlot/TextureButton/ItemDisplay")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_w01g7"]
+viewport_path = NodePath("Inventory/GridContainer/Slot3/BGSlot/TextureButton/PressedTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_qc5nm"]
+viewport_path = NodePath("Inventory/GridContainer/Slot3/BGSlot/TextureButton/HoverTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_nwoba"]
+viewport_path = NodePath("Inventory/GridContainer/Slot3/BGSlot/TextureButton/DisableTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_o48a5"]
+viewport_path = NodePath("Inventory/SlectedTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_x2wkg"]
+viewport_path = NodePath("Inventory/GridContainer/Slot4/BGSlot/TextureButton/ItemDisplay")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_rksqr"]
+viewport_path = NodePath("Inventory/GridContainer/Slot4/BGSlot/TextureButton/PressedTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_2bdvr"]
+viewport_path = NodePath("Inventory/GridContainer/Slot4/BGSlot/TextureButton/HoverTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_50b7h"]
+viewport_path = NodePath("Inventory/GridContainer/Slot4/BGSlot/TextureButton/DisableTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_aat7p"]
+viewport_path = NodePath("Inventory/SlectedTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_rjxes"]
+viewport_path = NodePath("Inventory/GridContainer/Slot5/BGSlot/TextureButton/ItemDisplay")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_a0p3g"]
+viewport_path = NodePath("Inventory/GridContainer/Slot5/BGSlot/TextureButton/PressedTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_2suxf"]
+viewport_path = NodePath("Inventory/GridContainer/Slot5/BGSlot/TextureButton/HoverTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_6b2ud"]
+viewport_path = NodePath("Inventory/GridContainer/Slot5/BGSlot/TextureButton/DisableTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ud1mk"]
+viewport_path = NodePath("Inventory/SlectedTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_qq2fc"]
+viewport_path = NodePath("Inventory/GridContainer/Slot6/BGSlot/TextureButton/ItemDisplay")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ijkvl"]
+viewport_path = NodePath("Inventory/GridContainer/Slot6/BGSlot/TextureButton/PressedTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_08min"]
+viewport_path = NodePath("Inventory/GridContainer/Slot6/BGSlot/TextureButton/HoverTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_u3awd"]
+viewport_path = NodePath("Inventory/GridContainer/Slot6/BGSlot/TextureButton/DisableTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ago62"]
+viewport_path = NodePath("Inventory/SlectedTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_fxpir"]
+viewport_path = NodePath("Inventory/GridContainer/Slot7/BGSlot/TextureButton/ItemDisplay")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_5ue0w"]
+viewport_path = NodePath("Inventory/GridContainer/Slot7/BGSlot/TextureButton/PressedTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_fdj6o"]
+viewport_path = NodePath("Inventory/GridContainer/Slot7/BGSlot/TextureButton/HoverTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_kjk8v"]
+viewport_path = NodePath("Inventory/GridContainer/Slot7/BGSlot/TextureButton/DisableTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_kpk1v"]
+viewport_path = NodePath("Inventory/SlectedTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_pilo3"]
+viewport_path = NodePath("Inventory/GridContainer/Slot8/BGSlot/TextureButton/ItemDisplay")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_mxw35"]
+viewport_path = NodePath("Inventory/GridContainer/Slot8/BGSlot/TextureButton/PressedTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_g7cca"]
+viewport_path = NodePath("Inventory/GridContainer/Slot8/BGSlot/TextureButton/HoverTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_dqja1"]
+viewport_path = NodePath("Inventory/GridContainer/Slot8/BGSlot/TextureButton/DisableTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ps72o"]
+viewport_path = NodePath("Inventory/SlectedTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_vmr6e"]
+viewport_path = NodePath("Inventory/GridContainer/Slot9/BGSlot/TextureButton/ItemDisplay")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_k1b7m"]
+viewport_path = NodePath("Inventory/GridContainer/Slot9/BGSlot/TextureButton/PressedTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_cddar"]
+viewport_path = NodePath("Inventory/GridContainer/Slot9/BGSlot/TextureButton/HoverTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_22h37"]
+viewport_path = NodePath("Inventory/GridContainer/Slot9/BGSlot/TextureButton/DisableTexture")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_gkiuv"]
+viewport_path = NodePath("Inventory/SlectedTexture")
+
+[node name="InventorySystem" type="Node"]
+script = ExtResource("1_52ul8")
+
+[node name="ExitButton" type="Button" parent="."]
+visible = false
+custom_minimum_size = Vector2(30, 30)
+offset_left = 412.0
+offset_top = 162.0
+offset_right = 442.0
+offset_bottom = 193.0
+text = "x"
+
+[node name="Inventory" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(200, 200)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -130.0
+offset_right = 130.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="GridContainer" type="GridContainer" parent="Inventory"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -124.0
+offset_top = -124.0
+offset_right = 124.0
+offset_bottom = 124.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+columns = 3
+
+[node name="Slot1" type="MarginContainer" parent="Inventory/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("2_com8o")
+
+[node name="BGSlot" type="TextureRect" parent="Inventory/GridContainer/Slot1"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("ViewportTexture_04tii")
+
+[node name="TextureButton" type="TextureButton" parent="Inventory/GridContainer/Slot1/BGSlot"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+offset_right = 70.0
+offset_bottom = 70.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = SubResource("ViewportTexture_aw1cl")
+texture_pressed = SubResource("ViewportTexture_hwoqy")
+texture_hover = SubResource("ViewportTexture_55oun")
+texture_disabled = SubResource("ViewportTexture_xs1rm")
+texture_focused = SubResource("ViewportTexture_biujw")
+
+[node name="ItemDisplay" type="SubViewport" parent="Inventory/GridContainer/Slot1/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot1/BGSlot/TextureButton/ItemDisplay"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_dkglm")
+expand_mode = 2
+
+[node name="PressedTexture" type="SubViewport" parent="Inventory/GridContainer/Slot1/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot1/BGSlot/TextureButton/PressedTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot1/BGSlot/TextureButton/PressedTexture"]
+modulate = Color(1, 1, 1, 0.490196)
+custom_minimum_size = Vector2(70, 70)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -35.0
+offset_right = 35.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="HoverTexture" type="SubViewport" parent="Inventory/GridContainer/Slot1/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot1/BGSlot/TextureButton/HoverTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot1/BGSlot/TextureButton/HoverTexture"]
+modulate = Color(1, 1, 1, 0.219608)
+custom_minimum_size = Vector2(70, 70)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -35.0
+offset_right = 35.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_10mcr")
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="DisableTexture" type="SubViewport" parent="Inventory/GridContainer/Slot1/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot1/BGSlot/TextureButton/DisableTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot1/BGSlot/TextureButton/DisableTexture"]
+modulate = Color(0.501961, 0.501961, 0.501961, 0.686275)
+custom_minimum_size = Vector2(70, 70)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -35.0
+offset_right = 35.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="Inventory/GridContainer/Slot1/BGSlot"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -28.0
+offset_top = -35.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "00"
+label_settings = SubResource("LabelSettings_nd6f6")
+
+[node name="Slot2" type="MarginContainer" parent="Inventory/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("2_com8o")
+
+[node name="BGSlot" type="TextureRect" parent="Inventory/GridContainer/Slot2"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("ViewportTexture_04tii")
+
+[node name="TextureButton" type="TextureButton" parent="Inventory/GridContainer/Slot2/BGSlot"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+offset_right = 70.0
+offset_bottom = 70.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = SubResource("ViewportTexture_nya1v")
+texture_pressed = SubResource("ViewportTexture_1akdq")
+texture_hover = SubResource("ViewportTexture_xrun0")
+texture_disabled = SubResource("ViewportTexture_d024a")
+texture_focused = SubResource("ViewportTexture_wf266")
+
+[node name="ItemDisplay" type="SubViewport" parent="Inventory/GridContainer/Slot2/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot2/BGSlot/TextureButton/ItemDisplay"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_dkglm")
+expand_mode = 2
+
+[node name="PressedTexture" type="SubViewport" parent="Inventory/GridContainer/Slot2/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot2/BGSlot/TextureButton/PressedTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot2/BGSlot/TextureButton/PressedTexture"]
+modulate = Color(1, 1, 1, 0.490196)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="HoverTexture" type="SubViewport" parent="Inventory/GridContainer/Slot2/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot2/BGSlot/TextureButton/HoverTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot2/BGSlot/TextureButton/HoverTexture"]
+modulate = Color(1, 1, 1, 0.219608)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_10mcr")
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="DisableTexture" type="SubViewport" parent="Inventory/GridContainer/Slot2/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot2/BGSlot/TextureButton/DisableTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot2/BGSlot/TextureButton/DisableTexture"]
+modulate = Color(0.501961, 0.501961, 0.501961, 0.686275)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="Inventory/GridContainer/Slot2/BGSlot"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -28.0
+offset_top = -35.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "00"
+label_settings = SubResource("LabelSettings_nd6f6")
+
+[node name="Slot3" type="MarginContainer" parent="Inventory/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("2_com8o")
+
+[node name="BGSlot" type="TextureRect" parent="Inventory/GridContainer/Slot3"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("ViewportTexture_04tii")
+
+[node name="TextureButton" type="TextureButton" parent="Inventory/GridContainer/Slot3/BGSlot"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+offset_right = 70.0
+offset_bottom = 70.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = SubResource("ViewportTexture_dsi51")
+texture_pressed = SubResource("ViewportTexture_w01g7")
+texture_hover = SubResource("ViewportTexture_qc5nm")
+texture_disabled = SubResource("ViewportTexture_nwoba")
+texture_focused = SubResource("ViewportTexture_o48a5")
+
+[node name="ItemDisplay" type="SubViewport" parent="Inventory/GridContainer/Slot3/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot3/BGSlot/TextureButton/ItemDisplay"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_dkglm")
+expand_mode = 2
+
+[node name="PressedTexture" type="SubViewport" parent="Inventory/GridContainer/Slot3/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot3/BGSlot/TextureButton/PressedTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot3/BGSlot/TextureButton/PressedTexture"]
+modulate = Color(1, 1, 1, 0.490196)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="HoverTexture" type="SubViewport" parent="Inventory/GridContainer/Slot3/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot3/BGSlot/TextureButton/HoverTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot3/BGSlot/TextureButton/HoverTexture"]
+modulate = Color(1, 1, 1, 0.219608)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_10mcr")
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="DisableTexture" type="SubViewport" parent="Inventory/GridContainer/Slot3/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot3/BGSlot/TextureButton/DisableTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot3/BGSlot/TextureButton/DisableTexture"]
+modulate = Color(0.501961, 0.501961, 0.501961, 0.686275)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="Inventory/GridContainer/Slot3/BGSlot"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -28.0
+offset_top = -35.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "00"
+label_settings = SubResource("LabelSettings_nd6f6")
+
+[node name="Slot4" type="MarginContainer" parent="Inventory/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("2_com8o")
+
+[node name="BGSlot" type="TextureRect" parent="Inventory/GridContainer/Slot4"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("ViewportTexture_04tii")
+
+[node name="TextureButton" type="TextureButton" parent="Inventory/GridContainer/Slot4/BGSlot"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+offset_right = 70.0
+offset_bottom = 70.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = SubResource("ViewportTexture_x2wkg")
+texture_pressed = SubResource("ViewportTexture_rksqr")
+texture_hover = SubResource("ViewportTexture_2bdvr")
+texture_disabled = SubResource("ViewportTexture_50b7h")
+texture_focused = SubResource("ViewportTexture_aat7p")
+
+[node name="ItemDisplay" type="SubViewport" parent="Inventory/GridContainer/Slot4/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot4/BGSlot/TextureButton/ItemDisplay"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_dkglm")
+expand_mode = 2
+
+[node name="PressedTexture" type="SubViewport" parent="Inventory/GridContainer/Slot4/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot4/BGSlot/TextureButton/PressedTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot4/BGSlot/TextureButton/PressedTexture"]
+modulate = Color(1, 1, 1, 0.490196)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="HoverTexture" type="SubViewport" parent="Inventory/GridContainer/Slot4/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot4/BGSlot/TextureButton/HoverTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot4/BGSlot/TextureButton/HoverTexture"]
+modulate = Color(1, 1, 1, 0.219608)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_10mcr")
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="DisableTexture" type="SubViewport" parent="Inventory/GridContainer/Slot4/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot4/BGSlot/TextureButton/DisableTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot4/BGSlot/TextureButton/DisableTexture"]
+modulate = Color(0.501961, 0.501961, 0.501961, 0.686275)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="Inventory/GridContainer/Slot4/BGSlot"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -28.0
+offset_top = -35.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "00"
+label_settings = SubResource("LabelSettings_nd6f6")
+
+[node name="Slot5" type="MarginContainer" parent="Inventory/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("2_com8o")
+
+[node name="BGSlot" type="TextureRect" parent="Inventory/GridContainer/Slot5"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("ViewportTexture_04tii")
+
+[node name="TextureButton" type="TextureButton" parent="Inventory/GridContainer/Slot5/BGSlot"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+offset_right = 70.0
+offset_bottom = 70.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = SubResource("ViewportTexture_rjxes")
+texture_pressed = SubResource("ViewportTexture_a0p3g")
+texture_hover = SubResource("ViewportTexture_2suxf")
+texture_disabled = SubResource("ViewportTexture_6b2ud")
+texture_focused = SubResource("ViewportTexture_ud1mk")
+
+[node name="ItemDisplay" type="SubViewport" parent="Inventory/GridContainer/Slot5/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot5/BGSlot/TextureButton/ItemDisplay"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_dkglm")
+expand_mode = 2
+
+[node name="PressedTexture" type="SubViewport" parent="Inventory/GridContainer/Slot5/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot5/BGSlot/TextureButton/PressedTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot5/BGSlot/TextureButton/PressedTexture"]
+modulate = Color(1, 1, 1, 0.490196)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="HoverTexture" type="SubViewport" parent="Inventory/GridContainer/Slot5/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot5/BGSlot/TextureButton/HoverTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot5/BGSlot/TextureButton/HoverTexture"]
+modulate = Color(1, 1, 1, 0.219608)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_10mcr")
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="DisableTexture" type="SubViewport" parent="Inventory/GridContainer/Slot5/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot5/BGSlot/TextureButton/DisableTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot5/BGSlot/TextureButton/DisableTexture"]
+modulate = Color(0.501961, 0.501961, 0.501961, 0.686275)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="Inventory/GridContainer/Slot5/BGSlot"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -28.0
+offset_top = -35.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "00"
+label_settings = SubResource("LabelSettings_nd6f6")
+
+[node name="Slot6" type="MarginContainer" parent="Inventory/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("2_com8o")
+
+[node name="BGSlot" type="TextureRect" parent="Inventory/GridContainer/Slot6"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("ViewportTexture_04tii")
+
+[node name="TextureButton" type="TextureButton" parent="Inventory/GridContainer/Slot6/BGSlot"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+offset_right = 70.0
+offset_bottom = 70.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = SubResource("ViewportTexture_qq2fc")
+texture_pressed = SubResource("ViewportTexture_ijkvl")
+texture_hover = SubResource("ViewportTexture_08min")
+texture_disabled = SubResource("ViewportTexture_u3awd")
+texture_focused = SubResource("ViewportTexture_ago62")
+
+[node name="ItemDisplay" type="SubViewport" parent="Inventory/GridContainer/Slot6/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot6/BGSlot/TextureButton/ItemDisplay"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_dkglm")
+expand_mode = 2
+
+[node name="PressedTexture" type="SubViewport" parent="Inventory/GridContainer/Slot6/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot6/BGSlot/TextureButton/PressedTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot6/BGSlot/TextureButton/PressedTexture"]
+modulate = Color(1, 1, 1, 0.490196)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="HoverTexture" type="SubViewport" parent="Inventory/GridContainer/Slot6/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot6/BGSlot/TextureButton/HoverTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot6/BGSlot/TextureButton/HoverTexture"]
+modulate = Color(1, 1, 1, 0.219608)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_10mcr")
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="DisableTexture" type="SubViewport" parent="Inventory/GridContainer/Slot6/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot6/BGSlot/TextureButton/DisableTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot6/BGSlot/TextureButton/DisableTexture"]
+modulate = Color(0.501961, 0.501961, 0.501961, 0.686275)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="Inventory/GridContainer/Slot6/BGSlot"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -28.0
+offset_top = -35.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "00"
+label_settings = SubResource("LabelSettings_nd6f6")
+
+[node name="Slot7" type="MarginContainer" parent="Inventory/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("2_com8o")
+
+[node name="BGSlot" type="TextureRect" parent="Inventory/GridContainer/Slot7"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("ViewportTexture_04tii")
+
+[node name="TextureButton" type="TextureButton" parent="Inventory/GridContainer/Slot7/BGSlot"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+offset_right = 70.0
+offset_bottom = 70.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = SubResource("ViewportTexture_fxpir")
+texture_pressed = SubResource("ViewportTexture_5ue0w")
+texture_hover = SubResource("ViewportTexture_fdj6o")
+texture_disabled = SubResource("ViewportTexture_kjk8v")
+texture_focused = SubResource("ViewportTexture_kpk1v")
+
+[node name="ItemDisplay" type="SubViewport" parent="Inventory/GridContainer/Slot7/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot7/BGSlot/TextureButton/ItemDisplay"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_dkglm")
+expand_mode = 2
+
+[node name="PressedTexture" type="SubViewport" parent="Inventory/GridContainer/Slot7/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot7/BGSlot/TextureButton/PressedTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot7/BGSlot/TextureButton/PressedTexture"]
+modulate = Color(1, 1, 1, 0.490196)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="HoverTexture" type="SubViewport" parent="Inventory/GridContainer/Slot7/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot7/BGSlot/TextureButton/HoverTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot7/BGSlot/TextureButton/HoverTexture"]
+modulate = Color(1, 1, 1, 0.219608)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_10mcr")
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="DisableTexture" type="SubViewport" parent="Inventory/GridContainer/Slot7/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot7/BGSlot/TextureButton/DisableTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot7/BGSlot/TextureButton/DisableTexture"]
+modulate = Color(0.501961, 0.501961, 0.501961, 0.686275)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="Inventory/GridContainer/Slot7/BGSlot"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -28.0
+offset_top = -35.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "00"
+label_settings = SubResource("LabelSettings_nd6f6")
+
+[node name="Slot8" type="MarginContainer" parent="Inventory/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("2_com8o")
+
+[node name="BGSlot" type="TextureRect" parent="Inventory/GridContainer/Slot8"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("ViewportTexture_04tii")
+
+[node name="TextureButton" type="TextureButton" parent="Inventory/GridContainer/Slot8/BGSlot"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+offset_right = 70.0
+offset_bottom = 70.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = SubResource("ViewportTexture_pilo3")
+texture_pressed = SubResource("ViewportTexture_mxw35")
+texture_hover = SubResource("ViewportTexture_g7cca")
+texture_disabled = SubResource("ViewportTexture_dqja1")
+texture_focused = SubResource("ViewportTexture_ps72o")
+
+[node name="ItemDisplay" type="SubViewport" parent="Inventory/GridContainer/Slot8/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot8/BGSlot/TextureButton/ItemDisplay"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_dkglm")
+expand_mode = 2
+
+[node name="PressedTexture" type="SubViewport" parent="Inventory/GridContainer/Slot8/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot8/BGSlot/TextureButton/PressedTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot8/BGSlot/TextureButton/PressedTexture"]
+modulate = Color(1, 1, 1, 0.490196)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="HoverTexture" type="SubViewport" parent="Inventory/GridContainer/Slot8/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot8/BGSlot/TextureButton/HoverTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot8/BGSlot/TextureButton/HoverTexture"]
+modulate = Color(1, 1, 1, 0.219608)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_10mcr")
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="DisableTexture" type="SubViewport" parent="Inventory/GridContainer/Slot8/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot8/BGSlot/TextureButton/DisableTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot8/BGSlot/TextureButton/DisableTexture"]
+modulate = Color(0.501961, 0.501961, 0.501961, 0.686275)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="Inventory/GridContainer/Slot8/BGSlot"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -28.0
+offset_top = -35.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "00"
+label_settings = SubResource("LabelSettings_nd6f6")
+
+[node name="Slot9" type="MarginContainer" parent="Inventory/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("2_com8o")
+
+[node name="BGSlot" type="TextureRect" parent="Inventory/GridContainer/Slot9"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("ViewportTexture_04tii")
+
+[node name="TextureButton" type="TextureButton" parent="Inventory/GridContainer/Slot9/BGSlot"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+offset_right = 70.0
+offset_bottom = 70.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = SubResource("ViewportTexture_vmr6e")
+texture_pressed = SubResource("ViewportTexture_k1b7m")
+texture_hover = SubResource("ViewportTexture_cddar")
+texture_disabled = SubResource("ViewportTexture_22h37")
+texture_focused = SubResource("ViewportTexture_gkiuv")
+
+[node name="ItemDisplay" type="SubViewport" parent="Inventory/GridContainer/Slot9/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot9/BGSlot/TextureButton/ItemDisplay"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_dkglm")
+expand_mode = 2
+
+[node name="PressedTexture" type="SubViewport" parent="Inventory/GridContainer/Slot9/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot9/BGSlot/TextureButton/PressedTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot9/BGSlot/TextureButton/PressedTexture"]
+modulate = Color(1, 1, 1, 0.490196)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="HoverTexture" type="SubViewport" parent="Inventory/GridContainer/Slot9/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot9/BGSlot/TextureButton/HoverTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot9/BGSlot/TextureButton/HoverTexture"]
+modulate = Color(1, 1, 1, 0.219608)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_10mcr")
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="DisableTexture" type="SubViewport" parent="Inventory/GridContainer/Slot9/BGSlot/TextureButton"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="Item" type="TextureRect" parent="Inventory/GridContainer/Slot9/BGSlot/TextureButton/DisableTexture"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dkglm")
+expand_mode = 4
+
+[node name="BG" type="TextureRect" parent="Inventory/GridContainer/Slot9/BGSlot/TextureButton/DisableTexture"]
+modulate = Color(0.501961, 0.501961, 0.501961, 0.686275)
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_mf7eb")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="Inventory/GridContainer/Slot9/BGSlot"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -28.0
+offset_top = -35.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "00"
+label_settings = SubResource("LabelSettings_nd6f6")
+
+[node name="BGTexture" type="SubViewport" parent="Inventory"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="TextureRect" type="TextureRect" parent="Inventory/BGTexture"]
+custom_minimum_size = Vector2(70, 70)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -35.0
+offset_right = 35.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_vmf8w")
+expand_mode = 2
+
+[node name="SlectedTexture" type="SubViewport" parent="Inventory"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(70, 70)
+
+[node name="TextureRect" type="TextureRect" parent="Inventory/SlectedTexture"]
+modulate = Color(0.772549, 0.713726, 0.423529, 1)
+custom_minimum_size = Vector2(70, 70)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -35.0
+offset_right = 35.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_bfjot")
+expand_mode = 2
+
+[connection signal="button_down" from="ExitButton" to="." method="toggle_inventory"]

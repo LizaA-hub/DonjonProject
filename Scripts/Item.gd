@@ -1,10 +1,14 @@
+class_name Item
+
 extends EnvironmentAsset
 
 var player 
 var can_pick
-var is_empty = false
-enum types {KEY,HEALTH_POTION}
+enum types {KEY,HEALTH_POTION, ENERGY_POTION}
 @export var type : types
+@export var power : int
+@export var quantity : int
+
 
 func _ready():
 	player = %player
@@ -17,16 +21,22 @@ func _on_input_event(_camera, event, _position, _normal, _shape_idx):
 				can_pick = true
 				player.try_interact(global_position)
 
+#func pick_up(_value):
+	#if !can_pick:
+		#return
+	#match(type):
+		#types.KEY:
+			#player.can_open_door = true
+			#global_position.y = -11
+		#types.HEALTH_POTION:
+			#player.heal(5)
+			#global_position.y = -11
+	#can_pick = false
+	
 func pick_up(_value):
 	if !can_pick:
 		return
-	match(type):
-		types.KEY:
-			player.can_open_door = true
-			global_position.y = -11
-		types.HEALTH_POTION:
-			player.heal(5)
-			global_position.y = -11
+	%InventorySystem.add_item(self)
+	#print("is adding item to inventory")
+	global_position.y = -11
 	can_pick = false
-	
-	

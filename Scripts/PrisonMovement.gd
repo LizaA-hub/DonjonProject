@@ -19,7 +19,7 @@ func _on_clickable_input_event(_camera, event, _position, _normal, _shape_idx):
 			if event.is_pressed():
 				#print("clicking on prison")
 				#print("player can ope door : ",player.can_open_door)
-				if player.can_open_door and !is_opened:
+				if player.can_open_door() and !is_opened:
 					can_move = true
 					player.try_interact(_position)
 				
@@ -32,3 +32,4 @@ func move_down(_value):
 	can_move = false
 	is_opened = true
 	is_free.emit()
+	player.remove_item(Item.types.KEY)

@@ -6,6 +6,8 @@ extends PanelContainer
 var is_in_combat = false
 var player
 var target
+var inventory
+signal mouse_on_panel()
 
 func _ready():
 	var combat_controller = %CombatController
@@ -14,7 +16,10 @@ func _ready():
 	
 	player = %player
 	
+	inventory = $"../InventorySystem"
+	
 func set_buttons(target_type : String):
+	
 	var can_attack = true
 	var can_move_attack = false
 	var can_move = false
@@ -65,5 +70,13 @@ func _on_move_attack_button_button_down():
 	player.try_attack(target)
 
 
-func _on_button_button_down():
+func _on_end_turn_button_button_down():
 	player.end_turn()
+
+
+func _on_use_object_button_button_down():
+	inventory.toggle_inventory()
+
+
+func _on_mouse_entered():
+	mouse_on_panel.emit()

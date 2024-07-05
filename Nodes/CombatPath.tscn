@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://5uog10x5xbef"]
 
-[ext_resource type="Script" path="res://Nodes/CombatPath.gd" id="1_8a3xn"]
+[ext_resource type="Script" path="res://Scripts/CombatPath.gd" id="1_wugkq"]
 
 [sub_resource type="TorusMesh" id="TorusMesh_dqcoe"]
 inner_radius = 1.2
@@ -16,7 +16,7 @@ height = 0.1
 shading_mode = 0
 
 [node name="Node3D" type="Node3D"]
-script = ExtResource("1_8a3xn")
+script = ExtResource("1_wugkq")
 
 [node name="Target" type="Node3D" parent="."]
 

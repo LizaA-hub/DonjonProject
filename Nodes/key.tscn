@@ -15,6 +15,8 @@ size = Vector3(3, 1, 1.555)
 
 [node name="key" type="StaticBody3D"]
 script = ExtResource("1_j2042")
+power = 1
+quantity = 1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.25, 0, 0, 0, 1, 1.169, 0, 0)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://bc6ck6l8ptdnn"]
+[gd_scene load_steps=58 format=3 uid="uid://bc6ck6l8ptdnn"]
 
 [ext_resource type="Script" path="res://Scripts/Floor.gd" id="1_8ila6"]
 [ext_resource type="PackedScene" uid="uid://cdwrdxs0arsup" path="res://Nodes/Player2.tscn" id="1_d1leb"]
@@ -19,7 +19,11 @@
 [ext_resource type="Script" path="res://Scripts/Viewport.gd" id="15_7d5rg"]
 [ext_resource type="PackedScene" uid="uid://cqyp7etdwplcb" path="res://Nodes/playerTurnUI.tscn" id="20_7xuso"]
 [ext_resource type="PackedScene" uid="uid://d1ydsioaq4v76" path="res://Nodes/CharacterStatesUI.tscn" id="21_0kfec"]
+[ext_resource type="PackedScene" uid="uid://iooxa887vj1g" path="res://Nodes/inventory_system.tscn" id="21_lpvqi"]
 [ext_resource type="PackedScene" uid="uid://dgavmndrtv4" path="res://Nodes/ActionsUI.tscn" id="21_lq0bm"]
+[ext_resource type="Texture2D" uid="uid://fl5wvhymd2gl" path="res://Textures/Key.tga" id="22_6omhv"]
+[ext_resource type="Texture2D" uid="uid://dsuekau76tyas" path="res://Textures/RedPotion.tga" id="23_5rjkv"]
+[ext_resource type="Texture2D" uid="uid://daa345nnbn183" path="res://Textures/BluePotion.tga" id="24_ik7bq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ujqwp"]
 sky_horizon_color = Color(0.59625, 0.6135, 0.6375, 1)
@@ -920,7 +924,7 @@ script = ExtResource("13_0w77b")
 
 [node name="key" parent="Items" groups=["environment"] instance=ExtResource("13_pbofa")]
 unique_name_in_owner = true
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 21.5944, 1.63439, -44.8272)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 19, 1, -49)
 
 [node name="potion" parent="Items" groups=["dynamic"] instance=ExtResource("14_huusp")]
 unique_name_in_owner = true
@@ -1632,6 +1636,14 @@ fov = 43.2
 unique_name_in_owner = true
 
 [node name="CharactersStates" parent="." instance=ExtResource("21_0kfec")]
+
+[node name="InventorySystem" parent="." instance=ExtResource("21_lpvqi")]
+unique_name_in_owner = true
+item_textures = {
+"EnergyPotion": ExtResource("24_ik7bq"),
+"HealthPotion": ExtResource("23_5rjkv"),
+"Key": ExtResource("22_6omhv")
+}
 
 [connection signal="input_event" from="Bar/clickable" to="Bar" method="_on_clickable_input_event"]
 [connection signal="body_entered" from="LigthArea/corridorArea" to="LigthArea/corridorArea" method="_on_body_entered"]

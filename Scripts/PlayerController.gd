@@ -12,8 +12,8 @@ signal interact(strengh:float)
 var has_weapon = false
 enum InteractableType {ATTACKABLE,INTERACTABLE}
 var target_type : InteractableType
-var can_open_door = false
 var interaction_ui
+var inventory
 
 #combatvariable
 signal player_turn(bool)
@@ -35,7 +35,7 @@ func _ready():
 	health_bar.initialize(pseudo,max_health,health_changed,max_energy,energy_changed)
 	
 	interaction_ui = %InteractionUI
-	
+	inventory = %InventorySystem
 	#$CombatPath.visible = false
 
 
@@ -88,8 +88,9 @@ func _physics_process(delta):
 func _init_move(_position : Vector3):
 	if !is_in_combat:
 		set_target(_position)
-		if is_reaching_target:
-			is_reaching_target = false
+		#if is_reaching_target:
+			#is_reaching_target = false
+		close_interaction_panel()
 	else:
 		if is_moving or !turn_to_play:
 			return
@@ -149,7 +150,7 @@ func start_combat():
 	
 	attack_zone.visible = true
 	$CombatPath.visible = true
-	$CombatPath.initialize(ground.mouse_hover, ground.mouse_not_on_ground)
+	$CombatPath.initialize(ground.mouse_hover, ground.mouse_not_on_ground, interaction_ui.mouse_on_panel)
 	
 func disapear():#game over
 	global_position.y = -10
@@ -195,9 +196,6 @@ func start_interact():
 			start_attack()
 		InteractableType.INTERACTABLE:
 			interact.emit(0)
-	
-func pick_up_key():
-	can_open_door = true
 
 func door_opening(door : Vector3):
 	is_in_combat = true
@@ -249,6 +247,7 @@ func on_left_click():
 	open_interaction_panel(true, self)
 
 func close_interaction_panel():
+	target = null
 	interaction_ui.set_target(null)
 	interaction_ui.visible = false
 	
@@ -262,3 +261,8 @@ func can_move_attack(_target : Vector3):
 		return false
 	else: return true
 
+func can_open_door() -> bool:
+	return inventory.inventory_has(Item.types.KEY)
+
+func remove_item(item : Item.types) -> void:
+	inventory.remove(item)
