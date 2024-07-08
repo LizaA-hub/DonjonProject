@@ -19,6 +19,8 @@ script = ExtResource("1_mrooh")
 type = 1
 power = 5
 quantity = 1
+item_name = "Health Potion"
+description = "+5 health"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CylinderMesh_5yeie")

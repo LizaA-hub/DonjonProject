@@ -47,9 +47,10 @@ func draw_mouse_line(_position : Vector3):
 		$Target.visible=true
 	$Target.global_position = destination
 	
-func deactivate(_signal, mouse_exit_signal):
+func deactivate(_signal, mouse_exit_signal,mouse_on_ui):
 	_signal.disconnect(draw_mouse_line)
 	mouse_exit_signal.disconnect(hide_line)
+	mouse_on_ui.disconnect(hide_line)
 	
 func get_target_position():
 	return destination

@@ -8,7 +8,8 @@ enum types {KEY,HEALTH_POTION, ENERGY_POTION}
 @export var type : types
 @export var power : int
 @export var quantity : int
-
+@export var item_name : String
+@export var description : String
 
 func _ready():
 	player = %player

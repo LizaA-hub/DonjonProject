@@ -176,3 +176,19 @@ func stop_combat():
 	can_take_damage = false
 	$TurnIndicator.visible = false
 	isFollowingPlayer = true
+
+func take_potion(potion_type: String, amount : int):
+	if potion_type == "health":
+		health += amount
+		if health>10:
+			health = 10 
+		health_bar.set_health(health)
+		
+	if potion_type == "energy":
+		energy += amount
+		if energy>10:
+			energy = 10 
+		health_bar.set_energy(energy)
+	
+	else:
+		print(self.namme, " can't take potion of type : ", potion_type)

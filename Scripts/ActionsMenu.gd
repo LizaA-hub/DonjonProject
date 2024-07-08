@@ -8,6 +8,7 @@ var player
 var target
 var inventory
 signal mouse_on_panel()
+var target_type
 
 func _ready():
 	var combat_controller = %CombatController
@@ -18,8 +19,8 @@ func _ready():
 	
 	inventory = $"../InventorySystem"
 	
-func set_buttons(target_type : String):
-	
+func set_buttons(_target_type : String):
+	target_type = _target_type
 	var can_attack = true
 	var can_move_attack = false
 	var can_move = false
@@ -80,3 +81,25 @@ func _on_use_object_button_button_down():
 
 func _on_mouse_entered():
 	mouse_on_panel.emit()
+
+func can_get_potion(potion_type : String, power : int) -> bool:
+	if target_type == "enemy":
+		return false
+	if potion_type == "health":
+		if target.health < target.max_health:
+			target.take_potion(potion_type,power)
+			
+			if is_in_combat:
+				player.end_turn()
+				inventory.toggle_inventory(false)
+		else:
+			return false
+	if potion_type == "energy":
+		if target.energy < target.max_energy:
+			target.take_potion(potion_type,power)
+			if is_in_combat:
+				player.end_turn()
+				inventory.toggle_inventory(false)
+		else:
+			return false
+	return true

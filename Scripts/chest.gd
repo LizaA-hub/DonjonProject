@@ -17,6 +17,7 @@ func _on_input_event(_camera, event, _position, _normal, _shape_idx):
 					
 				can_open = true
 				player.try_interact(global_position)
+				player.close_interaction_panel()
 
 func open(_value):
 	if !can_open:

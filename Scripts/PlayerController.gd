@@ -206,11 +206,21 @@ func door_opening(door : Vector3):
 	await create_tween().tween_interval(1).finished
 	is_in_combat = false
 
-func heal(amount : float):
-	health += amount
-	if health>10:
-		health = 10 
-	health_bar.set_health(health)
+func take_potion(potion_type: String, amount : int):
+	if potion_type == "health":
+		health += amount
+		if health>10:
+			health = 10 
+		health_bar.set_health(health)
+		
+	elif potion_type == "energy":
+		energy += amount
+		if energy>10:
+			energy = 10 
+		health_bar.set_energy(energy)
+	
+	else:
+		print(self.name, " can't take potion of type : ", potion_type)
 
 func stop_combat():
 	turn_to_play = false
@@ -220,7 +230,7 @@ func stop_combat():
 	player_turn.emit(false)
 	close_interaction_panel()
 	attack_zone.visible = false
-	$CombatPath.deactivate(ground.mouse_hover, ground.mouse_not_on_ground)
+	$CombatPath.deactivate(ground.mouse_hover, ground.mouse_not_on_ground,interaction_ui.mouse_on_panel)
 	$CombatPath.visible = false
 	
 func open_interaction_panel(open :bool, _target):
@@ -250,6 +260,7 @@ func close_interaction_panel():
 	target = null
 	interaction_ui.set_target(null)
 	interaction_ui.visible = false
+	inventory.toggle_inventory(false)
 	
 func can_attack(_target : Vector3):
 	if global_position.distance_squared_to(_target) > 9:

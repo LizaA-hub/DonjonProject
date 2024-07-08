@@ -924,7 +924,7 @@ script = ExtResource("13_0w77b")
 
 [node name="key" parent="Items" groups=["environment"] instance=ExtResource("13_pbofa")]
 unique_name_in_owner = true
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 19, 1, -49)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 16, 1, -43)
 
 [node name="potion" parent="Items" groups=["dynamic"] instance=ExtResource("14_huusp")]
 unique_name_in_owner = true

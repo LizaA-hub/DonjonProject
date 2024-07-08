@@ -23,6 +23,7 @@ func _on_static_body_3d_3_input_event(_camera, event, _position, _normal, _shape
 				player.try_interact(_position)
 				can_move = true
 				door_to_move = 1
+				player.close_interaction_panel()
 				
 				
 func NPC_free():
@@ -60,6 +61,7 @@ func _on_static_body_3d_input_event(_camera, event, _position, _normal, _shape_i
 				player.try_interact(_position)
 				can_move = true
 				door_to_move = 2
+				player.close_interaction_panel()
 
 
 func _on_button_input_event(_camera, event, _position, _normal, _shape_idx):
@@ -69,3 +71,4 @@ func _on_button_input_event(_camera, event, _position, _normal, _shape_idx):
 				player.try_interact(_position)
 				can_move = true
 				door_to_move = 3
+				player.close_interaction_panel()

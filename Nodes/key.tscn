@@ -17,6 +17,8 @@ size = Vector3(3, 1, 1.555)
 script = ExtResource("1_j2042")
 power = 1
 quantity = 1
+item_name = "Key"
+description = "use it to open a locked path"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.25, 0, 0, 0, 1, 1.169, 0, 0)

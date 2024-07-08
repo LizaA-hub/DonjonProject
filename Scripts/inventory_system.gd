@@ -4,6 +4,9 @@ var is_open = false
 var items : Array[Item]
 var slots : Array[MarginContainer]
 @export var item_textures : Dictionary
+var rich_text
+var selected_item : Item
+var interraction_panel
 
 
 func _ready():
@@ -17,12 +20,20 @@ func _ready():
 	slots.append($Inventory/GridContainer/Slot8)
 	slots.append($Inventory/GridContainer/Slot9)
 	
-func toggle_inventory():
+	#for slot in slots:
+		#slot.gui_input.connect(on_double_click)
+	
+	rich_text = $Description
+	interraction_panel = %InteractionUI
+	
+func toggle_inventory(open : bool = !is_open) -> void:
 	set_slots()
 	#print(items.size(), " items in the inventory")
-	is_open = !is_open
+	is_open = open
 	$Inventory.visible = is_open
 	$ExitButton.visible = is_open
+	if !is_open:
+		rich_text.visible = is_open
 
 func add_item(item : Item):
 	if items.size()!=0:
@@ -67,3 +78,52 @@ func remove(type : Item.types) -> void:
 				items.erase(_item)
 		return
 	print("not item of type : ", type , " found in the inventory.")
+	
+func item_selected(slot : MarginContainer) -> void:
+	rich_text.visible = false
+	for i in slots.size():
+		if slots[i] == slot :
+			if items.size()>i:
+				selected_item = items[i]
+				display_description(items[i])
+			else:
+				selected_item = null
+			return
+	print("iventory system: no item corresponding to the slot")
+		
+func display_description(item : Item) -> void :
+	rich_text.visible = true
+	rich_text.text = ""
+	var displayed_name = "[b]" + item.item_name + "[/b] \n"
+	var displayed_description = item.description
+	rich_text.push_font_size(20)
+	rich_text.text = displayed_name
+	rich_text.append_text(displayed_description)
+
+func on_double_click(event : InputEvent) -> void:
+	
+	if event is InputEventMouseButton:
+		if event.button_index == 1:
+			if event.is_double_click():
+				if selected_item ==null:
+					#print("double click : no item selected")
+					return
+				use(selected_item)
+				#print("using item")
+				
+func use(item : Item) -> void:
+	match item.type:
+		Item.types.KEY:
+			return 
+		Item.types.HEALTH_POTION:
+			if interraction_panel.can_get_potion("health", item.power):
+				remove_item()
+		Item.types.ENERGY_POTION:
+			if interraction_panel.can_get_potion("energy", item.power):
+				remove_item()
+				
+func remove_item() -> void:
+	items.erase(selected_item)
+	selected_item = null
+	set_slots()
+	
