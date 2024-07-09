@@ -1,7 +1,7 @@
 extends Node
 
 var is_open = false
-var items : Array[Item]
+@export var items : Array[Item]
 var slots : Array[MarginContainer]
 @export var item_textures : Dictionary
 var rich_text
@@ -70,12 +70,18 @@ func inventory_has(type : Item.types) -> bool:
 	return false
 	
 func remove(type : Item.types) -> void:
+	var item_to_erase = null
 	for _item in items:
 		if _item.type == type:
 			if _item.quantity > 1:
 				_item.quantity -= 1
+				set_slots()
+				return
 			else:
-				items.erase(_item)
+				item_to_erase = _item
+	if item_to_erase != null:
+		items.erase(item_to_erase)
+		set_slots()
 		return
 	print("not item of type : ", type , " found in the inventory.")
 	
@@ -117,13 +123,9 @@ func use(item : Item) -> void:
 			return 
 		Item.types.HEALTH_POTION:
 			if interraction_panel.can_get_potion("health", item.power):
-				remove_item()
+				remove(Item.types.HEALTH_POTION)
 		Item.types.ENERGY_POTION:
 			if interraction_panel.can_get_potion("energy", item.power):
-				remove_item()
-				
-func remove_item() -> void:
-	items.erase(selected_item)
-	selected_item = null
-	set_slots()
+				remove(Item.types.ENERGY_POTION)
+			
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://bc6ck6l8ptdnn"]
+[gd_scene load_steps=56 format=3 uid="uid://bc6ck6l8ptdnn"]
 
 [ext_resource type="Script" path="res://Scripts/Floor.gd" id="1_8ila6"]
 [ext_resource type="PackedScene" uid="uid://cdwrdxs0arsup" path="res://Nodes/Player2.tscn" id="1_d1leb"]
@@ -15,15 +15,13 @@
 [ext_resource type="Script" path="res://Scripts/CombatController.gd" id="13_0w77b"]
 [ext_resource type="PackedScene" uid="uid://bb40vuwqxwqur" path="res://Nodes/key.tscn" id="13_pbofa"]
 [ext_resource type="PackedScene" uid="uid://drdqnxmx618si" path="res://Nodes/PrisonerNPC.tscn" id="14_6ljua"]
+[ext_resource type="PackedScene" uid="uid://carjr1rg5fiqf" path="res://Nodes/EnergyPotion.tscn" id="14_bd5vu"]
 [ext_resource type="PackedScene" uid="uid://bly5ffn0su80" path="res://Nodes/Potion.tscn" id="14_huusp"]
 [ext_resource type="Script" path="res://Scripts/Viewport.gd" id="15_7d5rg"]
 [ext_resource type="PackedScene" uid="uid://cqyp7etdwplcb" path="res://Nodes/playerTurnUI.tscn" id="20_7xuso"]
 [ext_resource type="PackedScene" uid="uid://d1ydsioaq4v76" path="res://Nodes/CharacterStatesUI.tscn" id="21_0kfec"]
 [ext_resource type="PackedScene" uid="uid://iooxa887vj1g" path="res://Nodes/inventory_system.tscn" id="21_lpvqi"]
 [ext_resource type="PackedScene" uid="uid://dgavmndrtv4" path="res://Nodes/ActionsUI.tscn" id="21_lq0bm"]
-[ext_resource type="Texture2D" uid="uid://fl5wvhymd2gl" path="res://Textures/Key.tga" id="22_6omhv"]
-[ext_resource type="Texture2D" uid="uid://dsuekau76tyas" path="res://Textures/RedPotion.tga" id="23_5rjkv"]
-[ext_resource type="Texture2D" uid="uid://daa345nnbn183" path="res://Textures/BluePotion.tga" id="24_ik7bq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ujqwp"]
 sky_horizon_color = Color(0.59625, 0.6135, 0.6375, 1)
@@ -930,6 +928,9 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 16, 1, -43)
 unique_name_in_owner = true
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -6, 1, -74)
 
+[node name="energyPotion" parent="Items" instance=ExtResource("14_bd5vu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.96567, -4.18588, 0)
+
 [node name="Borders" type="Node" parent="."]
 
 [node name="Border" type="StaticBody3D" parent="Borders" groups=["dynamic"]]
@@ -1582,40 +1583,37 @@ fov = 48.2
 render_target_update_mode = 1
 script = ExtResource("15_7d5rg")
 
-[node name="Enemy" parent="Enemy1SubViewport" node_paths=PackedStringArray("viewport") instance=ExtResource("12_3c721")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1, -63.7042)
+[node name="Enemy1" parent="Enemy1SubViewport" node_paths=PackedStringArray("viewport") instance=ExtResource("12_3c721")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.5, -65)
 has_key = true
 viewport = NodePath("..")
 
-[node name="Camera3D" type="Camera3D" parent="Enemy1SubViewport/Enemy"]
-transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 2, 0, -2)
-fov = 51.1
+[node name="Camera3D" type="Camera3D" parent="Enemy1SubViewport/Enemy1"]
+transform = Transform3D(-0.688354, -0.132189, 0.713228, 0, 0.983255, 0.182236, -0.725374, 0.125443, -0.676828, 2, 0.64, -2)
 
 [node name="Enemy2SubViewport" type="SubViewport" parent="."]
 render_target_update_mode = 1
 script = ExtResource("15_7d5rg")
 
 [node name="Enemy2" parent="Enemy2SubViewport" node_paths=PackedStringArray("viewport") instance=ExtResource("12_3c721")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -42, 1, -32)
-has_key = true
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -41, 1.5, -16)
+has_potion = true
 viewport = NodePath("..")
 
 [node name="Camera3D" type="Camera3D" parent="Enemy2SubViewport/Enemy2"]
-transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 2, 0, -2)
-fov = 41.2
+transform = Transform3D(-0.688354, -0.132189, 0.713228, 0, 0.983255, 0.182236, -0.725374, 0.125443, -0.676828, 2, 0.64, -2)
 
 [node name="Enemy3SubViewport" type="SubViewport" parent="."]
 render_target_update_mode = 1
 script = ExtResource("15_7d5rg")
 
 [node name="Enemy3" parent="Enemy3SubViewport" node_paths=PackedStringArray("viewport") instance=ExtResource("12_3c721")]
-transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -42, 1, -16)
-has_potion = true
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -41, 1.5, -32)
+has_key = true
 viewport = NodePath("..")
 
 [node name="Camera3D" type="Camera3D" parent="Enemy3SubViewport/Enemy3"]
-transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 2, 0, -1.99998)
-fov = 38.2
+transform = Transform3D(-0.688354, -0.132189, 0.713228, 0, 0.983255, 0.182236, -0.725374, 0.125443, -0.676828, 2, 0.64, -2)
 
 [node name="PrisonerSubViewport" type="SubViewport" parent="."]
 render_target_update_mode = 1
@@ -1637,13 +1635,9 @@ unique_name_in_owner = true
 
 [node name="CharactersStates" parent="." instance=ExtResource("21_0kfec")]
 
-[node name="InventorySystem" parent="." instance=ExtResource("21_lpvqi")]
+[node name="InventorySystem" parent="." node_paths=PackedStringArray("items") instance=ExtResource("21_lpvqi")]
 unique_name_in_owner = true
-item_textures = {
-"EnergyPotion": ExtResource("24_ik7bq"),
-"HealthPotion": ExtResource("23_5rjkv"),
-"Key": ExtResource("22_6omhv")
-}
+items = [NodePath("../Items/energyPotion")]
 
 [connection signal="input_event" from="Bar/clickable" to="Bar" method="_on_clickable_input_event"]
 [connection signal="body_entered" from="LigthArea/corridorArea" to="LigthArea/corridorArea" method="_on_body_entered"]

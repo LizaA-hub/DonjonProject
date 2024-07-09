@@ -44,6 +44,7 @@ func move_down(value = 1):
 	var door = FirstDoor
 	if value ==2:
 		door = SecondDoor
+		player.remove_item(Item.types.KEY)
 	elif value == 3:
 		door = ThirdDoor
 		

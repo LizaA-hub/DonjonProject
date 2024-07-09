@@ -51,6 +51,8 @@ func deactivate(_signal, mouse_exit_signal,mouse_on_ui):
 	_signal.disconnect(draw_mouse_line)
 	mouse_exit_signal.disconnect(hide_line)
 	mouse_on_ui.disconnect(hide_line)
+	if current_line != null:
+		current_line.queue_free()
 	
 func get_target_position():
 	return destination

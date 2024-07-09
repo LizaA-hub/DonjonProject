@@ -3,6 +3,7 @@ extends Character
 var player
 @export var has_key = false
 @export var has_potion = false
+var alive : bool = true
 
 #region GodotFunctions
 func _ready():
@@ -12,7 +13,7 @@ func _ready():
 	health_bar.initialize(pseudo,max_health,health_changed,max_energy,energy_changed)
 	
 	combat_controller =%CombatController
-	combat_controller.combat_mode.connect(start_combat)
+	combat_controller.combat_stopped.connect(stop_combat)
 	player = %player
 	player.interact.connect(get_attacked)
 	
@@ -59,13 +60,14 @@ func on_left_click():
 #endregion
 	
 func start_combat():
-	if !visible:
+	if !alive:
+		#print(name," : is not alive")
 		return
 
 	if is_in_combat:
 		stop_combat()
 		return
-
+	#print(name," : ",global_position)
 	is_in_combat = true
 	remove_from_group("dynamic")
 	if target == null:
@@ -84,15 +86,18 @@ func try_attack(_position : Vector3):
 		start_attack()
 		
 func start_attack():
+	var strength = 1
 	turn_to_play = false
 
 	await create_tween().tween_interval(0.5).finished
 	$AnimationPlayer.play("enemy_attack")
 	await create_tween().tween_interval(0.6).finished
 	$AnimationPlayer.stop()
-	var health_left = target.take_damage(1)
+	if energy >=5 :
+		strength = [1,5].pick_random()
+	var health_left = target.take_damage(strength)
 	
-	energy -= 1
+	energy -= strength
 	energy_changed.emit(energy)
 
 	if health_left <= 0:
@@ -100,13 +105,16 @@ func start_attack():
 	end_turn()
 	
 func disapear():
+	#print(name, " : disapearring")
 	position_before_move = global_position
 	global_position.y = -10
 	combat_controller.remove_opponent(self)
+	
 	if has_key:
 		%key.global_position = position_before_move
 	if has_potion:
 		%potion.global_position = position_before_move
+	alive = false
 
 func get_attacked(_strength : float):
 	if !can_take_damage:
@@ -115,6 +123,9 @@ func get_attacked(_strength : float):
 	take_damage(_strength)
 	
 func set_turn():
+	if !is_in_combat:
+		return
+		
 	target = combat_controller.target_validity(target,"ally")
 	$TurnIndicator.visible = true
 	if target != null:
@@ -124,6 +135,7 @@ func set_turn():
 		print(self.name, " can't set target")
 		
 func end_turn():
+	#print(name," : end turn")
 	if turn_to_play:
 		turn_to_play = false
 	$TurnIndicator.visible = false

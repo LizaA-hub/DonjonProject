@@ -21,11 +21,12 @@ func _ready():
 	ShowBubble("Sad")
 	get_node("/root/Node3D/Bar").is_free.connect(get_free)
 	get_node("/root/Node3D/Doors").door_opening.connect(open_door)
-
+	
 func get_free():
 	ShowBubble("Love",2)
 	combat_controller = %CombatController
-	combat_controller.combat_mode.connect(start_combat)
+	combat_controller.combat_started.connect(start_combat)
+	combat_controller.combat_stopped.connect(stop_combat)
 	await create_tween().tween_interval(1).finished
 	isFollowingPlayer = true
 	speed = 400.0

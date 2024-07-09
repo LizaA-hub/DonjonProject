@@ -1,8 +1,10 @@
-[gd_scene load_steps=55 format=3 uid="uid://iooxa887vj1g"]
+[gd_scene load_steps=57 format=3 uid="uid://iooxa887vj1g"]
 
 [ext_resource type="Script" path="res://Scripts/inventory_system.gd" id="1_52ul8"]
 [ext_resource type="Script" path="res://Scripts/Slot.gd" id="2_com8o"]
 [ext_resource type="Texture2D" uid="uid://daa345nnbn183" path="res://Textures/BluePotion.tga" id="3_dkglm"]
+[ext_resource type="Texture2D" uid="uid://dsuekau76tyas" path="res://Textures/RedPotion.tga" id="3_j0tl1"]
+[ext_resource type="Texture2D" uid="uid://fl5wvhymd2gl" path="res://Textures/Key.tga" id="4_bamiq"]
 [ext_resource type="Texture2D" uid="uid://dlbxse3j46k4l" path="res://Textures/WhiteSquare.tga" id="4_mf7eb"]
 [ext_resource type="Texture2D" uid="uid://dilebf51ksgis" path="res://Textures/blackSquare.tga" id="5_vmf8w"]
 [ext_resource type="Texture2D" uid="uid://cegc0sxk04vop" path="res://Textures/BorderSquare.tga" id="6_bfjot"]
@@ -152,6 +154,11 @@ viewport_path = NodePath("Inventory/SlectedTexture")
 
 [node name="InventorySystem" type="Node"]
 script = ExtResource("1_52ul8")
+item_textures = {
+"EnergyPotion": ExtResource("3_dkglm"),
+"HealthPotion": ExtResource("3_j0tl1"),
+"Key": ExtResource("4_bamiq")
+}
 
 [node name="ExitButton" type="Button" parent="."]
 visible = false

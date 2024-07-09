@@ -42,7 +42,7 @@ text = "ATTACK"
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="VBoxContainer/SpecialAttackButton"]
+[node name="SpecialAttackButton" type="Button" parent="VBoxContainer/SpecialAttackButton"]
 custom_minimum_size = Vector2(180, 40)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -94,8 +94,13 @@ size_flags_vertical = 4
 text = "END TURN"
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_entered" from="VBoxContainer" to="." method="_on_mouse_entered"]
 [connection signal="button_down" from="VBoxContainer/AttackButton/AttackButton" to="." method="_on_attack_button_button_down"]
-[connection signal="button_down" from="VBoxContainer/SpecialAttackButton/Button" to="." method="_on_button_button_down"]
+[connection signal="mouse_entered" from="VBoxContainer/AttackButton/AttackButton" to="." method="_on_attack_button_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/AttackButton/AttackButton" to="." method="_on_attack_button_mouse_exited"]
+[connection signal="button_down" from="VBoxContainer/SpecialAttackButton/SpecialAttackButton" to="." method="_on_special_attack_button_button_down"]
+[connection signal="mouse_entered" from="VBoxContainer/SpecialAttackButton/SpecialAttackButton" to="." method="_on_special_attack_button_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/SpecialAttackButton/SpecialAttackButton" to="." method="_on_special_attack_button_mouse_exited"]
 [connection signal="button_down" from="VBoxContainer/Move/MoveButton" to="." method="_on_move_button_button_down"]
 [connection signal="button_down" from="VBoxContainer/MoveAttack/MoveAttackButton" to="." method="_on_move_attack_button_button_down"]
 [connection signal="button_down" from="VBoxContainer/UseObjectButton/UseObjectButton" to="." method="_on_use_object_button_button_down"]

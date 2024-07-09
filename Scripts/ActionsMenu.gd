@@ -9,15 +9,23 @@ var target
 var inventory
 signal mouse_on_panel()
 var target_type
+var indications : Label
 
 func _ready():
 	var combat_controller = %CombatController
-	combat_controller.combat_mode.connect(toggle_combat)
+	combat_controller.combat_started.connect(toggle_combat)
+	combat_controller.combat_stopped.connect(toggle_combat)
 	visible = false
 	
 	player = %player
 	
 	inventory = $"../InventorySystem"
+	
+	indications = Label.new()
+	get_tree().get_root().add_child.call_deferred(indications)
+	var indication_position = global_position
+	indication_position.x -= 100
+	indications.global_position = indication_position
 	
 func set_buttons(_target_type : String):
 	target_type = _target_type
@@ -45,6 +53,8 @@ func set_buttons(_target_type : String):
 				can_move = true
 	
 	$VBoxContainer/AttackButton.visible = can_attack
+	if player.energy < 5:
+		can_attack = false
 	$VBoxContainer/SpecialAttackButton.visible = can_attack
 	$VBoxContainer/MoveAttack.visible = can_move_attack
 	$VBoxContainer/Move.visible = can_move
@@ -103,3 +113,29 @@ func can_get_potion(potion_type : String, power : int) -> bool:
 		else:
 			return false
 	return true
+
+
+func _on_special_attack_button_button_down():
+	target.can_take_damage = true
+	player.try_attack(target,true)
+
+
+func _on_attack_button_mouse_entered():
+	show_indications(1)
+
+func _on_special_attack_button_mouse_entered():
+	show_indications(5)
+	
+func show_indications(_value : float) -> void :
+	indications.visible = true
+	indications.text = "%d damage \n - %d energy" %[_value,_value]
+
+func hide_indications() -> void:
+	indications.visible = false
+
+func _on_attack_button_mouse_exited():
+	hide_indications()
+
+
+func _on_special_attack_button_mouse_exited():
+	hide_indications()

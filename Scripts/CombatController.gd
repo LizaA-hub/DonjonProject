@@ -1,7 +1,8 @@
 extends Node
 
 var navigation_region
-signal combat_mode
+signal combat_started
+signal combat_stopped
 var opponents : Array
 var turn : int = -1
 var CombatUI 
@@ -12,7 +13,9 @@ func _ready():
 	
 func start_combat(_opponents : Array):
 	opponents = _opponents
-	combat_mode.emit()
+	for opponent in opponents:
+		opponent.start_combat()
+	combat_started.emit()
 	next_turn()
 	
 #func _input(_event):
@@ -20,6 +23,9 @@ func start_combat(_opponents : Array):
 		#print("it's ",opponents[turn], " turn." )
 	
 func next_turn():
+	if opponents.is_empty():
+		return
+		
 	turn += 1
 	if turn>= opponents.size():
 		turn = 0
@@ -63,7 +69,7 @@ func target_validity(target,type):
 func end_combat():
 	#print("combat controller : stopping combat")
 	opponents.clear()
-	combat_mode.emit()
+	combat_stopped.emit()
 	
 func add_opponent(new_opponent):
 	opponents.append(new_opponent)

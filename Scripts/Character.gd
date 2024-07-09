@@ -52,16 +52,16 @@ func _on_mouse_exited():
 func _on_timer_timeout():
 	$Sprite3D.visible= false
 	
-func _process(delta):
-	if is_in_combat:
-		return
-		
-	if energy < max_energy:
-		if refill_timer < 1:
-			refill_timer += delta
-		else:
-			refill_energy()
-			refill_timer = 0
+#func _process(delta):
+	#if is_in_combat:
+		#return
+		#
+	#if energy < max_energy:
+		#if refill_timer < 1:
+			#refill_timer += delta
+		#else:
+			#refill_energy()
+			#refill_timer = 0
 #endregion
 				
 func ShowBubble(emote : String, duration : float = 0):
@@ -96,6 +96,8 @@ func disapear():
 	pass
 	
 func stop_combat():
+	if !is_in_combat:
+		return
 	#print("enemy : stopping combat")
 	turn_to_play = false
 	is_in_combat = false

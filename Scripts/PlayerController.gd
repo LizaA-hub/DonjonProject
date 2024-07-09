@@ -25,7 +25,7 @@ func _ready():
 	ground = $"../../NavigationRegion3D"
 	ground.mouse_clicked.connect(_init_move)
 	combat_controller = $"../../CombatController"
-	combat_controller.combat_mode.connect(start_combat)
+	combat_controller.combat_stopped.connect(stop_combat)
 	attack_zone = $AttackZone
 	combat_path = $CombatPath
 
@@ -55,7 +55,7 @@ func _physics_process(delta):
 		is_moving = false
 		end_turn()
 	
-	if (is_reaching_target and navigationAgent.distance_to_target() <= 3):
+	if (is_reaching_target and can_attack(navigationAgent.target_position)):
 		set_target(global_position)
 		newVelocity = Vector3.ZERO
 		is_reaching_target = false
@@ -105,7 +105,7 @@ func _init_move(_position : Vector3):
 func move_weapon():
 	$AnimationPlayer.play("Weapon")
 		
-func try_attack(_target):
+func try_attack(_target, special_attack : bool = false) -> void:
 	if is_in_combat and !turn_to_play:
 		return
 		
@@ -116,18 +116,37 @@ func try_attack(_target):
 		_init_move(target_position)
 		target_type = InteractableType.ATTACKABLE
 	else:
+		if special_attack:
+			start_special_attack()
+			return
+			
 		custom_look_at(target_position)
 		start_attack()
 		
 func start_attack():
-	if has_weapon:
-		move_weapon()
-		interact.emit(1)
+	if !has_weapon:
+		return
+		
+	move_weapon()
 		
 	if is_in_combat:
 		energy -= 1
 		energy_changed.emit(energy)
 		end_turn()
+		
+	interact.emit(1)
+		
+func start_special_attack()-> void:
+	if !has_weapon:
+		return
+		
+	move_weapon() #create another anim later
+	if is_in_combat:
+		energy -= 5
+		energy_changed.emit(energy)
+		end_turn()
+		
+	interact.emit(5)
 		
 func unlock_weapon():
 	$Weapon.visible = true
@@ -157,6 +176,7 @@ func disapear():#game over
 	combat_controller.remove_opponent(self)
 	
 func end_turn():
+	#print("player : end turn")
 	is_moving = false
 	turn_to_play = false
 	$TurnIndicator.visible = false
@@ -212,22 +232,22 @@ func take_potion(potion_type: String, amount : int):
 		if health>10:
 			health = 10 
 		health_bar.set_health(health)
+		health_changed.emit(health)
 		
 	elif potion_type == "energy":
 		energy += amount
 		if energy>10:
 			energy = 10 
 		health_bar.set_energy(energy)
+		energy_changed.emit(energy)
 	
 	else:
 		print(self.name, " can't take potion of type : ", potion_type)
-
+	
 func stop_combat():
-	turn_to_play = false
+	
 	is_in_combat = false
 	can_take_damage = false
-	$TurnIndicator.visible = false
-	player_turn.emit(false)
 	close_interaction_panel()
 	attack_zone.visible = false
 	$CombatPath.deactivate(ground.mouse_hover, ground.mouse_not_on_ground,interaction_ui.mouse_on_panel)

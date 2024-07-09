@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://carjr1rg5fiqf"]
+
+[ext_resource type="Script" path="res://Scripts/Item.gd" id="1_g5rb6"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5yeie"]
+top_radius = 0.1
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jytm0"]
+albedo_color = Color(0.396078, 0.584314, 0.870588, 1)
+metallic = 0.2
+roughness = 0.49
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_am0ru"]
+radius = 1.071
+
+[node name="potion" type="StaticBody3D"]
+script = ExtResource("1_g5rb6")
+type = 2
+power = 5
+quantity = 1
+item_name = "Energy Potion"
+description = "+5 energy"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_5yeie")
+surface_material_override/0 = SubResource("StandardMaterial3D_jytm0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_am0ru")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

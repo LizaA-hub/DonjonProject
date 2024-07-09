@@ -15,7 +15,7 @@ func _ready():
 	slot_template = slots[0]
 	
 	var combat_controller = %CombatController
-	combat_controller.combat_mode.connect(close_UI)
+	combat_controller.combat_stopped.connect(close_UI)
 	
 	$PanelContainer.visible = false
 

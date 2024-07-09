@@ -136,11 +136,14 @@ func try_attack(_position : Vector3):
 		start_attack()
 
 func start_attack():
+	var strength = 1
 	turn_to_play = false
 	play_animation()
 	await create_tween().tween_interval(1).finished
-	var health_left = target.take_damage(1)
-	energy -= 1
+	if energy >=5:
+		strength = [1,5].pick_random()
+	var health_left = target.take_damage(strength)
+	energy -= strength
 	energy_changed.emit(energy)
 	if health_left <= 0:
 		target = combat_controller.get_target("enemy")
@@ -164,6 +167,7 @@ func set_turn():
 		print(self.name, " can't set target")
 		
 func end_turn():
+	#print("NPC: end turn")
 	if turn_to_play:
 		turn_to_play = false
 	combat_controller.next_turn()
@@ -183,12 +187,14 @@ func take_potion(potion_type: String, amount : int):
 		if health>10:
 			health = 10 
 		health_bar.set_health(health)
+		health_changed.emit(health)
 		
 	if potion_type == "energy":
 		energy += amount
 		if energy>10:
 			energy = 10 
 		health_bar.set_energy(energy)
+		energy_changed.emit(energy)
 	
 	else:
 		print(self.namme, " can't take potion of type : ", potion_type)
