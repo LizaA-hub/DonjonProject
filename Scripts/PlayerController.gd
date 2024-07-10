@@ -36,8 +36,6 @@ func _ready():
 	
 	interaction_ui = %InteractionUI
 	inventory = %InventorySystem
-	#$CombatPath.visible = false
-
 
 func _physics_process(delta):
 
@@ -103,6 +101,7 @@ func _init_move(_position : Vector3):
 
 #region CombatFunctions
 func move_weapon():
+	$AnimationPlayer.stop()
 	$AnimationPlayer.play("Weapon")
 		
 func try_attack(_target, special_attack : bool = false) -> void:
@@ -216,6 +215,8 @@ func start_interact():
 			start_attack()
 		InteractableType.INTERACTABLE:
 			interact.emit(0)
+	if is_in_combat:
+		end_turn()
 
 func door_opening(door : Vector3):
 	is_in_combat = true
@@ -258,10 +259,11 @@ func open_interaction_panel(open :bool, _target):
 		return
 	
 	target = _target
-	interaction_ui.set_target(target)
-	
-	interaction_ui.visible = open
-	interaction_ui.set_buttons(get_target_type(target))
+	if !interaction_ui.set_target(target):
+		close_interaction_panel()
+	else:
+		interaction_ui.visible = open
+		interaction_ui.set_buttons(get_target_type(target))
 	
 		
 func get_target_type(_target):

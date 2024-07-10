@@ -70,6 +70,7 @@ func end_combat():
 	#print("combat controller : stopping combat")
 	opponents.clear()
 	combat_stopped.emit()
+	navigation_region.combat_ended()
 	
 func add_opponent(new_opponent):
 	opponents.append(new_opponent)

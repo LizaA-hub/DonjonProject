@@ -39,7 +39,11 @@ func _on_ground_input_event(_camera, event, _position, _normal, _shape_idx):
 		mouse_hover.emit(_position)
 		signal_sent = false
 	
-func start_combat(opponents : Array):
+func start_combat(opponents : Array, room_nodes : Array) -> void:
+	for child in children:
+		if !room_nodes.has(child):
+			child.input_ray_pickable = false
+			
 	combat_started.emit(opponents)
 	
 func _on_ground_mouse_exited():
@@ -47,3 +51,7 @@ func _on_ground_mouse_exited():
 	
 func _on_ground_mouse_entered():
 	mouse_on_child += 1
+	
+func combat_ended():
+	for child in children:
+		child.input_ray_pickable = true

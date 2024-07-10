@@ -198,3 +198,6 @@ func take_potion(potion_type: String, amount : int):
 	
 	else:
 		print(self.namme, " can't take potion of type : ", potion_type)
+
+func on_left_click():
+	PlayerBody.open_interaction_panel(true,self)

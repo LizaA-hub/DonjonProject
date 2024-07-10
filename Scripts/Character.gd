@@ -43,15 +43,17 @@ func _on_navigation_agent_3d_velocity_computed(safe_velocity):
 	move_and_slide()
 
 func _on_mouse_entered():
-	$Timer.stop()
+	#$Timer.stop()
 	$Sprite3D.visible= true
 
 func _on_mouse_exited():
-	$Timer.start(.5)
+	#$Timer.start(.5)
+	$Sprite3D.visible= false
 
 func _on_timer_timeout():
 	$Sprite3D.visible= false
-	
+
+
 #func _process(delta):
 	#if is_in_combat:
 		#return

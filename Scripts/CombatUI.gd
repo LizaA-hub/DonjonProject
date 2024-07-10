@@ -7,7 +7,7 @@ var slot_template
 var vertical_container
 
 func _ready():
-	var navigation_region = $"../NavigationRegion3D"
+	var navigation_region = $"../../NavigationRegion3D"
 	navigation_region.combat_started.connect(set_ui)
 	
 	vertical_container = $PanelContainer/VBoxContainer

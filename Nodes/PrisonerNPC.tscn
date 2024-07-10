@@ -106,6 +106,7 @@ viewport_path = NodePath("SubViewport")
 
 [node name="CharacterBody3D" type="CharacterBody3D" groups=["ally"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 2
 script = ExtResource("1_hnlpk")
 speed = 50.0
 max_health = 10
@@ -134,6 +135,7 @@ mesh = SubResource("SphereMesh_8b8yp")
 surface_material_override/0 = SubResource("StandardMaterial3D_iqa4g")
 
 [node name="Area3D" type="Area3D" parent="."]
+collision_mask = 3
 input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]

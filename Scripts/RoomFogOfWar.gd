@@ -56,7 +56,7 @@ func _on_body_entered(body):
 		is_lighten = true
 		
 		if opponents.size() > 1:
-			navigation_region.start_combat(opponents)
+			navigation_region.start_combat(opponents, room_nodes)
 
 func _on_body_exited(body):
 	if body.name == "player":

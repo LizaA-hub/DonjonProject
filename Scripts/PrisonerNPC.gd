@@ -7,8 +7,8 @@ func _ready():
 	
 	timer = $MoveTimer
 	timer.timeout.connect(_on_move_timer_timeout)
-	health_bar_timer = $Timer
-	health_bar_timer.timeout.connect(_on_timer_timeout)
+	#health_bar_timer = $Timer
+	#health_bar_timer.timeout.connect(_on_timer_timeout)
 	
 	MaxDistance = 3
 	

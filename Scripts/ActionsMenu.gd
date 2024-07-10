@@ -1,7 +1,4 @@
-extends PanelContainer
-
-@export var vertical_container : VBoxContainer
-@export var pivot_position : Vector2
+extends Control
 
 var is_in_combat = false
 var player
@@ -11,6 +8,7 @@ signal mouse_on_panel()
 var target_type
 var indications : Label
 
+
 func _ready():
 	var combat_controller = %CombatController
 	combat_controller.combat_started.connect(toggle_combat)
@@ -18,8 +16,7 @@ func _ready():
 	visible = false
 	
 	player = %player
-	
-	inventory = $"../InventorySystem"
+	inventory = %InventorySystem
 	
 	indications = Label.new()
 	get_tree().get_root().add_child.call_deferred(indications)
@@ -32,7 +29,7 @@ func set_buttons(_target_type : String):
 	var can_attack = true
 	var can_move_attack = false
 	var can_move = false
-	$VBoxContainer/EndTurnButton.visible = is_in_combat
+	$AspectRatioContainer/PanelContainer/VBoxContainer/EndTurnButton.visible = is_in_combat
 	
 	if target_type == "ally":
 		can_attack = false
@@ -52,12 +49,13 @@ func set_buttons(_target_type : String):
 				can_attack = false
 				can_move = true
 	
-	$VBoxContainer/AttackButton.visible = can_attack
+	$AspectRatioContainer/PanelContainer/VBoxContainer/AttackButton.visible = can_attack
 	if player.energy < 5:
 		can_attack = false
-	$VBoxContainer/SpecialAttackButton.visible = can_attack
-	$VBoxContainer/MoveAttack.visible = can_move_attack
-	$VBoxContainer/Move.visible = can_move
+	$AspectRatioContainer/PanelContainer/VBoxContainer/SpecialAttackButton.visible = can_attack
+	$AspectRatioContainer/PanelContainer/VBoxContainer/MoveAttack.visible = can_move_attack
+	$AspectRatioContainer/PanelContainer/VBoxContainer/Move.visible = can_move
+
 	
 func toggle_combat():
 	is_in_combat = !is_in_combat
@@ -68,9 +66,13 @@ func _on_attack_button_button_down():
 	target.can_take_damage = true
 	player.try_attack(target)
 	
-func set_target(_target):
+func set_target(_target) -> bool:
+	if target == _target:
+		return false
+		
 	target = _target
-
+	return true
+	
 
 func _on_move_button_button_down():
 	player.try_attack(target)
@@ -139,3 +141,7 @@ func _on_attack_button_mouse_exited():
 
 func _on_special_attack_button_mouse_exited():
 	hide_indications()
+
+
+func _on_button_button_down():
+	player.close_interaction_panel()

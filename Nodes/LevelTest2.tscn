@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://bc6ck6l8ptdnn"]
+[gd_scene load_steps=57 format=3 uid="uid://bc6ck6l8ptdnn"]
 
 [ext_resource type="Script" path="res://Scripts/Floor.gd" id="1_8ila6"]
 [ext_resource type="PackedScene" uid="uid://cdwrdxs0arsup" path="res://Nodes/Player2.tscn" id="1_d1leb"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://d1ydsioaq4v76" path="res://Nodes/CharacterStatesUI.tscn" id="21_0kfec"]
 [ext_resource type="PackedScene" uid="uid://iooxa887vj1g" path="res://Nodes/inventory_system.tscn" id="21_lpvqi"]
 [ext_resource type="PackedScene" uid="uid://dgavmndrtv4" path="res://Nodes/ActionsUI.tscn" id="21_lq0bm"]
+[ext_resource type="PackedScene" uid="uid://d0xw73lwlvvq6" path="res://Nodes/Popup.tscn" id="23_o6bu7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ujqwp"]
 sky_horizon_color = Color(0.59625, 0.6135, 0.6375, 1)
@@ -579,15 +580,16 @@ shape = SubResource("BoxShape3D_dkh73")
 layers = 2
 mesh = SubResource("BoxMesh_732n2")
 
-[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18, 0)
+[node name="MainCamera" type="Camera3D" parent="." node_paths=PackedStringArray("player")]
+unique_name_in_owner = true
+transform = Transform3D(-3.78552e-08, -0.5, 0.866025, -2.18557e-08, 0.866025, 0.5, -1, 0, -4.37114e-08, 5, 4, 0)
 current = true
 size = 27.257
 script = ExtResource("3_i5uo2")
 start_position = Vector3(14, 16, 4)
 player = NodePath("../PlayerSubViewport/player")
 
-[node name="SpotLight3D2" type="SpotLight3D" parent="Camera3D"]
+[node name="SpotLight3D2" type="SpotLight3D" parent="MainCamera"]
 transform = Transform3D(0.258819, -0.683013, 0.683013, 1.49012e-08, 0.707107, 0.707107, -0.965926, -0.183013, 0.183013, -7, -8, -2)
 light_color = Color(0.882353, 0.717647, 0.427451, 1)
 light_energy = 6.0
@@ -602,6 +604,7 @@ script = ExtResource("7_aoa8v")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Bar" groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.01, 0, 3.42)
+collision_mask = 3
 script = ExtResource("2_ky2oe")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Bar/StaticBody3D"]
@@ -614,6 +617,7 @@ shape = SubResource("CylinderShape3D_whtty")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="Bar" groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8477, 0, 3.42)
+collision_mask = 3
 script = ExtResource("2_ky2oe")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Bar/StaticBody3D2"]
@@ -626,6 +630,7 @@ shape = SubResource("CylinderShape3D_whtty")
 
 [node name="StaticBody3D3" type="StaticBody3D" parent="Bar" groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.66479, 0, 3.42)
+collision_mask = 3
 script = ExtResource("2_ky2oe")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Bar/StaticBody3D3"]
@@ -638,6 +643,7 @@ shape = SubResource("CylinderShape3D_whtty")
 
 [node name="StaticBody3D4" type="StaticBody3D" parent="Bar" groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.52847, 0, 3.42)
+collision_mask = 3
 script = ExtResource("2_ky2oe")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Bar/StaticBody3D4"]
@@ -650,6 +656,7 @@ shape = SubResource("CylinderShape3D_whtty")
 
 [node name="StaticBody3D5" type="StaticBody3D" parent="Bar" groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.70928, 0, 3.42)
+collision_mask = 3
 script = ExtResource("2_ky2oe")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Bar/StaticBody3D5"]
@@ -662,6 +669,7 @@ shape = SubResource("CylinderShape3D_whtty")
 
 [node name="StaticBody3D6" type="StaticBody3D" parent="Bar" groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.86459, 0, 3.42)
+collision_mask = 3
 script = ExtResource("2_ky2oe")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Bar/StaticBody3D6"]
@@ -674,6 +682,7 @@ shape = SubResource("CylinderShape3D_whtty")
 
 [node name="StaticBody3D9" type="StaticBody3D" parent="Bar" groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.49, -0.0320001, 1.7258)
+collision_mask = 3
 script = ExtResource("2_ky2oe")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Bar/StaticBody3D9"]
@@ -686,6 +695,7 @@ shape = SubResource("CylinderShape3D_whtty")
 
 [node name="StaticBody3D14" type="StaticBody3D" parent="Bar" groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.49, -0.0320001, 2.9261)
+collision_mask = 3
 script = ExtResource("2_ky2oe")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Bar/StaticBody3D14"]
@@ -698,6 +708,7 @@ shape = SubResource("CylinderShape3D_whtty")
 
 [node name="StaticBody3D10" type="StaticBody3D" parent="Bar" groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.49, 0, 0.475403)
+collision_mask = 3
 script = ExtResource("2_ky2oe")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Bar/StaticBody3D10"]
@@ -710,6 +721,7 @@ shape = SubResource("CylinderShape3D_whtty")
 
 [node name="StaticBody3D11" type="StaticBody3D" parent="Bar" groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.49, 0, -0.7099)
+collision_mask = 3
 script = ExtResource("2_ky2oe")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Bar/StaticBody3D11"]
@@ -722,6 +734,7 @@ shape = SubResource("CylinderShape3D_whtty")
 
 [node name="StaticBody3D12" type="StaticBody3D" parent="Bar" groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.49, 0, -1.9383)
+collision_mask = 3
 script = ExtResource("2_ky2oe")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Bar/StaticBody3D12"]
@@ -734,6 +747,7 @@ shape = SubResource("CylinderShape3D_whtty")
 
 [node name="StaticBody3D13" type="StaticBody3D" parent="Bar" groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.49, 0, -3.08)
+collision_mask = 3
 script = ExtResource("2_ky2oe")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Bar/StaticBody3D13"]
@@ -753,6 +767,7 @@ shape = SubResource("BoxShape3D_tuars")
 [node name="LigthArea" type="Node" parent="."]
 
 [node name="corridorArea" type="Area3D" parent="LigthArea" node_paths=PackedStringArray("Adjacent1")]
+collision_mask = 3
 input_ray_pickable = false
 script = ExtResource("4_t8an6")
 Adjacent1 = NodePath("../FisrtRoomArea")
@@ -763,6 +778,7 @@ shape = SubResource("BoxShape3D_avv47")
 
 [node name="corridorArea5" type="Area3D" parent="LigthArea" node_paths=PackedStringArray("Adjacent1")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 24, 0, -24)
+collision_mask = 3
 input_ray_pickable = false
 script = ExtResource("4_t8an6")
 Adjacent1 = NodePath("../FisrtRoomArea")
@@ -772,6 +788,7 @@ shape = SubResource("BoxShape3D_avv47")
 
 [node name="corridorArea2" type="Area3D" parent="LigthArea" node_paths=PackedStringArray("Adjacent1", "Adjacent2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -48)
+collision_mask = 3
 input_ray_pickable = false
 script = ExtResource("4_t8an6")
 Adjacent1 = NodePath("../FisrtRoomArea")
@@ -783,6 +800,7 @@ shape = SubResource("BoxShape3D_xdglx")
 
 [node name="corridorArea4" type="Area3D" parent="LigthArea" node_paths=PackedStringArray("Adjacent1", "Adjacent2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, -24)
+collision_mask = 3
 input_ray_pickable = false
 script = ExtResource("4_t8an6")
 Adjacent1 = NodePath("../ThirdRoomArea")
@@ -793,6 +811,7 @@ shape = SubResource("BoxShape3D_spiwh")
 
 [node name="corridorArea3" type="Area3D" parent="LigthArea" node_paths=PackedStringArray("Adjacent1", "Adjacent2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0, -64)
+collision_mask = 3
 input_ray_pickable = false
 script = ExtResource("4_t8an6")
 Adjacent1 = NodePath("../SecondRoomArea")
@@ -803,6 +822,7 @@ shape = SubResource("ConvexPolygonShape3D_fr33c")
 
 [node name="FisrtRoomArea" type="Area3D" parent="LigthArea" node_paths=PackedStringArray("Adjacent1", "Adjacent2", "Adjacent3", "Adjacent4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -24)
+collision_mask = 3
 input_ray_pickable = false
 script = ExtResource("4_t8an6")
 Adjacent1 = NodePath("../corridorArea")
@@ -815,6 +835,7 @@ shape = SubResource("BoxShape3D_ftnyd")
 
 [node name="SecondRoomArea" type="Area3D" parent="LigthArea" node_paths=PackedStringArray("Adjacent1", "Adjacent2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -64)
+collision_mask = 3
 input_ray_pickable = false
 script = ExtResource("4_t8an6")
 Adjacent1 = NodePath("../corridorArea2")
@@ -825,6 +846,7 @@ shape = SubResource("BoxShape3D_ftnyd")
 
 [node name="ThirdRoomArea" type="Area3D" parent="LigthArea" node_paths=PackedStringArray("Adjacent1", "Adjacent2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 0, -24)
+collision_mask = 3
 input_ray_pickable = false
 script = ExtResource("4_t8an6")
 Adjacent1 = NodePath("../corridorArea3")
@@ -841,6 +863,7 @@ ThirdDoor = NodePath("StaticBody3D2")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Doors" groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2, -24)
+collision_mask = 3
 script = ExtResource("2_ky2oe")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Doors/StaticBody3D"]
@@ -853,6 +876,7 @@ mesh = SubResource("BoxMesh_l4f8j")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="Doors" groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 2, -24)
+collision_mask = 3
 script = ExtResource("2_ky2oe")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Doors/StaticBody3D2"]
@@ -865,6 +889,7 @@ mesh = SubResource("BoxMesh_l4f8j")
 
 [node name="StaticBody3D3" type="StaticBody3D" parent="Doors" groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2, -64)
+collision_mask = 3
 script = ExtResource("2_ky2oe")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Doors/StaticBody3D3"]
@@ -879,6 +904,7 @@ mesh = SubResource("BoxMesh_l4f8j")
 
 [node name="BreakableDoor" type="StaticBody3D" parent="Props" groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -44)
+collision_mask = 3
 script = ExtResource("9_1ohrn")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Props/BreakableDoor"]
@@ -909,6 +935,7 @@ region_rect = Rect2(56, 24, 1048, 288)
 
 [node name="chest" parent="Props" instance=ExtResource("11_ijj81")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.892917, -24)
+collision_mask = 3
 
 [node name="button" parent="Props" groups=["environment"] instance=ExtResource("11_x8gs4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0.865, -24)
@@ -1628,16 +1655,23 @@ viewport = NodePath("..")
 transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 2, 0.62, -2)
 fov = 43.2
 
-[node name="PlayerTurnLabel" parent="." instance=ExtResource("20_7xuso")]
+[node name="UI" type="Node" parent="."]
 
-[node name="InteractionUI" parent="." instance=ExtResource("21_lq0bm")]
+[node name="PlayerTurnLabel" parent="UI" instance=ExtResource("20_7xuso")]
+
+[node name="CharactersStates" parent="UI" instance=ExtResource("21_0kfec")]
+
+[node name="InventorySystem" parent="UI" node_paths=PackedStringArray("items") instance=ExtResource("21_lpvqi")]
 unique_name_in_owner = true
+items = [NodePath("../../Items/energyPotion")]
 
-[node name="CharactersStates" parent="." instance=ExtResource("21_0kfec")]
-
-[node name="InventorySystem" parent="." node_paths=PackedStringArray("items") instance=ExtResource("21_lpvqi")]
+[node name="InteractionUI" parent="UI" instance=ExtResource("21_lq0bm")]
 unique_name_in_owner = true
-items = [NodePath("../Items/energyPotion")]
+offset_top = -160.0
+offset_bottom = 160.0
+
+[node name="PopUp" parent="UI" instance=ExtResource("23_o6bu7")]
+unique_name_in_owner = true
 
 [connection signal="input_event" from="Bar/clickable" to="Bar" method="_on_clickable_input_event"]
 [connection signal="body_entered" from="LigthArea/corridorArea" to="LigthArea/corridorArea" method="_on_body_entered"]

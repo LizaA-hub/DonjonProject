@@ -2,91 +2,114 @@
 
 [ext_resource type="Script" path="res://Scripts/ActionsMenu.gd" id="2_u2p17"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fnjxa"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_444oe"]
 
-[node name="PanelContainer" type="PanelContainer" node_paths=PackedStringArray("vertical_container")]
-custom_minimum_size = Vector2(200, 40)
+[node name="ActionsPanel" type="Control"]
+custom_minimum_size = Vector2(234, 50)
+layout_mode = 3
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -200.0
+offset_left = -241.0
 offset_top = -25.0
+offset_right = -7.0
 offset_bottom = 25.0
 grow_horizontal = 0
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_fnjxa")
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("2_u2p17")
-vertical_container = NodePath("VBoxContainer")
-pivot_position = Vector2(0.5, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -160.0
+offset_right = 100.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="AspectRatioContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_444oe")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/PanelContainer"]
+custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 
-[node name="AttackButton" type="MarginContainer" parent="VBoxContainer"]
+[node name="AttackButton" type="MarginContainer" parent="AspectRatioContainer/PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 
-[node name="AttackButton" type="Button" parent="VBoxContainer/AttackButton"]
+[node name="AttackButton" type="Button" parent="AspectRatioContainer/PanelContainer/VBoxContainer/AttackButton"]
 custom_minimum_size = Vector2(180, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "ATTACK"
 
-[node name="SpecialAttackButton" type="MarginContainer" parent="VBoxContainer"]
+[node name="SpecialAttackButton" type="MarginContainer" parent="AspectRatioContainer/PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 
-[node name="SpecialAttackButton" type="Button" parent="VBoxContainer/SpecialAttackButton"]
+[node name="SpecialAttackButton" type="Button" parent="AspectRatioContainer/PanelContainer/VBoxContainer/SpecialAttackButton"]
 custom_minimum_size = Vector2(180, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "ATTACK SPE."
 
-[node name="Move" type="MarginContainer" parent="VBoxContainer"]
+[node name="Move" type="MarginContainer" parent="AspectRatioContainer/PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 
-[node name="MoveButton" type="Button" parent="VBoxContainer/Move"]
+[node name="MoveButton" type="Button" parent="AspectRatioContainer/PanelContainer/VBoxContainer/Move"]
 custom_minimum_size = Vector2(180, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "REACH"
 
-[node name="MoveAttack" type="MarginContainer" parent="VBoxContainer"]
+[node name="MoveAttack" type="MarginContainer" parent="AspectRatioContainer/PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 
-[node name="MoveAttackButton" type="Button" parent="VBoxContainer/MoveAttack"]
+[node name="MoveAttackButton" type="Button" parent="AspectRatioContainer/PanelContainer/VBoxContainer/MoveAttack"]
 custom_minimum_size = Vector2(180, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "REACH AND ATTACK"
 
-[node name="UseObjectButton" type="MarginContainer" parent="VBoxContainer"]
+[node name="UseObjectButton" type="MarginContainer" parent="AspectRatioContainer/PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 
-[node name="UseObjectButton" type="Button" parent="VBoxContainer/UseObjectButton"]
+[node name="UseObjectButton" type="Button" parent="AspectRatioContainer/PanelContainer/VBoxContainer/UseObjectButton"]
 custom_minimum_size = Vector2(180, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "USE OBJECT"
 
-[node name="EndTurnButton" type="MarginContainer" parent="VBoxContainer"]
+[node name="EndTurnButton" type="MarginContainer" parent="AspectRatioContainer/PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 
-[node name="EndTurnButton" type="Button" parent="VBoxContainer/EndTurnButton"]
+[node name="EndTurnButton" type="Button" parent="AspectRatioContainer/PanelContainer/VBoxContainer/EndTurnButton"]
 custom_minimum_size = Vector2(180, 40)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -94,14 +117,14 @@ size_flags_vertical = 4
 text = "END TURN"
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_entered" from="VBoxContainer" to="." method="_on_mouse_entered"]
-[connection signal="button_down" from="VBoxContainer/AttackButton/AttackButton" to="." method="_on_attack_button_button_down"]
-[connection signal="mouse_entered" from="VBoxContainer/AttackButton/AttackButton" to="." method="_on_attack_button_mouse_entered"]
-[connection signal="mouse_exited" from="VBoxContainer/AttackButton/AttackButton" to="." method="_on_attack_button_mouse_exited"]
-[connection signal="button_down" from="VBoxContainer/SpecialAttackButton/SpecialAttackButton" to="." method="_on_special_attack_button_button_down"]
-[connection signal="mouse_entered" from="VBoxContainer/SpecialAttackButton/SpecialAttackButton" to="." method="_on_special_attack_button_mouse_entered"]
-[connection signal="mouse_exited" from="VBoxContainer/SpecialAttackButton/SpecialAttackButton" to="." method="_on_special_attack_button_mouse_exited"]
-[connection signal="button_down" from="VBoxContainer/Move/MoveButton" to="." method="_on_move_button_button_down"]
-[connection signal="button_down" from="VBoxContainer/MoveAttack/MoveAttackButton" to="." method="_on_move_attack_button_button_down"]
-[connection signal="button_down" from="VBoxContainer/UseObjectButton/UseObjectButton" to="." method="_on_use_object_button_button_down"]
-[connection signal="button_down" from="VBoxContainer/EndTurnButton/EndTurnButton" to="." method="_on_end_turn_button_button_down"]
+[connection signal="mouse_entered" from="AspectRatioContainer/PanelContainer/VBoxContainer" to="." method="_on_mouse_entered"]
+[connection signal="button_down" from="AspectRatioContainer/PanelContainer/VBoxContainer/AttackButton/AttackButton" to="." method="_on_attack_button_button_down"]
+[connection signal="mouse_entered" from="AspectRatioContainer/PanelContainer/VBoxContainer/AttackButton/AttackButton" to="." method="_on_attack_button_mouse_entered"]
+[connection signal="mouse_exited" from="AspectRatioContainer/PanelContainer/VBoxContainer/AttackButton/AttackButton" to="." method="_on_attack_button_mouse_exited"]
+[connection signal="button_down" from="AspectRatioContainer/PanelContainer/VBoxContainer/SpecialAttackButton/SpecialAttackButton" to="." method="_on_special_attack_button_button_down"]
+[connection signal="mouse_entered" from="AspectRatioContainer/PanelContainer/VBoxContainer/SpecialAttackButton/SpecialAttackButton" to="." method="_on_special_attack_button_mouse_entered"]
+[connection signal="mouse_exited" from="AspectRatioContainer/PanelContainer/VBoxContainer/SpecialAttackButton/SpecialAttackButton" to="." method="_on_special_attack_button_mouse_exited"]
+[connection signal="button_down" from="AspectRatioContainer/PanelContainer/VBoxContainer/Move/MoveButton" to="." method="_on_move_button_button_down"]
+[connection signal="button_down" from="AspectRatioContainer/PanelContainer/VBoxContainer/MoveAttack/MoveAttackButton" to="." method="_on_move_attack_button_button_down"]
+[connection signal="button_down" from="AspectRatioContainer/PanelContainer/VBoxContainer/UseObjectButton/UseObjectButton" to="." method="_on_use_object_button_button_down"]
+[connection signal="button_down" from="AspectRatioContainer/PanelContainer/VBoxContainer/EndTurnButton/EndTurnButton" to="." method="_on_end_turn_button_button_down"]
