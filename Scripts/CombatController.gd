@@ -13,8 +13,8 @@ func _ready():
 	
 func start_combat(_opponents : Array):
 	opponents = _opponents
-	for opponent in opponents:
-		opponent.start_combat()
+	#for opponent in opponents:
+		#opponent.start_combat()
 	combat_started.emit()
 	next_turn()
 	

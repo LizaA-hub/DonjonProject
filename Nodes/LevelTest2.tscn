@@ -1672,6 +1672,7 @@ offset_bottom = 160.0
 
 [node name="PopUp" parent="UI" instance=ExtResource("23_o6bu7")]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.07472, 0)
 
 [connection signal="input_event" from="Bar/clickable" to="Bar" method="_on_clickable_input_event"]
 [connection signal="body_entered" from="LigthArea/corridorArea" to="LigthArea/corridorArea" method="_on_body_entered"]

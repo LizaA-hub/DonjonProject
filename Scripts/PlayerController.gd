@@ -24,6 +24,7 @@ var combat_path
 func _ready():
 	ground = $"../../NavigationRegion3D"
 	ground.mouse_clicked.connect(_init_move)
+	ground.combat_started.connect(start_combat)
 	combat_controller = $"../../CombatController"
 	combat_controller.combat_stopped.connect(stop_combat)
 	attack_zone = $AttackZone
@@ -151,20 +152,17 @@ func unlock_weapon():
 	$Weapon.visible = true
 	has_weapon = true
 	
-func start_combat():
-	if is_in_combat:
-		stop_combat()
-		return
-		
-	set_target(global_position)
-	newVelocity = Vector3.ZERO
-	
-	if(navigationAgent.avoidance_enabled):
-		navigationAgent.set_velocity(newVelocity)
-	else:
-		_on_navigation_agent_3d_velocity_computed(newVelocity)
-		
+func start_combat(_opponents):
+
 	is_in_combat = true
+	set_target(global_position)
+	#newVelocity = Vector3.ZERO
+	#
+	#if(navigationAgent.avoidance_enabled):
+		#navigationAgent.set_velocity(newVelocity)
+	#else:
+		#_on_navigation_agent_3d_velocity_computed(newVelocity)
+		
 	
 	attack_zone.visible = true
 	$CombatPath.visible = true
@@ -199,6 +197,7 @@ func set_turn():
 #endregion
 	
 func try_interact(_position : Vector3):
+
 	if(global_position.distance_squared_to(_position) > 9):
 		set_target(_position)
 		is_reaching_target = true
@@ -215,8 +214,8 @@ func start_interact():
 			start_attack()
 		InteractableType.INTERACTABLE:
 			interact.emit(0)
-	if is_in_combat:
-		end_turn()
+			if is_in_combat:
+				end_turn()
 
 func door_opening(door : Vector3):
 	is_in_combat = true
@@ -246,7 +245,8 @@ func take_potion(potion_type: String, amount : int):
 		print(self.name, " can't take potion of type : ", potion_type)
 	
 func stop_combat():
-	
+	if turn_to_play:
+		end_turn()
 	is_in_combat = false
 	can_take_damage = false
 	close_interaction_panel()

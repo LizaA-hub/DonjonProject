@@ -24,12 +24,18 @@ func _on_input_event(_camera, event, _position, _normal, _shape_idx):
 				player.close_interaction_panel()
 
 func open(_value):
-	print("player is opening the chest")
+	if can_open:
+		can_open = false
+	else:
+		return
+		
+	is_empty = true
+	player.interact.disconnect(open)
+	#print("player is opening the chest")
 	var tween = get_tree().create_tween()
 	var tween2 = get_tree().create_tween()
 	var camera_rotation = camera.rotation
-	if !can_open:
-		return
+
 	camera.is_in_cinematic = true
 	tween.tween_callback(Input.set_mouse_mode.bind(Input.MOUSE_MODE_CAPTURED))
 	tween.tween_callback($AnimationPlayer.play.bind("chest_opening"))
@@ -37,14 +43,9 @@ func open(_value):
 	tween.tween_property(camera, "position", player.global_position + Vector3(5,4,0),0.5)
 	tween2.tween_property(camera, "rotation_degrees", Vector3(-30,90,0),0.5)
 	tween.tween_callback(player.custom_look_at.bind(camera.global_position))
-	pop_up.set_message("You found a stick !")
-	tween.tween_callback(pop_up.show_popup.bind(player.global_position))
+	tween.tween_callback(pop_up.show_popup.bind(player.global_position,"You found a stick!"))
 	tween.tween_interval(2)
 	tween.tween_callback(camera.reset_position.bind(camera_rotation,0.5))
 	tween.tween_callback(Input.set_mouse_mode.bind(Input.MOUSE_MODE_VISIBLE))
-	
-	can_open = false
-	is_empty = true
-	player.interact.disconnect(open)
 
 

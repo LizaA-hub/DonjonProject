@@ -14,6 +14,7 @@ func _ready():
 	
 	combat_controller =%CombatController
 	combat_controller.combat_stopped.connect(stop_combat)
+	combat_controller.combat_started.connect(start_combat)
 	player = %player
 	player.interact.connect(get_attacked)
 	
@@ -60,7 +61,7 @@ func on_left_click():
 #endregion
 	
 func start_combat():
-	if !alive:
+	if !alive or !visible:
 		#print(name," : is not alive")
 		return
 
@@ -102,6 +103,7 @@ func start_attack():
 
 	if health_left <= 0:
 		target = combat_controller.get_target("ally")
+		
 	end_turn()
 	
 func disapear():

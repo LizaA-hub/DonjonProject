@@ -1,14 +1,19 @@
 extends Node3D
 
 var message : String
+
+func _ready():
+	$Sprite3D.visible = false
 	
-func show_popup(_position : Vector3)->void:
+func show_popup(_position : Vector3, _message: String)->void:
+	message = _message
 	_position.y +=2
 	global_position = _position
-	$AnimationPlayer.play("PopUp")
+	var tween = get_tree().create_tween()
+	tween.tween_callback(set_message)
+	tween.tween_callback($AnimationPlayer.play.bind("PopUp"))
 
-func set_message(new_message : String) -> void :
-	message = new_message
+func set_message() -> void :
 	$Sprite3D/SubViewport/Label.text = message
 
 
