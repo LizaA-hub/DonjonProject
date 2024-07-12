@@ -4,9 +4,12 @@ var is_in_combat = false
 var player
 var target
 var inventory
+var inventory_open = false
 signal mouse_on_panel()
 var target_type
 var indications : Label
+var panel_open = false
+var ground
 
 
 func _ready():
@@ -17,6 +20,8 @@ func _ready():
 	
 	player = %player
 	inventory = %InventorySystem
+	ground = $"../../NavigationRegion3D"
+	ground.mouse_event.connect(close_panel)
 	
 	indications = Label.new()
 	get_tree().get_root().add_child.call_deferred(indications)
@@ -25,6 +30,11 @@ func _ready():
 	indications.global_position = indication_position
 	
 func set_buttons(_target_type : String):
+	if target == null:
+		return
+		
+	visible = true
+
 	target_type = _target_type
 	var can_attack = true
 	var can_move_attack = false
@@ -56,6 +66,7 @@ func set_buttons(_target_type : String):
 	$AspectRatioContainer/PanelContainer/VBoxContainer/MoveAttack.visible = can_move_attack
 	$AspectRatioContainer/PanelContainer/VBoxContainer/Move.visible = can_move
 
+	panel_open = true
 	
 func toggle_combat():
 	is_in_combat = !is_in_combat
@@ -89,6 +100,7 @@ func _on_end_turn_button_button_down():
 
 func _on_use_object_button_button_down():
 	inventory.toggle_inventory()
+	inventory_open = !inventory_open
 
 
 func _on_mouse_entered():
@@ -142,6 +154,19 @@ func _on_attack_button_mouse_exited():
 func _on_special_attack_button_mouse_exited():
 	hide_indications()
 
-
-func _on_button_button_down():
-	player.close_interaction_panel()
+#func _unhandled_input(event):
+	#if event is InputEventMouseButton and panel_open:
+		#print("recieving event ")
+		#close_panel()
+		
+func close_panel() -> void:
+	if !visible:
+		return
+		
+	print("interaction panel closing")
+	panel_open = false
+	visible = false
+	if inventory.is_open:
+		inventory.toggle_inventory(false)
+		inventory_open = !inventory_open
+	set_target(null)

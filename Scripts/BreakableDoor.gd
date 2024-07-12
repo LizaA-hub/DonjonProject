@@ -18,7 +18,6 @@ func _on_input_event(_camera, event, _position, _normal, _shape_idx):
 			if event.is_pressed():
 				can_take_damage = true
 				player.try_attack(self)
-				player.close_interaction_panel()
 
 func take_damage(_amout : float):
 	if !can_take_damage:

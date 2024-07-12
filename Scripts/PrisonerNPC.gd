@@ -4,7 +4,8 @@ signal start_interaction
 
 func _ready():
 	startPosition = global_position
-	
+	ground = $"../../NavigationRegion3D"
+	ground.right_click.connect(set_right_click)
 	timer = $MoveTimer
 	timer.timeout.connect(_on_move_timer_timeout)
 	#health_bar_timer = $Timer

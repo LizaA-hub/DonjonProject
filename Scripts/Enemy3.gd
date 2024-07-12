@@ -18,6 +18,9 @@ func _ready():
 	player = %player
 	player.interact.connect(get_attacked)
 	
+	ground = $"../../NavigationRegion3D"
+	ground.right_click.connect(set_right_click)
+	
 func _physics_process(delta):
 	if turn_to_play and is_in_combat:
 		

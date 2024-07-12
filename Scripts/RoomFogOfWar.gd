@@ -87,4 +87,29 @@ func toggle_adjacent_visibility(on: bool):
 	for area in AdjacentArea:
 		#print(name," : toggle", area.name ,"visibility")
 		area.toggle_visibility(on)
+		
+func light_on() -> void:
+	room_nodes = get_overlapping_bodies()
+	is_lighten = true
+	for node in room_nodes:
+			if node.is_in_group("environment"):
+		#light environment nodes
+				node.visible = true
+				node._toggle_visibility(true)
+		#show dynamic nodes
+			if node.is_in_group("dynamic"):
+				node.visible = true
+
+	
+func light_off() -> void:
+	room_nodes = get_overlapping_bodies()
+	is_lighten = false
+	for node in room_nodes:
+		if node.is_in_group("environment"):
+				#unlight envvironment node
+			node._toggle_visibility(false)
+	#hide dynamic nodes
+		if node.is_in_group("dynamic"):
+			node.visible = false
+	
 

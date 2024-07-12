@@ -5,7 +5,6 @@ var Direction = Vector3.ZERO
 var lookDirection
 var travel_distance_left = 4
 var is_moving = false
-var ground
 
 #interaction variable
 signal interact(strengh:float)
@@ -25,8 +24,10 @@ func _ready():
 	ground = $"../../NavigationRegion3D"
 	ground.mouse_clicked.connect(_init_move)
 	ground.combat_started.connect(start_combat)
+	ground.right_click.connect(set_right_click)
 	combat_controller = $"../../CombatController"
 	combat_controller.combat_stopped.connect(stop_combat)
+	combat_controller.combat_started.connect(show_combat_path)
 	attack_zone = $AttackZone
 	combat_path = $CombatPath
 
@@ -89,7 +90,7 @@ func _init_move(_position : Vector3):
 		set_target(_position)
 		#if is_reaching_target:
 			#is_reaching_target = false
-		close_interaction_panel()
+		#close_interaction_panel()
 	else:
 		if is_moving or !turn_to_play:
 			return
@@ -153,17 +154,10 @@ func unlock_weapon():
 	has_weapon = true
 	
 func start_combat(_opponents):
-
 	is_in_combat = true
 	set_target(global_position)
-	#newVelocity = Vector3.ZERO
-	#
-	#if(navigationAgent.avoidance_enabled):
-		#navigationAgent.set_velocity(newVelocity)
-	#else:
-		#_on_navigation_agent_3d_velocity_computed(newVelocity)
-		
 	
+func show_combat_path() -> void:
 	attack_zone.visible = true
 	$CombatPath.visible = true
 	$CombatPath.initialize(ground.mouse_hover, ground.mouse_not_on_ground, interaction_ui.mouse_on_panel)
@@ -179,9 +173,9 @@ func end_turn():
 	$TurnIndicator.visible = false
 	combat_controller.next_turn()
 	player_turn.emit(false)
-	if target != null:
-		if target.health <= 0:
-			close_interaction_panel()
+	#if target != null:
+		#if target.health <= 0:
+			#close_interaction_panel()
 	
 
 func set_turn():
@@ -249,20 +243,20 @@ func stop_combat():
 		end_turn()
 	is_in_combat = false
 	can_take_damage = false
-	close_interaction_panel()
+	#close_interaction_panel()
 	attack_zone.visible = false
 	$CombatPath.deactivate(ground.mouse_hover, ground.mouse_not_on_ground,interaction_ui.mouse_on_panel)
 	$CombatPath.visible = false
 	
-func open_interaction_panel(open :bool, _target):
+func open_interaction_panel(_open :bool, _target):
 	if is_in_combat and !turn_to_play:
 		return
 	
 	target = _target
 	if !interaction_ui.set_target(target):
-		close_interaction_panel()
+		interaction_ui.close_panel()
+		return
 	else:
-		interaction_ui.visible = open
 		interaction_ui.set_buttons(get_target_type(target))
 	
 		
@@ -278,11 +272,11 @@ func get_target_type(_target):
 func on_left_click():
 	open_interaction_panel(true, self)
 
-func close_interaction_panel():
-	target = null
-	interaction_ui.set_target(null)
-	interaction_ui.visible = false
-	inventory.toggle_inventory(false)
+#func close_interaction_panel():
+	#target = null
+	#interaction_ui.set_target(null)
+	#interaction_ui.visible = false
+	#inventory.toggle_inventory(false)
 	
 func can_attack(_target : Vector3):
 	if global_position.distance_squared_to(_target) > 9:

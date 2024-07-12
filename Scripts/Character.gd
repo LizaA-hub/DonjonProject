@@ -12,9 +12,11 @@ var is_reaching_target = false
 var look_direction
 var position_before_move
 var newVelocity
-var fall
+var fall = 0
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var mass =4 
+var right_click_pressed = false
+var ground
 
 
 #health and energy variable
@@ -41,17 +43,19 @@ func _on_navigation_agent_3d_velocity_computed(safe_velocity):
 	velocity = safe_velocity
 		
 	move_and_slide()
+	
+func set_right_click(on : bool) -> void :
+	right_click_pressed = on
 
 func _on_mouse_entered():
-	#$Timer.stop()
+	if right_click_pressed:
+		return
 	$Sprite3D.visible= true
 
 func _on_mouse_exited():
-	#$Timer.start(.5)
+	
 	$Sprite3D.visible= false
 
-func _on_timer_timeout():
-	$Sprite3D.visible= false
 
 
 #func _process(delta):

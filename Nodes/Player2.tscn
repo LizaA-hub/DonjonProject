@@ -179,9 +179,6 @@ texture = SubResource("ViewportTexture_y6y2i")
 region_enabled = true
 region_rect = Rect2(56, 24, 1048, 368)
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
-
 [node name="AttackZone" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.764482, 0)
 visible = false
@@ -197,4 +194,3 @@ visible = false
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

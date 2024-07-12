@@ -6,21 +6,22 @@ signal combat_stopped
 var opponents : Array
 var turn : int = -1
 var CombatUI 
+var first_combat = true
+var camera
 
 func _ready():
 	navigation_region = $"../NavigationRegion3D"
 	navigation_region.combat_started.connect(start_combat)
+	camera = %MainCamera
 	
 func start_combat(_opponents : Array):
 	opponents = _opponents
-	#for opponent in opponents:
-		#opponent.start_combat()
-	combat_started.emit()
-	next_turn()
+	if first_combat:
+		start_first_combat()
+	else:
+		combat_started.emit()
+		next_turn()
 	
-#func _input(_event):
-	#if Input.is_key_pressed(KEY_SPACE):
-		#print("it's ",opponents[turn], " turn." )
 	
 func next_turn():
 	if opponents.is_empty():
@@ -74,3 +75,38 @@ func end_combat():
 	
 func add_opponent(new_opponent):
 	opponents.append(new_opponent)
+
+func start_first_combat() -> void:
+	first_combat = false
+	camera.is_in_cinematic = true
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	var previous_camera_rotation = camera.rotation
+	var tween = get_tree().create_tween()
+	
+	tween.tween_interval(0.5)
+	
+	tween.tween_property(camera,"position",Vector3(0,2,-61),0.5)
+	tween.parallel().tween_property(camera,"rotation_degrees",Vector3(-15,0,0),0.5)
+	
+	tween.tween_interval(1.5)
+	await tween.finished
+	tween.kill()
+	tween = get_tree().create_tween()
+	
+	camera.position=Vector3(-8,2,-66)
+	camera.rotation_degrees=Vector3.ZERO
+	
+	tween.tween_interval(1.5)
+	await tween.finished
+	tween.kill()
+	tween = get_tree().create_tween()
+	
+	camera.position=Vector3(0,2,-58)
+	camera.rotation_degrees=Vector3(0,-180,0)
+	
+	tween.tween_interval(1.5)
+	await tween.finished
+	camera.reset_position(previous_camera_rotation,0.5)
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	combat_started.emit()
+	next_turn()

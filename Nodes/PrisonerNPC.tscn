@@ -189,8 +189,6 @@ texture = SubResource("ViewportTexture_4ti85")
 region_enabled = true
 region_rect = Rect2(56, 24, 1048, 368)
 
-[node name="Timer" type="Timer" parent="."]
-
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

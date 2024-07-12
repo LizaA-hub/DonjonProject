@@ -28,7 +28,7 @@ func _ready():
 	
 func toggle_inventory(open : bool = !is_open) -> void:
 	set_slots()
-	#print(items.size(), " items in the inventory")
+	print("toggle inventory : ", open)
 	is_open = open
 	$Inventory.visible = is_open
 	$ExitButton.visible = is_open
