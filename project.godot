@@ -11,12 +11,18 @@ config_version=5
 [application]
 
 config/name="Donjon"
+config/version="2"
+run/main_scene="res://Nodes/LevelTest2.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
 [display]
 
 window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/vertex_painter/plugin.cfg")
 
 [input]
 

@@ -8,11 +8,13 @@ var turn : int = -1
 var CombatUI 
 var first_combat = true
 var camera
+var game_over_screen
 
 func _ready():
 	navigation_region = $"../NavigationRegion3D"
 	navigation_region.combat_started.connect(start_combat)
 	camera = %MainCamera
+	game_over_screen = $"../UI/GameOver"
 	
 func start_combat(_opponents : Array):
 	opponents = _opponents
@@ -110,3 +112,7 @@ func start_first_combat() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	combat_started.emit()
 	next_turn()
+	
+func game_over() -> void:
+	end_combat()
+	game_over_screen.visible = true

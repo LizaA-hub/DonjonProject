@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bp3geuog06pgd"]
+
+[ext_resource type="Texture2D" uid="uid://cxmku67ayp0o7" path="res://Textures/brick_dark_color_corrected.png" id="1_22tg1"]
+
+[resource]
+albedo_texture = ExtResource("1_22tg1")
+uv1_scale = Vector3(10, 10, 10)
+uv1_offset = Vector3(0, 0.305, 0)

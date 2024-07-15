@@ -163,8 +163,9 @@ func show_combat_path() -> void:
 	$CombatPath.initialize(ground.mouse_hover, ground.mouse_not_on_ground, interaction_ui.mouse_on_panel)
 	
 func disapear():#game over
-	global_position.y = -10
-	combat_controller.remove_opponent(self)
+	#get_tree().paused = true
+	combat_controller.game_over()
+	
 	
 func end_turn():
 	#print("player : end turn")

@@ -1,9 +1,10 @@
-[gd_scene load_steps=57 format=3 uid="uid://bc6ck6l8ptdnn"]
+[gd_scene load_steps=60 format=3 uid="uid://bc6ck6l8ptdnn"]
 
 [ext_resource type="Script" path="res://Scripts/Floor.gd" id="1_8ila6"]
 [ext_resource type="PackedScene" uid="uid://cdwrdxs0arsup" path="res://Nodes/Player2.tscn" id="1_d1leb"]
 [ext_resource type="Script" path="res://Scripts/GroundTile.gd" id="2_ky2oe"]
 [ext_resource type="Script" path="res://Scripts/StaticCamera.gd" id="3_i5uo2"]
+[ext_resource type="Material" uid="uid://bp3geuog06pgd" path="res://Materials/MI_Floor.tres" id="3_mo3bw"]
 [ext_resource type="Script" path="res://Scripts/RoomFogOfWar.gd" id="4_t8an6"]
 [ext_resource type="Script" path="res://Scripts/PrisonMovement.gd" id="7_aoa8v"]
 [ext_resource type="Script" path="res://Scripts/BreakableDoor.gd" id="9_1ohrn"]
@@ -23,6 +24,8 @@
 [ext_resource type="PackedScene" uid="uid://iooxa887vj1g" path="res://Nodes/inventory_system.tscn" id="21_lpvqi"]
 [ext_resource type="PackedScene" uid="uid://dgavmndrtv4" path="res://Nodes/ActionsUI.tscn" id="21_lq0bm"]
 [ext_resource type="PackedScene" uid="uid://d0xw73lwlvvq6" path="res://Nodes/Popup.tscn" id="23_o6bu7"]
+[ext_resource type="PackedScene" uid="uid://cywwviq8ngo1c" path="res://Nodes/Menu.tscn" id="24_j86na"]
+[ext_resource type="PackedScene" uid="uid://cx54vg4fl3t70" path="res://Nodes/GameOverScreen.tscn" id="25_ysiuo"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ujqwp"]
 sky_horizon_color = Color(0.59625, 0.6135, 0.6375, 1)
@@ -150,6 +153,7 @@ shape = SubResource("BoxShape3D_dkh73")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/GroundTile"]
 layers = 2
 mesh = SubResource("BoxMesh_732n2")
+surface_material_override/0 = ExtResource("3_mo3bw")
 
 [node name="GroundTile2" type="StaticBody3D" parent="NavigationRegion3D" groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
@@ -161,6 +165,7 @@ shape = SubResource("BoxShape3D_dkh73")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/GroundTile2"]
 layers = 2
 mesh = SubResource("BoxMesh_732n2")
+surface_material_override/0 = ExtResource("3_mo3bw")
 
 [node name="GroundTile3" type="StaticBody3D" parent="NavigationRegion3D" groups=["environment"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
@@ -948,7 +953,7 @@ script = ExtResource("13_0w77b")
 
 [node name="key" parent="Items" groups=["environment"] instance=ExtResource("13_pbofa")]
 unique_name_in_owner = true
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 16, 1, -43)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 16, -2.14168, -43)
 
 [node name="potion" parent="Items" groups=["dynamic"] instance=ExtResource("14_huusp")]
 unique_name_in_owner = true
@@ -1672,6 +1677,11 @@ offset_bottom = 160.0
 [node name="PopUp" parent="UI" instance=ExtResource("23_o6bu7")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.07472, 0)
+
+[node name="Control" parent="UI" instance=ExtResource("24_j86na")]
+
+[node name="GameOver" parent="UI" instance=ExtResource("25_ysiuo")]
+visible = false
 
 [connection signal="input_event" from="Bar/clickable" to="Bar" method="_on_clickable_input_event"]
 [connection signal="body_entered" from="LigthArea/corridorArea" to="LigthArea/corridorArea" method="_on_body_entered"]
