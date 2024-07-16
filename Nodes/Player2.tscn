@@ -143,10 +143,6 @@ transform = Transform3D(1.7, 0, 0, 0, 1.7, 0, 0, 0, 1.7, -0.175817, 0.6885, -0.4
 mesh = SubResource("SphereMesh_mhptq")
 surface_material_override/0 = SubResource("StandardMaterial3D_qmuvm")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-avoidance_enabled = true
-avoidance_layers = 2
-
 [node name="Weapon" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1, 0)
 visible = false
@@ -189,6 +185,8 @@ surface_material_override/0 = SubResource("StandardMaterial3D_d7p42")
 [node name="CombatPath" parent="." instance=ExtResource("3_lgu3o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 visible = false
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

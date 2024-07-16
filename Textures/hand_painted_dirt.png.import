@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxmku67ayp0o7"
-path.s3tc="res://.godot/imported/brick_dark_color_corrected.png-4c7651df23600df61bc5edc0cfb27088.s3tc.ctex"
+uid="uid://6amuangheqqa"
+path.s3tc="res://.godot/imported/hand_painted_dirt.png-0d1bca8e13372bbd78c912fa514a8ca4.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Textures/brick_dark_color_corrected.png"
-dest_files=["res://.godot/imported/brick_dark_color_corrected.png-4c7651df23600df61bc5edc0cfb27088.s3tc.ctex"]
+source_file="res://Textures/hand_painted_dirt.png"
+dest_files=["res://.godot/imported/hand_painted_dirt.png-0d1bca8e13372bbd78c912fa514a8ca4.s3tc.ctex"]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=2
+compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1

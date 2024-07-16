@@ -1,7 +1,7 @@
-[gd_resource type="ShaderMaterial" load_steps=24 format=3 uid="uid://bp3geuog06pgd"]
+[gd_resource type="ShaderMaterial" load_steps=24 format=3 uid="uid://cr00xeaao2bgm"]
 
-[ext_resource type="Texture2D" uid="uid://cxmku67ayp0o7" path="res://Textures/brick_dark_color_corrected.png" id="1_22tg1"]
-[ext_resource type="Texture2D" uid="uid://6amuangheqqa" path="res://Textures/hand_painted_dirt.png" id="2_13jrb"]
+[ext_resource type="Texture2D" uid="uid://cxmku67ayp0o7" path="res://Textures/brick_dark_color_corrected.png" id="1_bjvpl"]
+[ext_resource type="Texture2D" uid="uid://6amuangheqqa" path="res://Textures/hand_painted_dirt.png" id="2_p2exc"]
 
 [sub_resource type="VisualShaderNodeVec3Constant" id="VisualShaderNodeVec3Constant_1kv6r"]
 constant = Vector3(0.5, 0, 0)
@@ -65,7 +65,7 @@ op_type = 3
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_76jdh"]
 source = 5
-texture = ExtResource("1_22tg1")
+texture = ExtResource("1_bjvpl")
 
 [sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_bftil"]
 
@@ -206,6 +206,6 @@ shader = SubResource("VisualShader_mbu5y")
 shader_parameter/uv_scale = Vector2(5, 5)
 shader_parameter/height_contrast = 2.0
 shader_parameter/height_offset = 0.0
-shader_parameter/default_texture = ExtResource("1_22tg1")
-shader_parameter/red_texture = ExtResource("2_13jrb")
-shader_parameter/default_height_map = ExtResource("1_22tg1")
+shader_parameter/default_texture = ExtResource("1_bjvpl")
+shader_parameter/red_texture = ExtResource("2_p2exc")
+shader_parameter/default_height_map = ExtResource("1_bjvpl")
