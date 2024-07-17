@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3nvl3pa6hnth"
-path.s3tc="res://.godot/imported/hand_painted_stone_trim.png-322c2cf6b6342d6ee6ae57f4a67a27b6.s3tc.ctex"
+uid="uid://ce3q4d6vfvdip"
+path.s3tc="res://.godot/imported/hand_painted_wood.png-211375380ebc87123f6daa6b8448b5ad.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Textures/hand_painted_stone_trim.png"
-dest_files=["res://.godot/imported/hand_painted_stone_trim.png-322c2cf6b6342d6ee6ae57f4a67a27b6.s3tc.ctex"]
+source_file="res://Textures/hand_painted_wood.png"
+dest_files=["res://.godot/imported/hand_painted_wood.png-211375380ebc87123f6daa6b8448b5ad.s3tc.ctex"]
 
 [params]
 

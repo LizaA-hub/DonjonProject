@@ -1,14 +1,30 @@
-[gd_scene load_steps=10 format=3 uid="uid://jxrys8w1v6m4"]
+[gd_scene load_steps=14 format=3 uid="uid://jxrys8w1v6m4"]
 
 [ext_resource type="Script" path="res://Scripts/chest.gd" id="1_o2o6p"]
+[ext_resource type="Texture2D" uid="uid://dulqdn6aseexy" path="res://Textures/hand_painted_wood_2.png" id="2_mi37p"]
+[ext_resource type="ArrayMesh" uid="uid://bqsstu3yyflk" path="res://BlenderObject/ThreeFacesPyramid.obj" id="3_ddwmg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hdhuv"]
+albedo_texture = ExtResource("2_mi37p")
+uv1_triplanar = true
+uv1_world_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_yno8k"]
+material = SubResource("StandardMaterial3D_hdhuv")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_447c8"]
-albedo_color = Color(0.670588, 0.462745, 0.341176, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_euldc"]
+albedo_color = Color(0.537255, 0.537255, 0.537255, 1)
+metallic = 1.0
+roughness = 0.31
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oasra"]
-albedo_color = Color(0.564706, 0.4, 0.305882, 1)
+[sub_resource type="BoxMesh" id="BoxMesh_lo3bf"]
+material = SubResource("StandardMaterial3D_euldc")
+size = Vector3(0.2, 0.25, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2g7vp"]
+albedo_color = Color(0.498039, 0.498039, 0.498039, 1)
+metallic = 1.0
+roughness = 0.37
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_keeyj"]
 shading_mode = 0
@@ -22,7 +38,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D3:position")
+tracks/0/path = NodePath("TopWood:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -34,7 +50,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("MeshInstance3D3:rotation")
+tracks/1/path = NodePath("TopWood:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -51,7 +67,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D3:position")
+tracks/0/path = NodePath("TopWood:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -63,7 +79,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("MeshInstance3D3:rotation")
+tracks/1/path = NodePath("TopWood:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -82,17 +98,73 @@ _data = {
 [node name="chest" type="StaticBody3D"]
 script = ExtResource("1_o2o6p")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="BottomWood" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.2, 0, 0, 0, 0.8, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_yno8k")
-surface_material_override/0 = SubResource("StandardMaterial3D_447c8")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+[node name="MetalicLocker2" type="MeshInstance3D" parent="BottomWood"]
+transform = Transform3D(0.833333, 0, 0, 0, 1.25, 0, 0, 0, 1, 0, 0.339506, 0.296982)
+mesh = SubResource("BoxMesh_lo3bf")
+skeleton = NodePath("../..")
+
+[node name="MetalCorner2" type="MeshInstance3D" parent="BottomWood"]
+transform = Transform3D(0.0632404, 0.0542395, -0.00178184, 0.0538945, -0.0658461, -0.0915679, -0.0488057, 0.0546696, -0.0680385, 0.47966, -0.467495, 0.477142)
+mesh = ExtResource("3_ddwmg")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_2g7vp")
+
+[node name="MetalCorner6" type="MeshInstance3D" parent="BottomWood"]
+transform = Transform3D(0.0653687, 0.0515155, -0.00418567, 0.0565801, -0.0644038, 0.0909716, 0.042402, -0.0593618, -0.0683977, 0.47961, -0.459131, -0.480112)
+mesh = ExtResource("3_ddwmg")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_2g7vp")
+
+[node name="MetalCorner7" type="MeshInstance3D" parent="BottomWood"]
+transform = Transform3D(0.0343908, -0.0511629, -0.0560721, -0.104382, -0.0687594, -0.00128103, -0.0363835, 0.0566106, -0.0739694, -0.477686, -0.466094, 0.473484)
+mesh = ExtResource("3_ddwmg")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_2g7vp")
+
+[node name="MetalCorner8" type="MeshInstance3D" parent="BottomWood"]
+transform = Transform3D(0.0310155, -0.0466974, 0.0616591, -0.103814, -0.0696229, -0.000508595, 0.0414397, -0.061299, -0.0672695, -0.481074, -0.46481, -0.474614)
+mesh = ExtResource("3_ddwmg")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_2g7vp")
+
+[node name="TopWood" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.2, 0, 0, 0, 0.2, 0, 0, 0, 1, 0, 0.508516, 0)
 mesh = SubResource("BoxMesh_yno8k")
-surface_material_override/0 = SubResource("StandardMaterial3D_oasra")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+[node name="MetalicLocker" type="MeshInstance3D" parent="TopWood"]
+transform = Transform3D(0.833333, 0, 0, 0, 5, 0, 0, 0, 1, 0, 0.141048, 0.296982)
+mesh = SubResource("BoxMesh_lo3bf")
+skeleton = NodePath("../..")
+
+[node name="MetalCorner" type="MeshInstance3D" parent="TopWood"]
+transform = Transform3D(0.0698336, 0.045472, 0.000103738, -0.194232, 0.299091, -0.350455, -0.0383206, 0.058688, 0.0713249, 0.476515, 0.374613, 0.472766)
+mesh = ExtResource("3_ddwmg")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_2g7vp")
+
+[node name="MetalCorner3" type="MeshInstance3D" parent="TopWood"]
+transform = Transform3D(-0.027861, 0.0514432, 0.0593449, -0.194232, 0.299091, -0.350455, -0.0858672, -0.0510976, 0.00398147, 0.481753, 0.394863, -0.472254)
+mesh = ExtResource("3_ddwmg")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_2g7vp")
+
+[node name="MetalCorner4" type="MeshInstance3D" parent="TopWood"]
+transform = Transform3D(0.0376032, -0.043892, -0.0600328, -0.209564, 0.293798, -0.346072, 0.0787855, 0.0614259, 0.00443893, -0.478379, 0.359756, 0.474864)
+mesh = ExtResource("3_ddwmg")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_2g7vp")
+
+[node name="MetalCorner5" type="MeshInstance3D" parent="TopWood"]
+transform = Transform3D(-0.0665631, -0.0501368, 0.000308536, -0.213758, 0.281616, -0.353553, 0.0423339, -0.0566389, -0.0707097, -0.478741, 0.35972, -0.471265)
+mesh = ExtResource("3_ddwmg")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_2g7vp")
+
+[node name="InterriorBlack" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.9, 0, 0, 0, 0.8, 0, 0, 0, 0.7, 0, 0.01, 0)
 mesh = SubResource("BoxMesh_yno8k")
 surface_material_override/0 = SubResource("StandardMaterial3D_keeyj")

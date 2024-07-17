@@ -163,7 +163,7 @@ func close_panel() -> void:
 	if !visible:
 		return
 		
-	print("interaction panel closing")
+	#print("interaction panel closing")
 	panel_open = false
 	visible = false
 	if inventory.is_open:

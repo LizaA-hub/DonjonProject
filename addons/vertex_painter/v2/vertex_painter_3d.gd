@@ -106,7 +106,8 @@ func start_paint(event: InputEvent) -> void:
 		active_mdt.create_from_surface(mesh_i.mesh, 0)
 		mesh_i.mesh = ArrayMesh.new()
 		active_mdt.commit_to_surface(mesh_i.mesh)
-		pre_mat = mesh_i.get_surface_override_material(0)
+		#pre_mat = mesh_i.get_surface_override_material(0)
+		#mesh_i.set_surface_override_material(0, pre_mat)
 		#mesh_i.set_surface_override_material(0, VERTEX_COLOR)
 		process_move(event)
 		click_active = true
@@ -129,12 +130,13 @@ func start_paint_legacy(event: InputEvent) -> void:
 func stop_paint() -> void:
 	mouse_camera_3d.hide()
 	debug.hide()
-	#if pre_mat == null:
-		#pre_mat = VERTEX_COLOR
-		#mesh_i.set_surface_override_material(0, pre_mat)
+	#print("stop paint : ",pre_mat)
 	if pre_mat == null:
-		pre_mat = mesh_i.get_surface_override_material(0)
-		mesh_i.set_surface_override_material(0, pre_mat)
+		pre_mat = VERTEX_COLOR
+	mesh_i.set_surface_override_material(0, pre_mat)
+	#if pre_mat == null:
+		#pre_mat = mesh_i.get_surface_override_material(0)
+		#mesh_i.set_surface_override_material(0, pre_mat)
 	
 	mesh_i.set_meta("_edit_lock_", false)
 	
@@ -168,8 +170,11 @@ func process_click(event: InputEvent) -> void:
 			err("Only select one mesh instance in the scene tree for painting.")
 			error = true
 		
+		
+		#print("process click: ",pre_mat)
 		if not error:
 			if mb_event.pressed:
+				pre_mat = mesh_i.get_surface_override_material(0)
 				start_paint(event)
 			
 			if not mb_event.pressed:
@@ -184,6 +189,7 @@ func paint() -> void:
 				active_mdt.set_vertex_color(idx, color_picker.color)
 				mesh_i.mesh.clear_surfaces()
 				active_mdt.commit_to_surface(mesh_i.mesh)
+				mesh_i.set_surface_override_material(0, pre_mat)
 
 func legacy_paint() -> void:
 	var result = click_raycast()

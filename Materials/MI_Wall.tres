@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dylxs4toiu1py"]
+
+[ext_resource type="Texture2D" uid="uid://c3nvl3pa6hnth" path="res://Textures/hand_painted_stone_trim.png" id="1_jkc4p"]
+
+[resource]
+albedo_texture = ExtResource("1_jkc4p")
+uv1_scale = Vector3(0.725, 0.435, 0.54)
+uv1_triplanar = true
+uv1_world_triplanar = true
