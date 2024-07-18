@@ -4,6 +4,9 @@ var can_take_damage = false
 var health = 5
 var player
 var health_bar
+var right_click_pressed = false
+var decal2 = preload("res://Textures/BreakingDecal2.png")
+var decal3 = preload("res://Textures/BreakingDecal3.png")
 
 func _ready():
 	player = %player
@@ -11,6 +14,12 @@ func _ready():
 	health_bar = $SubViewport/Control
 	health_bar.set_character_name( "door")
 	health_bar.set_max_health(health)
+	
+	var ground = $"../../NavigationRegion3D"
+	ground.right_click.connect(set_right_click)
+	
+func set_right_click(on : bool) -> void :
+	right_click_pressed = on
 
 func _on_input_event(_camera, event, _position, _normal, _shape_idx):
 	if event is InputEventMouseButton:
@@ -23,10 +32,14 @@ func take_damage(_amout : float):
 	if !can_take_damage:
 		return
 		
-	health -= _amout
-	#if !$HB.is_visible_in_tree() and health < 10:
-		#$HB.visible = true
+	if !$Decal.visible:
+		$Decal.visible = true
 		
+	health -= _amout
+	if health == 3:
+		$Decal.texture_albedo = decal2
+	elif health == 1:
+		$Decal.texture_albedo = decal3
 	
 	if health<=0:
 		disapear()
@@ -39,13 +52,13 @@ func disapear():
 
 
 func _on_mouse_entered():
-	$Timer.stop()
-	$Sprite3D.visible = true
+	if !right_click_pressed:
+		$Sprite3D.visible = true
+	if player.has_weapon:
+		$Outline.visible = true
 
 
 func _on_mouse_exited():
-	$Timer.start(.5)
-
-
-func _on_timer_timeout():
 	$Sprite3D.visible = false
+	if $Outline.visible:
+		$Outline.visible = false

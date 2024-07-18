@@ -20,6 +20,7 @@ func _ready():
 	
 	ground = $"../../NavigationRegion3D"
 	ground.right_click.connect(set_right_click)
+
 	
 func _physics_process(delta):
 	if turn_to_play and is_in_combat:
@@ -114,6 +115,8 @@ func disapear():
 	position_before_move = global_position
 	global_position.y = -10
 	combat_controller.remove_opponent(self)
+	
+	%InteractionUI.target_died(self)
 	
 	if has_key:
 		%key.global_position = position_before_move

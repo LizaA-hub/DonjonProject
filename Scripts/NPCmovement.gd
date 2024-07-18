@@ -153,6 +153,7 @@ func start_attack():
 func disapear():
 	position_before_move = global_position
 	global_position.y = -10
+	%InteractionUI.target_died(self)
 	combat_controller.remove_opponent(self)
 	
 func play_animation():

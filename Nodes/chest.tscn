@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://jxrys8w1v6m4"]
+[gd_scene load_steps=17 format=3 uid="uid://jxrys8w1v6m4"]
 
 [ext_resource type="Script" path="res://Scripts/chest.gd" id="1_o2o6p"]
 [ext_resource type="Texture2D" uid="uid://dulqdn6aseexy" path="res://Textures/hand_painted_wood_2.png" id="2_mi37p"]
 [ext_resource type="ArrayMesh" uid="uid://bqsstu3yyflk" path="res://BlenderObject/ThreeFacesPyramid.obj" id="3_ddwmg"]
+[ext_resource type="Shader" path="res://Materials/Outline.gdshader" id="4_6vene"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hdhuv"]
 albedo_texture = ExtResource("2_mi37p")
@@ -95,41 +96,17 @@ _data = {
 "chest_opening": SubResource("Animation_wj6q3")
 }
 
+[sub_resource type="BoxMesh" id="BoxMesh_nr60i"]
+size = Vector3(1.25, 1.05, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oaxwd"]
+render_priority = 0
+shader = ExtResource("4_6vene")
+shader_parameter/outline_color = Color(1, 1, 0, 1)
+shader_parameter/outline_width = 1.0
+
 [node name="chest" type="StaticBody3D"]
 script = ExtResource("1_o2o6p")
-
-[node name="BottomWood" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.2, 0, 0, 0, 0.8, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("BoxMesh_yno8k")
-
-[node name="MetalicLocker2" type="MeshInstance3D" parent="BottomWood"]
-transform = Transform3D(0.833333, 0, 0, 0, 1.25, 0, 0, 0, 1, 0, 0.339506, 0.296982)
-mesh = SubResource("BoxMesh_lo3bf")
-skeleton = NodePath("../..")
-
-[node name="MetalCorner2" type="MeshInstance3D" parent="BottomWood"]
-transform = Transform3D(0.0632404, 0.0542395, -0.00178184, 0.0538945, -0.0658461, -0.0915679, -0.0488057, 0.0546696, -0.0680385, 0.47966, -0.467495, 0.477142)
-mesh = ExtResource("3_ddwmg")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_2g7vp")
-
-[node name="MetalCorner6" type="MeshInstance3D" parent="BottomWood"]
-transform = Transform3D(0.0653687, 0.0515155, -0.00418567, 0.0565801, -0.0644038, 0.0909716, 0.042402, -0.0593618, -0.0683977, 0.47961, -0.459131, -0.480112)
-mesh = ExtResource("3_ddwmg")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_2g7vp")
-
-[node name="MetalCorner7" type="MeshInstance3D" parent="BottomWood"]
-transform = Transform3D(0.0343908, -0.0511629, -0.0560721, -0.104382, -0.0687594, -0.00128103, -0.0363835, 0.0566106, -0.0739694, -0.477686, -0.466094, 0.473484)
-mesh = ExtResource("3_ddwmg")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_2g7vp")
-
-[node name="MetalCorner8" type="MeshInstance3D" parent="BottomWood"]
-transform = Transform3D(0.0310155, -0.0466974, 0.0616591, -0.103814, -0.0696229, -0.000508595, 0.0414397, -0.061299, -0.0672695, -0.481074, -0.46481, -0.474614)
-mesh = ExtResource("3_ddwmg")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_2g7vp")
 
 [node name="TopWood" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.2, 0, 0, 0, 0.2, 0, 0, 0, 1, 0, 0.508516, 0)
@@ -181,4 +158,45 @@ libraries = {
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
 radius = 1.0
 
+[node name="BottomWood" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.2, 0, 0, 0, 0.8, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_yno8k")
+
+[node name="MetalicLocker2" type="MeshInstance3D" parent="BottomWood"]
+transform = Transform3D(0.833333, 0, 0, 0, 1.25, 0, 0, 0, 1, 0, 0.339506, 0.296982)
+mesh = SubResource("BoxMesh_lo3bf")
+skeleton = NodePath("../..")
+
+[node name="MetalCorner2" type="MeshInstance3D" parent="BottomWood"]
+transform = Transform3D(0.0632404, 0.0542395, -0.00178184, 0.0538945, -0.0658461, -0.0915679, -0.0488057, 0.0546696, -0.0680385, 0.47966, -0.467495, 0.477142)
+mesh = ExtResource("3_ddwmg")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_2g7vp")
+
+[node name="MetalCorner6" type="MeshInstance3D" parent="BottomWood"]
+transform = Transform3D(0.0653687, 0.0515155, -0.00418567, 0.0565801, -0.0644038, 0.0909716, 0.042402, -0.0593618, -0.0683977, 0.47961, -0.459131, -0.480112)
+mesh = ExtResource("3_ddwmg")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_2g7vp")
+
+[node name="MetalCorner7" type="MeshInstance3D" parent="BottomWood"]
+transform = Transform3D(0.0343908, -0.0511629, -0.0560721, -0.104382, -0.0687594, -0.00128103, -0.0363835, 0.0566106, -0.0739694, -0.477686, -0.466094, 0.473484)
+mesh = ExtResource("3_ddwmg")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_2g7vp")
+
+[node name="MetalCorner8" type="MeshInstance3D" parent="BottomWood"]
+transform = Transform3D(0.0310155, -0.0466974, 0.0616591, -0.103814, -0.0696229, -0.000508595, 0.0414397, -0.061299, -0.0672695, -0.481074, -0.46481, -0.474614)
+mesh = ExtResource("3_ddwmg")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_2g7vp")
+
+[node name="Outline" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.134505, 0)
+visible = false
+mesh = SubResource("BoxMesh_nr60i")
+surface_material_override/0 = SubResource("ShaderMaterial_oaxwd")
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

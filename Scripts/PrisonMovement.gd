@@ -6,12 +6,14 @@ var is_empty = false
 var open_position
 signal is_free
 var is_opened = false
+var outlines : Array[Node]
 
 func _ready():
 	player = %player
 	player.interact.connect(move_down)
 	open_position= global_position
 	open_position.y = -10
+	outlines = find_children("Outline")
 	
 func _on_clickable_input_event(_camera, event, _position, _normal, _shape_idx):
 	if event is InputEventMouseButton:
@@ -33,3 +35,23 @@ func move_down(_value):
 	is_opened = true
 	is_free.emit()
 	player.remove_item(Item.types.KEY)
+
+
+func _on_clickable_mouse_entered():
+	if player.can_open_door() and !is_opened:
+		if !toggle_outline(true):
+			print("prison movement : can't show outlines")
+
+func _on_clickable_mouse_exited():
+	if !toggle_outline(false):
+		print("prison movement : can't hide outlines")
+
+func toggle_outline(on:bool) -> bool:
+	if outlines.is_empty():
+		print("prison movement : can't find outline children")
+		return false
+		
+	for outline in outlines:
+		outline.visible = on
+		
+	return true

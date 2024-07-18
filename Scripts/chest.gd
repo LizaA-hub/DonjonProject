@@ -48,3 +48,13 @@ func open(_value):
 	tween.tween_callback(Input.set_mouse_mode.bind(Input.MOUSE_MODE_VISIBLE))
 
 
+
+
+func _on_mouse_entered():
+	if !is_empty:
+		$Outline.visible = true
+
+
+func _on_mouse_exited():
+	if $Outline.visible:
+		$Outline.visible = false

@@ -87,9 +87,9 @@ func _physics_process(delta):
 
 func _init_move(_position : Vector3):
 	if !is_in_combat:
+		if is_reaching_target:
+			is_reaching_target = false
 		set_target(_position)
-		#if is_reaching_target:
-			#is_reaching_target = false
 		#close_interaction_panel()
 	else:
 		if is_moving or !turn_to_play:
@@ -114,7 +114,7 @@ func try_attack(_target, special_attack : bool = false) -> void:
 		
 	if !can_attack(target_position):
 		is_reaching_target = true
-		_init_move(target_position)
+		set_target(target_position)
 		target_type = InteractableType.ATTACKABLE
 	else:
 		if special_attack:

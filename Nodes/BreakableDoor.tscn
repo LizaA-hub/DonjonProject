@@ -1,0 +1,69 @@
+[gd_scene load_steps=11 format=3 uid="uid://cisqt1whkcdnt"]
+
+[ext_resource type="Script" path="res://Scripts/BreakableDoor.gd" id="1_aa5kq"]
+[ext_resource type="PackedScene" uid="uid://bb2yrvkltufrg" path="res://Nodes/HealthBar2D.tscn" id="2_fnvls"]
+[ext_resource type="Shader" path="res://Materials/Outline.gdshader" id="3_m1na5"]
+[ext_resource type="Texture2D" uid="uid://cmvguf4fv8t84" path="res://Textures/BreakingDecal1.png" id="4_3ho16"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_kav6k"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qqrwx"]
+albedo_color = Color(0.627451, 0.486275, 0.411765, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m2d6k"]
+size = Vector3(8, 4, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_kxx14"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="BoxMesh" id="BoxMesh_nx07b"]
+size = Vector3(7.2, 3.2, 1.2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d4477"]
+render_priority = 0
+shader = ExtResource("3_m1na5")
+shader_parameter/outline_color = Color(1, 1, 0, 1)
+shader_parameter/outline_width = 1.0
+
+[node name="BreakableDoor" type="StaticBody3D" groups=["environment"]]
+collision_mask = 3
+script = ExtResource("1_aa5kq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(7, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0)
+layers = 2
+mesh = SubResource("BoxMesh_kav6k")
+surface_material_override/0 = SubResource("StandardMaterial3D_qqrwx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_m2d6k")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(1152, 648)
+
+[node name="Control" parent="SubViewport" instance=ExtResource("2_fnvls")]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 4, 0)
+visible = false
+billboard = 1
+texture = SubResource("ViewportTexture_kxx14")
+region_enabled = true
+region_rect = Rect2(56, 24, 1048, 288)
+
+[node name="Outline" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("BoxMesh_nx07b")
+surface_material_override/0 = SubResource("ShaderMaterial_d4477")
+
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.0125501, 0.0987177)
+visible = false
+size = Vector3(4, 2, 3)
+texture_albedo = ExtResource("4_3ho16")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

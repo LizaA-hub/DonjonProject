@@ -9,12 +9,14 @@ var CombatUI
 var first_combat = true
 var camera
 var game_over_screen
+var wall_parent
 
 func _ready():
 	navigation_region = $"../NavigationRegion3D"
 	navigation_region.combat_started.connect(start_combat)
 	camera = %MainCamera
 	game_over_screen = $"../UI/GameOver"
+	wall_parent = $"../Borders"
 	
 func start_combat(_opponents : Array):
 	opponents = _opponents
@@ -82,6 +84,8 @@ func start_first_combat() -> void:
 	first_combat = false
 	camera.is_in_cinematic = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	if !toggle_walls(true):
+		print("combat controller can't turn walls on")
 	var previous_camera_rotation = camera.rotation
 	var tween = get_tree().create_tween()
 	
@@ -109,6 +113,8 @@ func start_first_combat() -> void:
 	tween.tween_interval(1.5)
 	await tween.finished
 	camera.reset_position(previous_camera_rotation,0.5)
+	if !toggle_walls(false):
+		print("combat controller can't turn walls off")
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	combat_started.emit()
 	next_turn()
@@ -116,3 +122,15 @@ func start_first_combat() -> void:
 func game_over() -> void:
 	end_combat()
 	game_over_screen.visible = true
+
+func toggle_walls(on : bool) -> bool:
+	var children = wall_parent.find_children("Wall")
+	if children.is_empty():
+		print("toggle walls : invalid get_children")
+		return false
+	for child in children:
+		child.toggle_visibility(on)
+		
+	#toggle first corridor visibility
+	$"../LigthArea/corridorArea".toggle_visibility(on)
+	return true

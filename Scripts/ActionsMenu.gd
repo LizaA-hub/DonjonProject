@@ -154,11 +154,10 @@ func _on_attack_button_mouse_exited():
 func _on_special_attack_button_mouse_exited():
 	hide_indications()
 
-#func _unhandled_input(event):
-	#if event is InputEventMouseButton and panel_open:
-		#print("recieving event ")
-		#close_panel()
-		
+func target_died(_target):
+	if _target == target:
+		close_panel()
+	
 func close_panel() -> void:
 	if !visible:
 		return
