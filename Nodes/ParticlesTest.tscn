@@ -1,0 +1,77 @@
+[gd_scene load_steps=9 format=3 uid="uid://b6fyqbioobtow"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_x4hek"]
+sky_horizon_color = Color(0.59625, 0.6135, 0.6375, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0.59625, 0.6135, 0.6375, 1)
+
+[sub_resource type="Sky" id="Sky_7inx0"]
+sky_material = SubResource("ProceduralSkyMaterial_x4hek")
+
+[sub_resource type="Environment" id="Environment_1a6xq"]
+background_mode = 2
+sky = SubResource("Sky_7inx0")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o5n7l"]
+particle_flag_damping_as_friction = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = -90.0
+angle_max = 90.0
+direction = Vector3(0, 1, 0)
+spread = 56.027
+initial_velocity_min = 1.0
+initial_velocity_max = 5.0
+angular_velocity_max = 100.0
+scale_min = 0.1
+collision_mode = 1
+collision_friction = 0.08
+collision_bounce = 0.37
+collision_use_scale = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jacuy"]
+albedo_color = Color(0.627451, 0.486275, 0.411765, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nkpuc"]
+material = SubResource("StandardMaterial3D_jacuy")
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rgac4"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2uyeg"]
+size = Vector3(10, 1, 10)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1a6xq")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+emitting = false
+lifetime = 2.0
+explosiveness = 1.0
+visibility_aabb = AABB(-2, -2, -2, 4, 4, 4)
+process_material = SubResource("ParticleProcessMaterial_o5n7l")
+draw_pass_1 = SubResource("BoxMesh_nkpuc")
+
+[node name="floor" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
+mesh = SubResource("BoxMesh_rgac4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
+shape = SubResource("BoxShape3D_2uyeg")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 3, 8)
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="."]
+size = Vector3(10, 2, 10)

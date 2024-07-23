@@ -1,16 +1,15 @@
-extends EnvironmentAsset
+extends StaticBody3D
 var player 
-var can_open
 var is_empty = false
 var camera
 var pop_up
+var meshes : Array
 
 func _ready():
 	player = %player
-	player.interact.connect(open)
-	
 	camera = %MainCamera
 	pop_up = %PopUp
+	meshes = [$TopWood,$BottomWood]
 	
 func _on_input_event(_camera, event, _position, _normal, _shape_idx):
 	if event is InputEventMouseButton:
@@ -18,19 +17,10 @@ func _on_input_event(_camera, event, _position, _normal, _shape_idx):
 			if event.is_pressed():
 				if is_empty:
 					return
-					
-				can_open = true
-				player.try_interact(global_position)
+				player.try_interact(self)
 
-func open(_value):
-	if can_open:
-		can_open = false
-	else:
-		return
-		
+func interact():
 	is_empty = true
-	player.interact.disconnect(open)
-	#print("player is opening the chest")
 	var tween = get_tree().create_tween()
 	var tween2 = get_tree().create_tween()
 	var camera_rotation = camera.rotation
@@ -47,14 +37,19 @@ func open(_value):
 	tween.tween_callback(camera.reset_position.bind(camera_rotation,0.5))
 	tween.tween_callback(Input.set_mouse_mode.bind(Input.MOUSE_MODE_VISIBLE))
 
-
-
-
 func _on_mouse_entered():
 	if !is_empty:
 		$Outline.visible = true
 
-
 func _on_mouse_exited():
 	if $Outline.visible:
 		$Outline.visible = false
+		
+func _toggle_visibility( _on : bool):
+	for mesh in meshes:
+		if _on:
+			mesh.set_layer_mask_value(3,true)
+			mesh.set_layer_mask_value(2,false)
+		else:
+			mesh.set_layer_mask_value(3,false)
+			mesh.set_layer_mask_value(2,true)

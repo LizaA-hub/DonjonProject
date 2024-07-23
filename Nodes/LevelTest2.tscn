@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://Scripts/RoomFogOfWar.gd" id="4_t8an6"]
 [ext_resource type="Script" path="res://Scripts/PrisonMovement.gd" id="7_aoa8v"]
 [ext_resource type="Script" path="res://Scripts/DoorsMovement.gd" id="9_153yv"]
-[ext_resource type="Script" path="res://Scripts/Door.gd" id="9_nb7lh"]
+[ext_resource type="PackedScene" uid="uid://2phc6fxyy73q" path="res://Nodes/LockedDoor.tscn" id="9_nf4e1"]
 [ext_resource type="Shader" path="res://Materials/Outline.gdshader" id="10_kwnaj"]
 [ext_resource type="PackedScene" uid="uid://cisqt1whkcdnt" path="res://Nodes/BreakableDoor.tscn" id="10_sujfo"]
 [ext_resource type="PackedScene" uid="uid://jxrys8w1v6m4" path="res://Nodes/chest.tscn" id="11_ijj81"]
@@ -615,17 +615,6 @@ size = Vector3(23.5, 2, 23.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_l7d7n"]
 size = Vector3(15.955, 2, 23.94)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_kmiqu"]
-size = Vector3(1, 4, 8)
-
-[sub_resource type="BoxMesh" id="BoxMesh_l4f8j"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_76n6r"]
-render_priority = 0
-shader = ExtResource("10_kwnaj")
-shader_parameter/outline_color = Color(1, 1, 0, 1)
-shader_parameter/outline_width = 1.0
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_m2emn"]
 size = Vector3(2.2, 2, 8)
 
@@ -716,6 +705,30 @@ _surfaces = [{
 }]
 
 [sub_resource type="BoxMesh" id="BoxMesh_hsfcg"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mjwu6"]
+particle_flag_damping_as_friction = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = -90.0
+angle_max = 90.0
+direction = Vector3(0, 1, 0)
+spread = 56.027
+initial_velocity_min = 1.0
+initial_velocity_max = 5.0
+angular_velocity_max = 100.0
+scale_min = 0.1
+collision_mode = 1
+collision_friction = 0.08
+collision_bounce = 0.37
+collision_use_scale = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fcib6"]
+albedo_color = Color(0.627451, 0.486275, 0.411765, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bule4"]
+material = SubResource("StandardMaterial3D_fcib6")
+size = Vector3(0.5, 0.5, 0.5)
 
 [node name="Node3D" type="Node3D"]
 
@@ -1252,7 +1265,7 @@ metadata/_edit_lock_ = false
 
 [node name="MainCamera" type="Camera3D" parent="." node_paths=PackedStringArray("player")]
 unique_name_in_owner = true
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, -59)
+transform = Transform3D(0.258819, -0.482963, 0.836516, -2.18557e-08, 0.866025, 0.5, -0.965926, -0.12941, 0.224144, 28, 16, -19)
 current = true
 size = 27.257
 script = ExtResource("3_i5uo2")
@@ -1599,63 +1612,23 @@ shape = SubResource("BoxShape3D_l7d7n")
 
 [node name="Doors" type="Node" parent="." node_paths=PackedStringArray("FirstDoor", "SecondDoor", "ThirdDoor")]
 script = ExtResource("9_153yv")
-FirstDoor = NodePath("StaticBody3D3")
-SecondDoor = NodePath("StaticBody3D")
-ThirdDoor = NodePath("StaticBody3D2")
+FirstDoor = NodePath("LockedDoor1")
+SecondDoor = NodePath("LockedDoor2")
+ThirdDoor = NodePath("LockedDoor3")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Doors" groups=["environment"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2, -24)
-collision_mask = 3
-script = ExtResource("9_nb7lh")
+[node name="LockedDoor3" parent="Doors" instance=ExtResource("9_nf4e1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -24)
+condition = 2
+
+[node name="LockedDoor2" parent="Doors" instance=ExtResource("9_nf4e1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -24)
 condition = 1
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Doors/StaticBody3D"]
-shape = SubResource("BoxShape3D_kmiqu")
+[node name="LockedDoor1" parent="Doors" instance=ExtResource("9_nf4e1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -64)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Doors/StaticBody3D"]
-transform = Transform3D(0.6, 0, 0, 0, 3.6, 0, 0, 0, 7.6, 0, 0, 0)
-layers = 2
-mesh = SubResource("BoxMesh_l4f8j")
-
-[node name="Outline" type="MeshInstance3D" parent="Doors/StaticBody3D"]
-transform = Transform3D(0.8, 0, 0, 0, 3.8, 0, 0, 0, 7.8, 0, 0, 0)
-visible = false
-layers = 2
-mesh = SubResource("BoxMesh_l4f8j")
-surface_material_override/0 = SubResource("ShaderMaterial_76n6r")
-
-[node name="StaticBody3D2" type="StaticBody3D" parent="Doors" groups=["environment"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 2, -24)
-collision_mask = 3
-script = ExtResource("2_ky2oe")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Doors/StaticBody3D2"]
-shape = SubResource("BoxShape3D_kmiqu")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Doors/StaticBody3D2"]
-transform = Transform3D(1, 0, 0, 0, 4, 0, 0, 0, 8, 0, 0, 0)
-layers = 2
-mesh = SubResource("BoxMesh_l4f8j")
-
-[node name="StaticBody3D3" type="StaticBody3D" parent="Doors" groups=["environment"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2, -64)
-collision_mask = 3
-script = ExtResource("9_nb7lh")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Doors/StaticBody3D3"]
-shape = SubResource("BoxShape3D_kmiqu")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Doors/StaticBody3D3"]
-transform = Transform3D(0.6, 0, 0, 0, 3.6, 0, 0, 0, 7.6, 0, 0, 0)
-layers = 2
-mesh = SubResource("BoxMesh_l4f8j")
-
-[node name="Outline" type="MeshInstance3D" parent="Doors/StaticBody3D3"]
-transform = Transform3D(0.8, 0, 0, 0, 3.8, 0, 0, 0, 7.8, 0, 0, 0)
-visible = false
-layers = 2
-mesh = SubResource("BoxMesh_l4f8j")
-surface_material_override/0 = SubResource("ShaderMaterial_76n6r")
+[node name="button" parent="Doors" groups=["environment"] instance=ExtResource("11_x8gs4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0.865, -24)
 
 [node name="Props" type="Node" parent="."]
 
@@ -1663,11 +1636,9 @@ surface_material_override/0 = SubResource("ShaderMaterial_76n6r")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.892917, -24)
 collision_mask = 3
 
-[node name="button" parent="Props" groups=["environment"] instance=ExtResource("11_x8gs4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0.865, -24)
-
-[node name="BreakableDoor" parent="Props" instance=ExtResource("10_sujfo")]
+[node name="BreakableDoor" parent="Props" node_paths=PackedStringArray("particle_system") instance=ExtResource("10_sujfo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -44)
+particle_system = NodePath("../../Particles/BreakableDoorParticles/GPUParticles3D")
 
 [node name="CombatController" type="Node" parent="."]
 unique_name_in_owner = true
@@ -3197,6 +3168,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0674772, 13.4921, -16.6462)
 visible = false
 mesh = SubResource("BoxMesh_hsfcg")
 
+[node name="Particles" type="Node" parent="."]
+
+[node name="BreakableDoorParticles" type="Node" parent="Particles"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Particles/BreakableDoorParticles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -44)
+emitting = false
+amount = 10
+lifetime = 5.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+visibility_aabb = AABB(-4, -2, -4, 8, 4, 8)
+process_material = SubResource("ParticleProcessMaterial_mjwu6")
+draw_pass_1 = SubResource("BoxMesh_bule4")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Particles/BreakableDoorParticles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -44)
+size = Vector3(8, 2, 8)
+
 [connection signal="input_event" from="Bar/clickable" to="Bar" method="_on_clickable_input_event"]
 [connection signal="mouse_entered" from="Bar/clickable" to="Bar" method="_on_clickable_mouse_entered"]
 [connection signal="mouse_exited" from="Bar/clickable" to="Bar" method="_on_clickable_mouse_exited"]
@@ -3216,10 +3207,4 @@ mesh = SubResource("BoxMesh_hsfcg")
 [connection signal="body_exited" from="LigthArea/SecondRoomArea" to="LigthArea/SecondRoomArea" method="_on_body_exited"]
 [connection signal="body_entered" from="LigthArea/ThirdRoomArea" to="LigthArea/ThirdRoomArea" method="_on_body_entered"]
 [connection signal="body_exited" from="LigthArea/ThirdRoomArea" to="LigthArea/ThirdRoomArea" method="_on_body_exited"]
-[connection signal="input_event" from="Doors/StaticBody3D" to="Doors" method="_on_static_body_3d_input_event"]
-[connection signal="mouse_entered" from="Doors/StaticBody3D" to="Doors/StaticBody3D" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Doors/StaticBody3D" to="Doors/StaticBody3D" method="_on_mouse_exited"]
-[connection signal="input_event" from="Doors/StaticBody3D3" to="Doors" method="_on_static_body_3d_3_input_event"]
-[connection signal="mouse_entered" from="Doors/StaticBody3D3" to="Doors/StaticBody3D3" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Doors/StaticBody3D3" to="Doors/StaticBody3D3" method="_on_mouse_exited"]
-[connection signal="input_event" from="Props/button" to="Doors" method="_on_button_input_event"]
+[connection signal="input_event" from="Doors/button" to="Doors" method="_on_button_input_event"]

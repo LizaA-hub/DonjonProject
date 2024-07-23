@@ -1,0 +1,162 @@
+[gd_scene load_steps=16 format=3 uid="uid://2phc6fxyy73q"]
+
+[ext_resource type="Script" path="res://Scripts/Door.gd" id="1_3u084"]
+[ext_resource type="Texture2D" uid="uid://kf3m5pf3khyt" path="res://Textures/hand_painted_glass_boxes.png" id="2_565ve"]
+[ext_resource type="Script" path="res://Nodes/DoorMesh.gd" id="2_esnan"]
+[ext_resource type="Shader" path="res://Materials/Outline.gdshader" id="3_80wq3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mxmbo"]
+size = Vector3(1, 4, 8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_a8ogw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qpxbi"]
+albedo_texture = ExtResource("2_565ve")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_offset = Vector3(0.25, 0.25, -0.27)
+uv1_triplanar = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dc0eb"]
+render_priority = 0
+shader = ExtResource("3_80wq3")
+shader_parameter/outline_color = Color(1, 1, 0, 1)
+shader_parameter/outline_width = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6h4fl"]
+albedo_color = Color(0.427451, 0.427451, 0.427451, 1)
+metallic = 1.0
+roughness = 0.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_a1kiu"]
+material = SubResource("StandardMaterial3D_6h4fl")
+top_radius = 0.6
+bottom_radius = 0.6
+height = 4.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8ra8t"]
+material = SubResource("StandardMaterial3D_6h4fl")
+top_radius = 0.6
+bottom_radius = 0.6
+height = 4.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4ffjp"]
+material = SubResource("StandardMaterial3D_6h4fl")
+height = 4.0
+
+[sub_resource type="Animation" id="Animation_7nwix"]
+resource_name = "DoorOpening"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("door/RightLock:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("door/LeftLock:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_phlib"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("door/RightLock:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("door/LeftLock:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l2j41"]
+_data = {
+"DoorOpening": SubResource("Animation_7nwix"),
+"RESET": SubResource("Animation_phlib")
+}
+
+[node name="LockedDoor" type="Node3D"]
+script = ExtResource("1_3u084")
+
+[node name="door" type="StaticBody3D" parent="." groups=["environment"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+collision_mask = 3
+script = ExtResource("2_esnan")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="door"]
+shape = SubResource("BoxShape3D_mxmbo")
+
+[node name="StoneDoor" type="MeshInstance3D" parent="door"]
+transform = Transform3D(0.6, 0, 0, 0, 3.6, 0, 0, 0, 7.6, 0, 0, 0)
+layers = 2
+mesh = SubResource("BoxMesh_a8ogw")
+surface_material_override/0 = SubResource("StandardMaterial3D_qpxbi")
+
+[node name="Outline" type="MeshInstance3D" parent="door"]
+transform = Transform3D(0.8, 0, 0, 0, 3.8, 0, 0, 0, 7.8, 0, 0, 0)
+visible = false
+layers = 2
+mesh = SubResource("BoxMesh_a8ogw")
+surface_material_override/0 = SubResource("ShaderMaterial_dc0eb")
+
+[node name="MetalFrame" type="MeshInstance3D" parent="door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+mesh = SubResource("CylinderMesh_a1kiu")
+
+[node name="MetalFrame2" type="MeshInstance3D" parent="door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+mesh = SubResource("CylinderMesh_8ra8t")
+
+[node name="RightLock" type="Node3D" parent="door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -4)
+
+[node name="MetalFrame3" type="MeshInstance3D" parent="door/RightLock"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 2)
+mesh = SubResource("CylinderMesh_4ffjp")
+skeleton = NodePath("../..")
+
+[node name="LeftLock" type="Node3D" parent="door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 4)
+
+[node name="MetalFrame4" type="MeshInstance3D" parent="door/LeftLock"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -2)
+mesh = SubResource("CylinderMesh_4ffjp")
+skeleton = NodePath("../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_l2j41")
+}
+
+[connection signal="input_event" from="door" to="." method="_on_door_input_event"]
+[connection signal="mouse_entered" from="door" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="door" to="." method="_on_mouse_exited"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

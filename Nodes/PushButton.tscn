@@ -50,5 +50,6 @@ mesh = SubResource("SphereMesh_hnilg")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_7kr2f")
 
+[connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

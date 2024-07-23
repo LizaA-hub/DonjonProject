@@ -105,11 +105,12 @@ shader = ExtResource("4_6vene")
 shader_parameter/outline_color = Color(1, 1, 0, 1)
 shader_parameter/outline_width = 1.0
 
-[node name="chest" type="StaticBody3D"]
+[node name="chest" type="StaticBody3D" groups=["environment"]]
 script = ExtResource("1_o2o6p")
 
 [node name="TopWood" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.2, 0, 0, 0, 0.2, 0, 0, 0, 1, 0, 0.508516, 0)
+layers = 2
 mesh = SubResource("BoxMesh_yno8k")
 
 [node name="MetalicLocker" type="MeshInstance3D" parent="TopWood"]
@@ -160,6 +161,7 @@ radius = 1.0
 
 [node name="BottomWood" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.2, 0, 0, 0, 0.8, 0, 0, 0, 1, 0, 0, 0)
+layers = 2
 mesh = SubResource("BoxMesh_yno8k")
 
 [node name="MetalicLocker2" type="MeshInstance3D" parent="BottomWood"]

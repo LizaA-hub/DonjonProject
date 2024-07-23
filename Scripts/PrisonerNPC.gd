@@ -1,6 +1,7 @@
 extends DefaultNPC
 
 signal start_interaction
+var DoorManager
 
 func _ready():
 	startPosition = global_position
@@ -8,8 +9,6 @@ func _ready():
 	ground.right_click.connect(set_right_click)
 	timer = $MoveTimer
 	timer.timeout.connect(_on_move_timer_timeout)
-	#health_bar_timer = $Timer
-	#health_bar_timer.timeout.connect(_on_timer_timeout)
 	
 	MaxDistance = 3
 	
@@ -21,7 +20,7 @@ func _ready():
 	
 	ShowBubble("Sad")
 	get_node("/root/Node3D/Bar").is_free.connect(get_free)
-	get_node("/root/Node3D/Doors").door_opening.connect(open_door)
+	DoorManager = get_node("/root/Node3D/Doors")
 	
 func get_free():
 	ShowBubble("Love",2)
@@ -33,7 +32,7 @@ func get_free():
 	speed = 400.0
 	remove_from_group("dynamic")
 
-func open_door(door : Vector3):
+func door_opening(door : Vector3):
 	look_at(door)
 	ShowBubble("Surprise",1)
 	await create_tween().tween_interval(1).finished
@@ -42,7 +41,7 @@ func open_door(door : Vector3):
 	$AnimationPlayer.play("MagicStickMovement")
 	await create_tween().tween_interval(1).finished
 	$AnimationPlayer.stop()
-	start_interaction.emit()
+	DoorManager.open_first_door()
 	
 func play_animation():
 	$AnimationPlayer.play("MagicStickMovement")

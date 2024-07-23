@@ -107,10 +107,11 @@ func move_weapon():
 	$AnimationPlayer.play("Weapon")
 		
 func try_attack(_target, special_attack : bool = false) -> void:
+	target = _target
 	if is_in_combat and !turn_to_play:
 		return
 		
-	var target_position = _target.global_position
+	var target_position = target.global_position
 		
 	if !can_attack(target_position):
 		is_reaching_target = true
@@ -135,7 +136,7 @@ func start_attack():
 		energy_changed.emit(energy)
 		end_turn()
 		
-	interact.emit(1)
+	target.take_damage(1)
 		
 func start_special_attack()-> void:
 	if !has_weapon:
@@ -147,7 +148,7 @@ func start_special_attack()-> void:
 		energy_changed.emit(energy)
 		end_turn()
 		
-	interact.emit(5)
+	target.take_damage(5)
 		
 func unlock_weapon():
 	$Weapon.visible = true
@@ -174,16 +175,13 @@ func end_turn():
 	$TurnIndicator.visible = false
 	combat_controller.next_turn()
 	player_turn.emit(false)
-	#if target != null:
-		#if target.health <= 0:
-			#close_interaction_panel()
 	
 
 func set_turn():
 	turn_to_play = true
 	$TurnIndicator.visible = true
 	player_turn.emit(true)
-	if target != null:
+	if target != null and (target.is_in_group("ally") or target.is_in_group("enemy")):
 		if target.health > 0:
 			interaction_ui.set_buttons(get_target_type(target))
 			
@@ -191,14 +189,23 @@ func set_turn():
 	travel_distance_left = 4
 #endregion
 	
-func try_interact(_position : Vector3):
-
-	if(global_position.distance_squared_to(_position) > 9):
-		set_target(_position)
+func try_interact(_target, _position = Vector3(-10,-10,-10)):
+	target = _target
+	var target_position
+	if is_in_combat and !turn_to_play:
+		return
+	
+	if _position != Vector3(-10,-10,-10):
+		target_position = _position
+	else:
+		target_position = target.global_position
+		
+	if !can_attack(target_position):
+		set_target(target_position)
 		is_reaching_target = true
 		target_type = InteractableType.INTERACTABLE
 	else:
-		custom_look_at(_position)
+		custom_look_at(target_position)
 		target_type = InteractableType.INTERACTABLE
 		start_interact()
 		
@@ -208,18 +215,19 @@ func start_interact():
 		InteractableType.ATTACKABLE:
 			start_attack()
 		InteractableType.INTERACTABLE:
-			interact.emit(0)
+			target.interact()
 			if is_in_combat:
 				end_turn()
 
-func door_opening(door : Vector3):
-	is_in_combat = true
+func door_opening():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	var ally = %prisoner
 	custom_look_at(ally.global_position)
 	await create_tween().tween_interval(1).finished
-	custom_look_at(door)
+	custom_look_at(target.global_position)
 	await create_tween().tween_interval(1).finished
 	is_in_combat = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func take_potion(potion_type: String, amount : int):
 	if potion_type == "health":
@@ -273,11 +281,6 @@ func get_target_type(_target):
 func on_left_click():
 	open_interaction_panel(true, self)
 
-#func close_interaction_panel():
-	#target = null
-	#interaction_ui.set_target(null)
-	#interaction_ui.visible = false
-	#inventory.toggle_inventory(false)
 	
 func can_attack(_target : Vector3):
 	if global_position.distance_squared_to(_target) > 9:

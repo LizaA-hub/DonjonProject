@@ -7,6 +7,7 @@ var health_bar
 var right_click_pressed = false
 var decal2 = preload("res://Textures/BreakingDecal2.png")
 var decal3 = preload("res://Textures/BreakingDecal3.png")
+@export var particle_system : GPUParticles3D
 
 func _ready():
 	player = %player
@@ -48,6 +49,7 @@ func take_damage(_amout : float):
 	can_take_damage = false
 	
 func disapear():
+	particle_system.emitting = true
 	global_position.y = -10
 
 
