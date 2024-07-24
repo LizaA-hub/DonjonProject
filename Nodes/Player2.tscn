@@ -1,41 +1,16 @@
-[gd_scene load_steps=20 format=3 uid="uid://cdwrdxs0arsup"]
+[gd_scene load_steps=24 format=3 uid="uid://cdwrdxs0arsup"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerController.gd" id="1_vfj0e"]
 [ext_resource type="PackedScene" uid="uid://5uog10x5xbef" path="res://Nodes/CombatPath.tscn" id="3_lgu3o"]
 [ext_resource type="PackedScene" uid="uid://bb2yrvkltufrg" path="res://Nodes/HealthBar2D.tscn" id="3_qouft"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_3it27"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mu5ra"]
-albedo_color = Color(0.870588, 0.588235, 0.305882, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_2e7ct"]
-top_radius = 0.2
-bottom_radius = 0.01
-height = 0.5
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wln47"]
-albedo_color = Color(0.454902, 0.254902, 0.0980392, 1)
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vfs07"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_mhptq"]
-radius = 0.05
-height = 0.1
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qmuvm"]
-albedo_color = Color(0, 0, 0, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_adt87"]
-top_radius = 0.1
-bottom_radius = 0.1
+[ext_resource type="PackedScene" uid="uid://cfvnrvxcwfk37" path="res://Nodes/Bubble.tscn" id="4_j8mkt"]
 
 [sub_resource type="Animation" id="Animation_gmdsl"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Weapon:position")
+tracks/0/path = NodePath("body/Weapon:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -47,10 +22,46 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Weapon:rotation")
+tracks/1/path = NodePath("body/Weapon:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("body:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("body:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -63,7 +74,7 @@ length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Weapon:position")
+tracks/0/path = NodePath("body/Weapon:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -75,7 +86,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Weapon:rotation")
+tracks/1/path = NodePath("body/Weapon:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -85,10 +96,109 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0), Vector3(-1.18682, 0, 0), Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_t7kgi"]
+resource_name = "AttackSpe"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body/Weapon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.6, 1, 0), Vector3(-0.6, 0.12444, -0.879457), Vector3(-0.6, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("body/Weapon:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-1.5708, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0nsrm"]
+resource_name = "TakeDamage"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.348301), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("body:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.469494, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8secv"]
+resource_name = "disappear"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.397217)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("body:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.705113, 0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7cqcb"]
 _data = {
+"AttackSpe": SubResource("Animation_t7kgi"),
 "RESET": SubResource("Animation_gmdsl"),
-"Weapon": SubResource("Animation_i2s2m")
+"TakeDamage": SubResource("Animation_0nsrm"),
+"Weapon": SubResource("Animation_i2s2m"),
+"disappear": SubResource("Animation_8secv")
 }
 
 [sub_resource type="SphereMesh" id="SphereMesh_g2m0q"]
@@ -113,6 +223,32 @@ transparency = 1
 shading_mode = 0
 albedo_color = Color(0.745098, 0.737255, 0.309804, 0.129412)
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3it27"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mu5ra"]
+albedo_color = Color(0.870588, 0.588235, 0.305882, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2e7ct"]
+top_radius = 0.2
+bottom_radius = 0.01
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wln47"]
+albedo_color = Color(0.454902, 0.254902, 0.0980392, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_mhptq"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qmuvm"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_adt87"]
+top_radius = 0.1
+bottom_radius = 0.1
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vfs07"]
+
 [node name="CharacterBody3D" type="CharacterBody3D" groups=["ally"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 2
@@ -120,33 +256,6 @@ script = ExtResource("1_vfj0e")
 speed = 300.0
 max_health = 10
 pseudo = "christine"
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_3it27")
-surface_material_override/0 = SubResource("StandardMaterial3D_mu5ra")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.00320292, 0.490739, -0.433485)
-mesh = SubResource("CylinderMesh_2e7ct")
-surface_material_override/0 = SubResource("StandardMaterial3D_wln47")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_vfs07")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.70149, 0, 0, 0, 1.70149, 0, 0, 0, 1.70149, 0.185738, 0.698799, -0.438721)
-mesh = SubResource("SphereMesh_mhptq")
-surface_material_override/0 = SubResource("StandardMaterial3D_qmuvm")
-
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.7, 0, 0, 0, 1.7, 0, 0, 0, 1.7, -0.175817, 0.6885, -0.446856)
-mesh = SubResource("SphereMesh_mhptq")
-surface_material_override/0 = SubResource("StandardMaterial3D_qmuvm")
-
-[node name="Weapon" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1, 0)
-visible = false
-mesh = SubResource("CylinderMesh_adt87")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -189,6 +298,44 @@ visible = false
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
 avoidance_layers = 2
+
+[node name="bubble" parent="." instance=ExtResource("4_j8mkt")]
+transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.13, 0, 2, 0)
+visible = false
+
+[node name="body" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="body"]
+mesh = SubResource("CapsuleMesh_3it27")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_mu5ra")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="body"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.00320292, 0.490739, -0.433485)
+mesh = SubResource("CylinderMesh_2e7ct")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_wln47")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="body"]
+transform = Transform3D(1.70149, 0, 0, 0, 1.70149, 0, 0, 0, 1.70149, 0.185738, 0.698799, -0.438721)
+mesh = SubResource("SphereMesh_mhptq")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_qmuvm")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="body"]
+transform = Transform3D(1.7, 0, 0, 0, 1.7, 0, 0, 0, 1.7, -0.175817, 0.6885, -0.446856)
+mesh = SubResource("SphereMesh_mhptq")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_qmuvm")
+
+[node name="Weapon" type="MeshInstance3D" parent="body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1, 0)
+visible = false
+mesh = SubResource("CylinderMesh_adt87")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_vfs07")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

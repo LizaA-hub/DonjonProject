@@ -36,14 +36,14 @@ func door_opening(door : Vector3):
 	look_at(door)
 	ShowBubble("Surprise",1)
 	await create_tween().tween_interval(1).finished
-	$weapon.visible = true
+	$body/weapon.visible = true
 	await create_tween().tween_interval(.5).finished
-	$AnimationPlayer.play("MagicStickMovement")
-	await create_tween().tween_interval(1).finished
-	$AnimationPlayer.stop()
+	play_animation("AttackSpe")
+	await create_tween().tween_interval(1.5).finished
 	DoorManager.open_first_door()
 	
-func play_animation():
-	$AnimationPlayer.play("MagicStickMovement")
-	await create_tween().tween_interval(1).finished
-	$AnimationPlayer.stop()
+func play_animation(anim : String = "MagicStickMovement"):
+	$AnimationPlayer.play(anim)
+	if anim == "MagicStickMovement":
+		await create_tween().tween_interval(1).finished
+		$AnimationPlayer.stop()

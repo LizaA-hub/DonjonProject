@@ -121,8 +121,24 @@ func start_first_combat() -> void:
 	
 func game_over() -> void:
 	end_combat()
-	game_over_screen.visible = true
+	
+	camera.is_in_cinematic = true
+	
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	if !toggle_walls(true):
+		print("combat controller can't turn walls on")
 
+	var tween = get_tree().create_tween()
+	tween.tween_property(camera,"position",Vector3(%player.global_position.x + 4,4,%player.global_position.z),0.5)
+	tween.parallel().tween_callback(camera.look_at.bind(%player.global_position))
+	tween.tween_interval(0.5)
+	
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	game_over_screen.visible = true
+	tween.tween_property(game_over_screen,"modulate",Color(1,1,1,1),0.5)
+	
+	
 func toggle_walls(on : bool) -> bool:
 	var children = wall_parent.find_children("Wall")
 	if children.is_empty():

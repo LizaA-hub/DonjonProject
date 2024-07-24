@@ -22,7 +22,8 @@ func _on_clickable_input_event(_camera, event, _position, _normal, _shape_idx):
 func interact() -> void:
 	if player.can_open_door() and !is_opened:
 		move_down()
-	#else show dialogue
+	else:
+		player.ShowBubble("Question",2)
 
 func move_down():
 	var tween = get_tree().create_tween()

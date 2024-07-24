@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cfvnrvxcwfk37"]
+[gd_scene load_steps=8 format=3 uid="uid://cfvnrvxcwfk37"]
 
 [ext_resource type="Texture2D" uid="uid://cwi0b114l1tko" path="res://Textures/bubblewTip.tga" id="1_bsmba"]
 [ext_resource type="Script" path="res://Scripts/Bubble.gd" id="1_tvyr6"]
@@ -6,12 +6,14 @@
 [ext_resource type="Texture2D" uid="uid://rbdg5rvycfgj" path="res://Textures/Heart.tga" id="3_6e1je"]
 [ext_resource type="Texture2D" uid="uid://dns72ysmi4bkn" path="res://Textures/exclamation.tga" id="4_lrtcj"]
 [ext_resource type="Texture2D" uid="uid://ceuanl65b3yiq" path="res://Textures/EmojiSad.tga" id="5_3ncvm"]
+[ext_resource type="Texture2D" uid="uid://ca2evtdwwmckn" path="res://Textures/QuestionMark.png" id="6_pb4le"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_tvyr6")
 Emotes = {
 "Happy": ExtResource("2_w1brj"),
 "Love": ExtResource("3_6e1je"),
+"Question": ExtResource("6_pb4le"),
 "Sad": ExtResource("5_3ncvm"),
 "Surprise": ExtResource("4_lrtcj")
 }

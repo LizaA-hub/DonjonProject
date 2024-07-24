@@ -1,31 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://drdqnxmx618si"]
+[gd_scene load_steps=22 format=3 uid="uid://drdqnxmx618si"]
 
 [ext_resource type="Script" path="res://Scripts/PrisonerNPC.gd" id="1_hnlpk"]
 [ext_resource type="PackedScene" uid="uid://cfvnrvxcwfk37" path="res://Nodes/Bubble.tscn" id="2_tmnme"]
 [ext_resource type="PackedScene" uid="uid://6j15b2jitl5h" path="res://Nodes/MagicStick.tscn" id="3_61ogq"]
 [ext_resource type="PackedScene" uid="uid://bb2yrvkltufrg" path="res://Nodes/HealthBar2D.tscn" id="5_sknn7"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_aiw2x"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ej0ym"]
-albedo_color = Color(0.552941, 0.705882, 0.968627, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_m1j2t"]
-top_radius = 0.2
-bottom_radius = 0.01
-height = 0.5
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_awwap"]
-albedo_color = Color(0.25098, 0, 0.921569, 1)
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bqtaj"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_8b8yp"]
-radius = 0.05
-height = 0.1
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iqa4g"]
-albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_aq4cr"]
 radius = 15.0
@@ -37,7 +17,7 @@ loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("weapon:rotation")
+tracks/0/path = NodePath("body/weapon:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = false
 tracks/0/keys = {
@@ -49,7 +29,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("weapon:position")
+tracks/1/path = NodePath("body/weapon:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = false
 tracks/1/keys = {
@@ -64,7 +44,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("weapon:rotation")
+tracks/0/path = NodePath("body/weapon:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -76,7 +56,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("weapon:position")
+tracks/1/path = NodePath("body/weapon:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -85,11 +65,242 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(-0.727622, 0.0357838, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("body:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("body:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("body/BodyMesh:surface_material_override/0:albedo_color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.552941, 0.705882, 0.968627, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("body/NozeMesh:surface_material_override/0:albedo_color")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.25098, 0, 0.921569, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("body/MeshInstance3D3:surface_material_override/0:albedo_color")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("body/MeshInstance3D4:surface_material_override/0:albedo_color")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("body/weapon:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_pn8wc"]
+resource_name = "TakeDamage"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.27256), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("body:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.352557, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_t6vna"]
+resource_name = "Disappear"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.352557, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("body:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.266741)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("body/BodyMesh:surface_material_override/0:albedo_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.552941, 0.705882, 0.968627, 1), Color(0.552941, 0.705882, 0.968627, 1), Color(0.552941, 0.705882, 0.968627, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("body/NozeMesh:surface_material_override/0:albedo_color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.25098, 0, 0.921569, 1), Color(0.25098, 0, 0.921569, 1), Color(0.25098, 0, 0.921569, 0), Color(0.25098, 0, 0.921569, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("body/MeshInstance3D3:surface_material_override/0:albedo_color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("body/MeshInstance3D4:surface_material_override/0:albedo_color")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("body/weapon:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_tfoqq"]
+resource_name = "Attackspe"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body/weapon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.727622, 0.0357838, 0), Vector3(-0.727622, 0.0357838, -0.135554), Vector3(-0.727622, 0.0357838, -0.135554), Vector3(-0.727622, 0.0357838, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("body/weapon:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.3, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.984366, 0, 0), Vector3(-1.36227, 0.497175, 0), Vector3(-1.74018, 0, 0), Vector3(-1.36227, -0.623798, 0), Vector3(-0.552711, 0, 0), Vector3(-1.74018, 0, 0), Vector3(-1.74018, 0, 0), Vector3(0, 0, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g1omp"]
 _data = {
+"AttackSpe": SubResource("Animation_tfoqq"),
+"Disappear": SubResource("Animation_t6vna"),
 "MagicStickMovement": SubResource("Animation_u5qth"),
-"RESET": SubResource("Animation_2lave")
+"RESET": SubResource("Animation_2lave"),
+"TakeDamage": SubResource("Animation_pn8wc")
 }
 
 [sub_resource type="SphereMesh" id="SphereMesh_3jwl3"]
@@ -104,6 +315,31 @@ emission = Color(0.894118, 0.858824, 0.72549, 1)
 [sub_resource type="ViewportTexture" id="ViewportTexture_4ti85"]
 viewport_path = NodePath("SubViewport")
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_aiw2x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ej0ym"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_color = Color(0.552941, 0.705882, 0.968627, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_m1j2t"]
+top_radius = 0.2
+bottom_radius = 0.01
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_awwap"]
+transparency = 1
+albedo_color = Color(0.25098, 0, 0.921569, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_8b8yp"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iqa4g"]
+transparency = 1
+albedo_color = Color(0, 0, 0, 1)
+
 [node name="CharacterBody3D" type="CharacterBody3D" groups=["ally"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 2
@@ -112,27 +348,8 @@ speed = 50.0
 max_health = 10
 pseudo = "Lilly"
 
-[node name="BodyMesh" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_aiw2x")
-surface_material_override/0 = SubResource("StandardMaterial3D_ej0ym")
-
-[node name="NozeMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.00320292, 0.490739, -0.433485)
-mesh = SubResource("CylinderMesh_m1j2t")
-surface_material_override/0 = SubResource("StandardMaterial3D_awwap")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_bqtaj")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.70149, 0, 0, 0, 1.70149, 0, 0, 0, 1.70149, 0.185738, 0.698799, -0.438721)
-mesh = SubResource("SphereMesh_8b8yp")
-surface_material_override/0 = SubResource("StandardMaterial3D_iqa4g")
-
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.7, 0, 0, 0, 1.7, 0, 0, 0, 1.7, -0.175817, 0.6885, -0.446856)
-mesh = SubResource("SphereMesh_8b8yp")
-surface_material_override/0 = SubResource("StandardMaterial3D_iqa4g")
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_mask = 3
@@ -154,10 +371,6 @@ visible = false
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.30783, 0)
-
-[node name="weapon" parent="." instance=ExtResource("3_61ogq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.727622, 0.0357838, 0)
-visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -188,6 +401,35 @@ billboard = 1
 texture = SubResource("ViewportTexture_4ti85")
 region_enabled = true
 region_rect = Rect2(56, 24, 1048, 368)
+
+[node name="body" type="Node3D" parent="."]
+
+[node name="BodyMesh" type="MeshInstance3D" parent="body"]
+mesh = SubResource("CapsuleMesh_aiw2x")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ej0ym")
+
+[node name="NozeMesh" type="MeshInstance3D" parent="body"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.00320292, 0.490739, -0.433485)
+mesh = SubResource("CylinderMesh_m1j2t")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_awwap")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="body"]
+transform = Transform3D(1.70149, 0, 0, 0, 1.70149, 0, 0, 0, 1.70149, 0.185738, 0.698799, -0.438721)
+mesh = SubResource("SphereMesh_8b8yp")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_iqa4g")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="body"]
+transform = Transform3D(1.7, 0, 0, 0, 1.7, 0, 0, 0, 1.7, -0.175817, 0.6885, -0.446856)
+mesh = SubResource("SphereMesh_8b8yp")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_iqa4g")
+
+[node name="weapon" parent="body" instance=ExtResource("3_61ogq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.727622, 0.0357838, 0)
+visible = false
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

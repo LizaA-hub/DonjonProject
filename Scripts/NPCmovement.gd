@@ -137,11 +137,21 @@ func try_attack(_position : Vector3):
 
 func start_attack():
 	var strength = 1
+	var delay = .5
 	turn_to_play = false
-	play_animation()
-	await create_tween().tween_interval(1).finished
+	
+	
 	if energy >=5:
 		strength = [1,5].pick_random()
+	
+	if strength == 1:
+		play_animation()
+	else:
+		play_animation("AttackSpe")
+		delay = 1.5
+		
+	await create_tween().tween_interval(delay).finished
+		
 	var health_left = target.take_damage(strength)
 	energy -= strength
 	energy_changed.emit(energy)
@@ -151,12 +161,15 @@ func start_attack():
 	end_turn()
 	
 func disapear():
-	position_before_move = global_position
-	global_position.y = -10
 	%InteractionUI.target_died(self)
 	combat_controller.remove_opponent(self)
 	
-func play_animation():
+	$AnimationPlayer.play("Disappear")
+	await create_tween().tween_interval(0.5).finished
+	position_before_move = global_position
+	global_position.y = -10
+	
+func play_animation(_anim : String = "MagicStickMovement"):
 	pass
 
 func set_turn():

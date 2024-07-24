@@ -21,6 +21,9 @@ func _on_input_event(_camera, event, _position, _normal, _shape_idx):
 
 func interact():
 	is_empty = true
+	if $Outline.visible:
+		$Outline.visible = false
+	
 	var tween = get_tree().create_tween()
 	var tween2 = get_tree().create_tween()
 	var camera_rotation = camera.rotation

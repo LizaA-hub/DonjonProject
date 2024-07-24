@@ -1,33 +1,34 @@
-[gd_scene load_steps=19 format=3 uid="uid://c4oivlvm7wr1m"]
+[gd_scene load_steps=21 format=3 uid="uid://c4oivlvm7wr1m"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy3.gd" id="1_qetku"]
 [ext_resource type="PackedScene" uid="uid://cfvnrvxcwfk37" path="res://Nodes/Bubble.tscn" id="2_x8md7"]
 [ext_resource type="PackedScene" uid="uid://bb2yrvkltufrg" path="res://Nodes/HealthBar2D.tscn" id="4_n61v2"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nwpxg"]
-albedo_color = Color(0.603922, 0.541176, 0.968627, 1)
+[sub_resource type="BoxMesh" id="BoxMesh_urynw"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_4feqi"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hkna0"]
-albedo_color = Color(0, 0, 0, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m1wnt"]
+transparency = 1
+albedo_color = Color(0.529412, 0.384314, 0.847059, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_nrp4u"]
-material = SubResource("StandardMaterial3D_hkna0")
 height = 0.34
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b1ujm"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hkna0"]
+transparency = 1
 albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_wh0cy"]
-material = SubResource("StandardMaterial3D_b1ujm")
 size = Vector3(0.61, 0.025, 0.105)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_33r78"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b1ujm"]
+transparency = 1
+albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="PrismMesh" id="PrismMesh_mbor2"]
-material = SubResource("StandardMaterial3D_33r78")
 size = Vector3(0.15, 0.15, 0.06)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_33r78"]
+transparency = 1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oas5o"]
 
@@ -44,6 +45,78 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("bodymesh:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("bodymesh:surface_material_override/0:albedo_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.529412, 0.384314, 0.847059, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("bodymesh/eyeMesh:surface_material_override/0:albedo_color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.965936),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("bodymesh/eyeMesh2:surface_material_override/0:albedo_color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("bodymesh/MeshInstance3D:surface_material_override/0:albedo_color")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("bodymesh/MeshInstance3D/MeshInstance3D:surface_material_override/0:albedo_color")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_a60jq"]
@@ -63,9 +136,127 @@ tracks/0/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 2, 0), Vector3(0, 2, -1.17495)]
 }
 
+[sub_resource type="Animation" id="Animation_njl4e"]
+resource_name = "TakeDamage"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bodymesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.40841), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("bodymesh:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.469494, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jkerm"]
+resource_name = "disappear"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bodymesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.24506)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("bodymesh:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.488692, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("bodymesh:surface_material_override/0:albedo_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.529412, 0.384314, 0.847059, 1), Color(0.529412, 0.384314, 0.847059, 1), Color(0.529412, 0.384314, 0.847059, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("bodymesh/eyeMesh:surface_material_override/0:albedo_color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("bodymesh/eyeMesh2:surface_material_override/0:albedo_color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("bodymesh/MeshInstance3D:surface_material_override/0:albedo_color")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("bodymesh/MeshInstance3D/MeshInstance3D:surface_material_override/0:albedo_color")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ofvi1"]
 _data = {
 "RESET": SubResource("Animation_5yuqh"),
+"TakeDamage": SubResource("Animation_njl4e"),
+"disappear": SubResource("Animation_jkerm"),
 "enemy_attack": SubResource("Animation_a60jq")
 }
 
@@ -88,25 +279,30 @@ script = ExtResource("1_qetku")
 pseudo = "Gisèle"
 
 [node name="bodymesh" type="MeshInstance3D" parent="."]
-material_override = SubResource("StandardMaterial3D_nwpxg")
-mesh = SubResource("BoxMesh_4feqi")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_urynw")
 skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_m1wnt")
 
 [node name="eyeMesh" type="MeshInstance3D" parent="bodymesh"]
 transform = Transform3D(0.286236, -2.24243e-09, -0.0338349, -0.0898272, -1.46347e-08, -0.107816, -2.24243e-09, 0.3, -5.51241e-09, -0.22, 0.259, -0.5)
 mesh = SubResource("CylinderMesh_nrp4u")
+surface_material_override/0 = SubResource("StandardMaterial3D_hkna0")
 
 [node name="eyeMesh2" type="MeshInstance3D" parent="bodymesh"]
 transform = Transform3D(0.286025, 2.27679e-09, 0.034087, 0.0904964, -1.47437e-08, -0.107736, 2.27679e-09, 0.3, -5.55348e-09, 0.2, 0.259, -0.5)
 mesh = SubResource("CylinderMesh_nrp4u")
+surface_material_override/0 = SubResource("StandardMaterial3D_hkna0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="bodymesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0576262, -0.496512)
 mesh = SubResource("BoxMesh_wh0cy")
+surface_material_override/0 = SubResource("StandardMaterial3D_b1ujm")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="bodymesh/MeshInstance3D"]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -0.172431, -0.0725316, 0)
 mesh = SubResource("PrismMesh_mbor2")
+surface_material_override/0 = SubResource("StandardMaterial3D_33r78")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_oas5o")

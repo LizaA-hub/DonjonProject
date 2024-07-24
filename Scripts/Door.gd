@@ -30,6 +30,8 @@ func interact():
 				animator.play("DoorOpening")
 			conditions.ALLY:
 				parent.start_door_animation()
+	else:
+		player.ShowBubble("Question",2)
 	#else show dialogue player
 
 func _on_door_input_event(_camera, event, _position, _normal, _shape_idx):

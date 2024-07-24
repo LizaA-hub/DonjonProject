@@ -34,6 +34,7 @@ var combat_controller
 var turn_to_play = false
 var is_in_combat = false
 var can_take_damage = false
+@onready var pop_up_prefab = preload("res://Nodes/DamagePopUp.tscn")
 
 @export var pseudo : String
 @export var viewport : SubViewport
@@ -87,12 +88,16 @@ func set_target(_position : Vector3):
 		position_before_move = global_position
 		
 func take_damage(strength : float):
+
 	if !is_in_combat:
 		return 0
 	health -= strength
+	show_damage(-1*strength)
 	
 	if health<=0:
 		disapear()
+	else:
+		$AnimationPlayer.play("TakeDamage")
 	
 	health_changed.emit(health)
 	can_take_damage =false
@@ -130,3 +135,14 @@ func refill_energy():
 	if energy != max_energy:
 		energy+=1
 		energy_changed.emit(energy)
+
+func show_damage(amount : float)-> void:
+	var label
+	if amount >= 0:
+		label = "+ " + String.num(amount)
+	else :
+		label = "- " + String.num(amount*-1)
+		
+	var pop_up = pop_up_prefab.instantiate()
+	pop_up.set_label(label)
+	add_child(pop_up)

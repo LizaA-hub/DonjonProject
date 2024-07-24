@@ -4,6 +4,7 @@ var player
 @export var has_key = false
 @export var has_potion = false
 var alive : bool = true
+var meshes : Array[MeshInstance3D]
 
 #region GodotFunctions
 func _ready():
@@ -20,7 +21,15 @@ func _ready():
 	
 	ground = $"../../NavigationRegion3D"
 	ground.right_click.connect(set_right_click)
-
+	
+	meshes = [$bodymesh,$bodymesh/eyeMesh,$bodymesh/eyeMesh2,$bodymesh/MeshInstance3D,$bodymesh/MeshInstance3D/MeshInstance3D]
+	set_up_meshes()
+	
+func set_up_meshes() -> void:
+	for mesh in meshes:
+		var material = mesh.get_surface_override_material(0)
+		mesh.set_surface_override_material(0,material.duplicate())
+	
 	
 func _physics_process(delta):
 	if turn_to_play and is_in_combat:
@@ -96,10 +105,10 @@ func start_attack():
 
 	await create_tween().tween_interval(0.5).finished
 	$AnimationPlayer.play("enemy_attack")
-	await create_tween().tween_interval(0.6).finished
-	$AnimationPlayer.stop()
+
 	if energy >=5 :
 		strength = [1,5].pick_random()
+	await create_tween().tween_interval(0.3).finished
 	var health_left = target.take_damage(strength)
 	
 	energy -= strength
@@ -108,21 +117,28 @@ func start_attack():
 	if health_left <= 0:
 		target = combat_controller.get_target("ally")
 		
+	await create_tween().tween_interval(0.3).finished
+	$AnimationPlayer.stop()
 	end_turn()
 	
 func disapear():
 	#print(name, " : disapearring")
+	if has_key:
+		%key.global_position = position_before_move
+	if has_potion:
+		%potion.global_position = position_before_move
+	alive = false
+	
+	$AnimationPlayer.play("disappear")
+	await create_tween().tween_interval(0.6).finished
+
 	position_before_move = global_position
 	global_position.y = -10
 	combat_controller.remove_opponent(self)
 	
 	%InteractionUI.target_died(self)
 	
-	if has_key:
-		%key.global_position = position_before_move
-	if has_potion:
-		%potion.global_position = position_before_move
-	alive = false
+	
 
 func get_attacked(_strength : float):
 	if !can_take_damage:

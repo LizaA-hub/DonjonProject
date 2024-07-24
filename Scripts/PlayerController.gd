@@ -102,9 +102,9 @@ func _init_move(_position : Vector3):
 		
 
 #region CombatFunctions
-func move_weapon():
+func move_weapon(anim : String = "Weapon"):
 	$AnimationPlayer.stop()
-	$AnimationPlayer.play("Weapon")
+	$AnimationPlayer.play(anim)
 		
 func try_attack(_target, special_attack : bool = false) -> void:
 	target = _target
@@ -127,6 +127,7 @@ func try_attack(_target, special_attack : bool = false) -> void:
 		
 func start_attack():
 	if !has_weapon:
+		ShowBubble("Question", 2)
 		return
 		
 	move_weapon()
@@ -142,7 +143,8 @@ func start_special_attack()-> void:
 	if !has_weapon:
 		return
 		
-	move_weapon() #create another anim later
+	move_weapon("AttackSpe")
+	await create_tween().tween_interval(.5).finished
 	if is_in_combat:
 		energy -= 5
 		energy_changed.emit(energy)
@@ -151,7 +153,7 @@ func start_special_attack()-> void:
 	target.take_damage(5)
 		
 func unlock_weapon():
-	$Weapon.visible = true
+	$body/Weapon.visible = true
 	has_weapon = true
 	
 func start_combat(_opponents):
@@ -164,7 +166,7 @@ func show_combat_path() -> void:
 	$CombatPath.initialize(ground.mouse_hover, ground.mouse_not_on_ground, interaction_ui.mouse_on_panel)
 	
 func disapear():#game over
-	#get_tree().paused = true
+	$AnimationPlayer.play("disappear")
 	combat_controller.game_over()
 	
 	
@@ -225,7 +227,7 @@ func door_opening():
 	custom_look_at(ally.global_position)
 	await create_tween().tween_interval(1).finished
 	custom_look_at(target.global_position)
-	await create_tween().tween_interval(1).finished
+	await create_tween().tween_interval(3).finished
 	is_in_combat = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
