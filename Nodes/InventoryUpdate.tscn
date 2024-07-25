@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://pfo3cxsu2vfb"]
+
+[ext_resource type="Texture2D" uid="uid://daa345nnbn183" path="res://Textures/BluePotion.tga" id="1_80j1u"]
+[ext_resource type="Script" path="res://Scripts/InventoryUpdate.gd" id="1_r67ws"]
+[ext_resource type="Texture2D" uid="uid://dsuekau76tyas" path="res://Textures/RedPotion.tga" id="2_7bdyg"]
+[ext_resource type="Texture2D" uid="uid://fl5wvhymd2gl" path="res://Textures/Key.tga" id="4_5vs8m"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rvv6l"]
+font_size = 30
+font_color = Color(0.576471, 0.576471, 0.576471, 1)
+
+[node name="InventoryUpdates" type="Control"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_top = 140.0
+offset_bottom = 140.0
+grow_horizontal = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_r67ws")
+item_textures = {
+"BluePotion": ExtResource("1_80j1u"),
+"Key": ExtResource("4_5vs8m"),
+"RedPotion": ExtResource("2_7bdyg")
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -76.0
+offset_bottom = 52.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+text = "+"
+label_settings = SubResource("LabelSettings_rvv6l")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_80j1u")
+expand_mode = 2

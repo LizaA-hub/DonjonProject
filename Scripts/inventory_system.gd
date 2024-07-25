@@ -7,6 +7,7 @@ var slots : Array[MarginContainer]
 var rich_text
 var selected_item : Item
 var interraction_panel
+var update_node
 
 
 func _ready():
@@ -26,6 +27,8 @@ func _ready():
 	rich_text = $Description
 	interraction_panel = %InteractionUI
 	
+	update_node = preload("res://Nodes/InventoryUpdate.tscn")
+	
 func toggle_inventory(open : bool = !is_open) -> void:
 	set_slots()
 	#print("toggle inventory : ", open)
@@ -43,6 +46,11 @@ func add_item(item : Item):
 				return
 				
 	items.append(item)
+	var quantity = "+"
+	if item.quantity > 1:
+		quantity = "+ " + (String).num(item.quantity)
+		
+	display_update(item.type,quantity)
 	
 func set_slots():
 	for i in slots.size():
@@ -76,12 +84,14 @@ func remove(type : Item.types) -> void:
 			if _item.quantity > 1:
 				_item.quantity -= 1
 				set_slots()
+				display_update(type,"-")
 				return
 			else:
 				item_to_erase = _item
 	if item_to_erase != null:
 		items.erase(item_to_erase)
 		set_slots()
+		display_update(type,"-")
 		return
 	print("not item of type : ", type , " found in the inventory.")
 	
@@ -128,4 +138,17 @@ func use(item : Item) -> void:
 			if interraction_panel.can_get_potion("energy", item.power):
 				remove(Item.types.ENERGY_POTION)
 			
+func display_update(type : Item.types, message : String):
+	var update = update_node.instantiate()
+	match type:
+		Item.types.KEY:
+			update.set_sprite("Key")
+		Item.types.HEALTH_POTION:
+			update.set_sprite("RedPotion")
+		Item.types.ENERGY_POTION:
+			update.set_sprite("BluePotion")
+			
+	update.set_label(message)
+	get_tree().root.add_child(update)
+	
 	

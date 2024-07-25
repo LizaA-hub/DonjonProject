@@ -238,6 +238,7 @@ func take_potion(potion_type: String, amount : int):
 			health = 10 
 		health_bar.set_health(health)
 		health_changed.emit(health)
+		show_damage(amount)
 		
 	elif potion_type == "energy":
 		energy += amount

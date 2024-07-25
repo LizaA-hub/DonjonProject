@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Door.gd" id="1_3u084"]
 [ext_resource type="Texture2D" uid="uid://kf3m5pf3khyt" path="res://Textures/hand_painted_glass_boxes.png" id="2_565ve"]
-[ext_resource type="Script" path="res://Nodes/DoorMesh.gd" id="2_esnan"]
+[ext_resource type="Script" path="res://Scripts/DoorMesh.gd" id="2_esnan"]
 [ext_resource type="Shader" path="res://Materials/Outline.gdshader" id="3_80wq3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mxmbo"]

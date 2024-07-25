@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://be3cck75bsi27"]
 
-[ext_resource type="Script" path="res://Nodes/PushButton.gd" id="1_dnwmi"]
+[ext_resource type="Script" path="res://Scripts/PushButton.gd" id="1_dnwmi"]
 [ext_resource type="Shader" path="res://Materials/Outline.gdshader" id="2_a3j3u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8y1gj"]

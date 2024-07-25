@@ -101,6 +101,7 @@ func try_attack(_position : Vector3):
 		
 func start_attack():
 	var strength = 1
+	var delay = 0.3
 	turn_to_play = false
 
 	await create_tween().tween_interval(0.5).finished
@@ -108,7 +109,14 @@ func start_attack():
 
 	if energy >=5 :
 		strength = [1,5].pick_random()
-	await create_tween().tween_interval(0.3).finished
+		
+	if strength == 1:
+		$AnimationPlayer.play("enemy_attack")
+	else:
+		$AnimationPlayer.play("AttackSpe")
+		delay = 0.7
+		
+	await create_tween().tween_interval(delay).finished
 	var health_left = target.take_damage(strength)
 	
 	energy -= strength
