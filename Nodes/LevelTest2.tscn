@@ -1,4 +1,4 @@
-[gd_scene load_steps=116 format=3 uid="uid://bc6ck6l8ptdnn"]
+[gd_scene load_steps=117 format=3 uid="uid://bc6ck6l8ptdnn"]
 
 [ext_resource type="Script" path="res://Scripts/Floor.gd" id="1_8ila6"]
 [ext_resource type="PackedScene" uid="uid://cdwrdxs0arsup" path="res://Nodes/Player2.tscn" id="1_d1leb"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://c4oivlvm7wr1m" path="res://Nodes/Enemy3.tscn" id="12_3c721"]
 [ext_resource type="Script" path="res://Scripts/CombatController.gd" id="13_0w77b"]
 [ext_resource type="PackedScene" uid="uid://bb40vuwqxwqur" path="res://Nodes/key.tscn" id="13_pbofa"]
+[ext_resource type="PackedScene" uid="uid://bdvr82av7u74u" path="res://Nodes/EndLevelIndicator.tscn" id="13_w243w"]
 [ext_resource type="PackedScene" uid="uid://drdqnxmx618si" path="res://Nodes/PrisonerNPC.tscn" id="14_6ljua"]
 [ext_resource type="PackedScene" uid="uid://carjr1rg5fiqf" path="res://Nodes/EnergyPotion.tscn" id="14_bd5vu"]
 [ext_resource type="PackedScene" uid="uid://bly5ffn0su80" path="res://Nodes/Potion.tscn" id="14_huusp"]
@@ -1639,6 +1640,9 @@ collision_mask = 3
 [node name="BreakableDoor" parent="Props" node_paths=PackedStringArray("particle_system") instance=ExtResource("10_sujfo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -44)
 particle_system = NodePath("../../Particles/BreakableDoorParticles/GPUParticles3D")
+
+[node name="EndLevelFlag" parent="Props" instance=ExtResource("13_w243w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.7172, 1, -23.9785)
 
 [node name="CombatController" type="Node" parent="."]
 unique_name_in_owner = true

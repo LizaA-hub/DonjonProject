@@ -7,7 +7,7 @@ var is_lighten = false
 @export var Adjacent3 : Area3D
 @export var Adjacent4 : Area3D
 var AdjacentArea : Array
-var room_nodes
+var room_nodes : Array
 var timer = 0
 var init = true
 var navigation_region
@@ -29,14 +29,14 @@ func _on_body_entered(body):
 	var opponents = Array()
 	
 	if body.is_in_group("dynamic") or body.is_in_group("environment"):
-		room_nodes = get_overlapping_bodies()
+		room_nodes = get_room_nodes()
 		if !room_nodes.has(player):
 			body.visible = false
 			is_lighten = false
 	
 	if body.name == "player":
 		opponents.append(body)
-		room_nodes = get_overlapping_bodies()
+		room_nodes = get_room_nodes()
 		#print("player entering the room")
 		for node in room_nodes:
 			#print(node.name)
@@ -60,7 +60,7 @@ func _on_body_entered(body):
 
 func _on_body_exited(body):
 	if body.name == "player":
-		room_nodes = get_overlapping_bodies()
+		room_nodes = get_room_nodes()
 		#print("player leaving the room")
 		for node in room_nodes:
 			if node.is_in_group("environment"):
@@ -89,7 +89,7 @@ func toggle_adjacent_visibility(on: bool):
 		area.toggle_visibility(on)
 		
 func light_on() -> void:
-	room_nodes = get_overlapping_bodies()
+	room_nodes = get_room_nodes()
 	is_lighten = true
 	for node in room_nodes:
 			if node.is_in_group("environment"):
@@ -102,7 +102,7 @@ func light_on() -> void:
 
 	
 func light_off() -> void:
-	room_nodes = get_overlapping_bodies()
+	room_nodes = get_room_nodes()
 	is_lighten = false
 	for node in room_nodes:
 		if node.is_in_group("environment"):
@@ -112,4 +112,6 @@ func light_off() -> void:
 		if node.is_in_group("dynamic"):
 			node.visible = false
 	
+func get_room_nodes() -> Array:
+	return get_overlapping_bodies() + get_overlapping_areas()
 
