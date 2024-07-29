@@ -124,6 +124,7 @@ func on_double_click(event : InputEvent) -> void:
 				if selected_item ==null:
 					#print("double click : no item selected")
 					return
+				%AudioManager.play("DefaultUI")
 				use(selected_item)
 				#print("using item")
 				

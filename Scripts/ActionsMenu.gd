@@ -74,6 +74,7 @@ func toggle_combat():
 
 
 func _on_attack_button_button_down():
+	%AudioManager.play("DefaultUI")
 	target.can_take_damage = true
 	player.try_attack(target)
 	
@@ -86,19 +87,23 @@ func set_target(_target) -> bool:
 	
 
 func _on_move_button_button_down():
+	%AudioManager.play("DefaultUI")
 	player.try_attack(target)
 
 
 func _on_move_attack_button_button_down():
+	%AudioManager.play("DefaultUI")
 	target.can_take_damage = true
 	player.try_attack(target)
 
 
 func _on_end_turn_button_button_down():
+	%AudioManager.play("DefaultUI")
 	player.end_turn()
 
 
 func _on_use_object_button_button_down():
+	%AudioManager.play("DefaultUI")
 	inventory.toggle_inventory()
 	inventory_open = !inventory_open
 
@@ -130,6 +135,7 @@ func can_get_potion(potion_type : String, power : int) -> bool:
 
 
 func _on_special_attack_button_button_down():
+	%AudioManager.play("DefaultUI")
 	target.can_take_damage = true
 	player.try_attack(target,true)
 
@@ -161,8 +167,7 @@ func target_died(_target):
 func close_panel() -> void:
 	if !visible:
 		return
-		
-	#print("interaction panel closing")
+
 	panel_open = false
 	visible = false
 	if inventory.is_open:

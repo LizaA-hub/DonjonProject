@@ -18,8 +18,7 @@ func _physics_process(_delta):
 	
 func reset_position(previous_rotation : Vector3, duration : float = 0.5) -> void:
 	var tween = get_tree().create_tween()
-	var tween2 = get_tree().create_tween()
-	tween2.tween_property(self, "rotation", previous_rotation,duration)
-	tween.tween_property(self, "position", player.global_position + start_position,duration)
-	#tween.tween_callback(look_at.bind(player.global_position))
+	tween.tween_property(self, "rotation", previous_rotation,duration)
+	tween.parallel().tween_property(self, "position", player.global_position + start_position,duration)
+	await tween.finished
 	is_in_cinematic = false

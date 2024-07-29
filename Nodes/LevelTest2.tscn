@@ -1,4 +1,4 @@
-[gd_scene load_steps=117 format=3 uid="uid://bc6ck6l8ptdnn"]
+[gd_scene load_steps=118 format=3 uid="uid://bc6ck6l8ptdnn"]
 
 [ext_resource type="Script" path="res://Scripts/Floor.gd" id="1_8ila6"]
 [ext_resource type="PackedScene" uid="uid://cdwrdxs0arsup" path="res://Nodes/Player2.tscn" id="1_d1leb"]
@@ -32,6 +32,7 @@
 [ext_resource type="Material" uid="uid://cr00xeaao2bgm" path="res://Materials/MI_Floor2.tres" id="27_x1xj4"]
 [ext_resource type="Script" path="res://Scripts/Wall.gd" id="28_y3wkn"]
 [ext_resource type="Material" uid="uid://fb1e0y1cthti" path="res://Materials/MI_Roof.tres" id="30_83op0"]
+[ext_resource type="PackedScene" uid="uid://673baqaisjqq" path="res://Nodes/audio_manager.tscn" id="33_i7th6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ujqwp"]
 sky_horizon_color = Color(0.59625, 0.6135, 0.6375, 1)
@@ -1266,7 +1267,7 @@ metadata/_edit_lock_ = false
 
 [node name="MainCamera" type="Camera3D" parent="." node_paths=PackedStringArray("player")]
 unique_name_in_owner = true
-transform = Transform3D(-3.78552e-08, -0.5, 0.866025, -2.18557e-08, 0.866025, 0.5, -1, 0, -4.37114e-08, 4, 4, 0)
+transform = Transform3D(-3.78552e-08, -0.5, 0.866025, -2.18557e-08, 0.866025, 0.5, -1, 1.95399e-14, -4.37114e-08, 35, 3, -24)
 current = true
 size = 27.257
 script = ExtResource("3_i5uo2")
@@ -1642,7 +1643,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -44)
 particle_system = NodePath("../../Particles/BreakableDoorParticles/GPUParticles3D")
 
 [node name="EndLevelFlag" parent="Props" instance=ExtResource("13_w243w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.7172, 1, -23.9785)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0.3, -24)
 
 [node name="CombatController" type="Node" parent="."]
 unique_name_in_owner = true
@@ -2721,7 +2722,7 @@ script = ExtResource("15_7d5rg")
 
 [node name="player" parent="PlayerSubViewport" node_paths=PackedStringArray("viewport") instance=ExtResource("1_d1leb")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0902214, 1.05, -0.134031)
 viewport = NodePath("..")
 
 [node name="Camera3D" type="Camera3D" parent="PlayerSubViewport/player"]
@@ -2746,7 +2747,7 @@ script = ExtResource("15_7d5rg")
 
 [node name="Enemy2" parent="Enemy2SubViewport" node_paths=PackedStringArray("viewport") instance=ExtResource("12_3c721")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -41, 1.5, -16)
-has_potion = true
+has_key = true
 viewport = NodePath("..")
 
 [node name="Camera3D" type="Camera3D" parent="Enemy2SubViewport/Enemy2"]
@@ -2758,7 +2759,7 @@ script = ExtResource("15_7d5rg")
 
 [node name="Enemy3" parent="Enemy3SubViewport" node_paths=PackedStringArray("viewport") instance=ExtResource("12_3c721")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -41, 1.5, -32)
-has_key = true
+has_potion = true
 viewport = NodePath("..")
 
 [node name="Camera3D" type="Camera3D" parent="Enemy3SubViewport/Enemy3"]
@@ -3192,6 +3193,9 @@ draw_pass_1 = SubResource("BoxMesh_bule4")
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Particles/BreakableDoorParticles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -44)
 size = Vector3(8, 2, 8)
+
+[node name="AudioManager" parent="." instance=ExtResource("33_i7th6")]
+unique_name_in_owner = true
 
 [connection signal="input_event" from="Bar/clickable" to="Bar" method="_on_clickable_input_event"]
 [connection signal="mouse_entered" from="Bar/clickable" to="Bar" method="_on_clickable_mouse_entered"]

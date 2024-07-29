@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://cywwviq8ngo1c"]
+[gd_scene load_steps=3 format=3 uid="uid://cywwviq8ngo1c"]
 
 [ext_resource type="Script" path="res://Scripts/Menu.gd" id="1_ktev3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_f8wav"]
+font_size = 30
 
 [node name="MenuButton" type="Button"]
 anchors_preset = 3
@@ -16,6 +19,24 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "Menu"
 script = ExtResource("1_ktev3")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -647.5
+offset_top = -416.5
+offset_right = -373.5
+offset_bottom = -374.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Thanks for playing!"
+label_settings = SubResource("LabelSettings_f8wav")
+horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 visible = false

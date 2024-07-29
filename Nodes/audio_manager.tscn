@@ -1,0 +1,29 @@
+[gd_scene load_steps=8 format=3 uid="uid://673baqaisjqq"]
+
+[ext_resource type="Script" path="res://Scripts/audio_manager.gd" id="1_qo2xb"]
+[ext_resource type="AudioStream" uid="uid://d1nlsfpsjmxy6" path="res://Audio/DefaultST.ogg" id="2_rjwh8"]
+[ext_resource type="AudioStream" uid="uid://bqno54jdht81h" path="res://Audio/CombatST.mp3" id="3_fqa8r"]
+[ext_resource type="AudioStream" uid="uid://cjw40bptj4qcr" path="res://Audio/GameOverST.ogg" id="4_4x5vy"]
+[ext_resource type="AudioStream" uid="uid://cnv8d0310b5h4" path="res://Audio/CLickUISFX.mp3" id="5_gm6fv"]
+[ext_resource type="AudioStream" uid="uid://bop468p65lt8v" path="res://Audio/OpeningUISFX.mp3" id="6_7gaqx"]
+[ext_resource type="AudioStream" uid="uid://dq0wtmfjni0s7" path="res://Audio/ClosingUISFX.mp3" id="7_dbc4r"]
+
+[node name="AudioManager" type="Node3D"]
+script = ExtResource("1_qo2xb")
+ST_tracks = {
+"Combat": ExtResource("3_fqa8r"),
+"Default": ExtResource("2_rjwh8"),
+"GameOver": ExtResource("4_4x5vy")
+}
+SFX_tracks = {
+"CloseUI": ExtResource("7_dbc4r"),
+"DefaultUI": ExtResource("5_gm6fv"),
+"OpenUI": ExtResource("6_7gaqx")
+}
+
+[node name="STplayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_rjwh8")
+autoplay = true
+
+[node name="SFXPlayer" type="AudioStreamPlayer" parent="."]
+max_polyphony = 3

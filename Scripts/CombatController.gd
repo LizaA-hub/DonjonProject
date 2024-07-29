@@ -19,6 +19,7 @@ func _ready():
 	wall_parent = $"../Borders"
 	
 func start_combat(_opponents : Array):
+	%AudioManager.set_soundtrack("Combat")
 	opponents = _opponents
 	if first_combat:
 		start_first_combat()
@@ -73,6 +74,7 @@ func target_validity(target,type):
 		
 func end_combat():
 	#print("combat controller : stopping combat")
+	%AudioManager.set_soundtrack("Default")
 	opponents.clear()
 	combat_stopped.emit()
 	navigation_region.combat_ended()
@@ -81,6 +83,7 @@ func add_opponent(new_opponent):
 	opponents.append(new_opponent)
 
 func start_first_combat() -> void:
+	%AudioManager.set_soundtrack("Combat")
 	first_combat = false
 	camera.is_in_cinematic = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -121,6 +124,7 @@ func start_first_combat() -> void:
 	
 func game_over() -> void:
 	end_combat()
+	%AudioManager.set_soundtrack("GameOver",false)
 	
 	camera.is_in_cinematic = true
 	

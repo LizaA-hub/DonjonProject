@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://bdvr82av7u74u"]
+[gd_scene load_steps=9 format=3 uid="uid://bdvr82av7u74u"]
 
+[ext_resource type="Script" path="res://Scripts/EndLevelNode.gd" id="1_hwfyb"]
 [ext_resource type="Shader" path="res://Materials/EndLevelIndicator.gdshader" id="1_nuph2"]
 [ext_resource type="Script" path="res://Scripts/EndLevelArea.gd" id="1_o8s8p"]
 
@@ -34,8 +35,10 @@ shader_parameter/barrier_interval = 3.0
 shader_parameter/barrier_speed = 0.1
 
 [node name="EndLevelFlag" type="Node3D"]
+script = ExtResource("1_hwfyb")
 
 [node name="Area3D" type="Area3D" parent="." groups=["environment"]]
+collision_mask = 3
 script = ExtResource("1_o8s8p")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
@@ -52,3 +55,6 @@ layers = 2
 mesh = SubResource("CylinderMesh_1o5ep")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_3xoet")
+
+[connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]
+[connection signal="input_event" from="Area3D" to="Area3D" method="_on_input_event"]
