@@ -32,7 +32,8 @@ func _on_body_entered(body):
 		room_nodes = get_room_nodes()
 		if !room_nodes.has(player):
 			body.visible = false
-			is_lighten = false
+			if is_lighten:
+				is_lighten = false
 	
 	if body.name == "player":
 		opponents.append(body)
@@ -115,3 +116,10 @@ func light_off() -> void:
 func get_room_nodes() -> Array:
 	return get_overlapping_bodies() + get_overlapping_areas()
 
+
+
+func _on_area_entered(area):
+	if area.is_in_group("environment"):
+		room_nodes = get_room_nodes()
+		if !room_nodes.has(player):
+			area.visible = false

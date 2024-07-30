@@ -23,6 +23,7 @@ func _ready():
 	DoorManager = get_node("/root/Node3D/Doors")
 	
 func get_free():
+	
 	ShowBubble("Love",2)
 	combat_controller = %CombatController
 	combat_controller.combat_started.connect(start_combat)

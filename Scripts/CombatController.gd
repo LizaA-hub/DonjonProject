@@ -10,6 +10,7 @@ var first_combat = true
 var camera
 var game_over_screen
 var wall_parent
+var in_combat = false
 
 func _ready():
 	navigation_region = $"../NavigationRegion3D"
@@ -19,6 +20,7 @@ func _ready():
 	wall_parent = $"../Borders"
 	
 func start_combat(_opponents : Array):
+	in_combat = true
 	%AudioManager.set_soundtrack("Combat")
 	opponents = _opponents
 	if first_combat:
@@ -39,7 +41,7 @@ func next_turn():
 	#print("next turn : ",opponents[turn])
 
 func get_target(type : String):
-	if opponents.size() <= 1:
+	if opponents.size() <= 1 or !in_combat:
 		return null
 		
 	var target = opponents.pick_random()
@@ -72,12 +74,15 @@ func target_validity(target,type):
 	else:
 		return get_target(type)
 		
-func end_combat():
-	#print("combat controller : stopping combat")
-	%AudioManager.set_soundtrack("Default")
+func end_combat(is_game_over : bool = false):
+	in_combat = false
 	opponents.clear()
 	combat_stopped.emit()
 	navigation_region.combat_ended()
+	if !is_game_over:
+		%AudioManager.set_soundtrack("Victory",false)
+		await create_tween().tween_interval(2).finished
+		%AudioManager.set_soundtrack("Default")
 	
 func add_opponent(new_opponent):
 	opponents.append(new_opponent)
@@ -123,7 +128,7 @@ func start_first_combat() -> void:
 	next_turn()
 	
 func game_over() -> void:
-	end_combat()
+	end_combat(true)
 	%AudioManager.set_soundtrack("GameOver",false)
 	
 	camera.is_in_cinematic = true

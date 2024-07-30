@@ -5,6 +5,7 @@ var player
 var camera
 var ally
 var menu
+var audio_manager
 
 func _ready():
 	pop_up = %PopUp
@@ -12,4 +13,5 @@ func _ready():
 	camera = %MainCamera
 	ally = %prisoner
 	menu = $"../../UI/Control"
-	$Area3D.initialize(pop_up,player,camera,ally, menu)
+	audio_manager = %AudioManager
+	$Area3D.initialize(pop_up,player,camera,ally, menu,audio_manager)

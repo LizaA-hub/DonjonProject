@@ -1,24 +1,34 @@
-[gd_scene load_steps=8 format=3 uid="uid://673baqaisjqq"]
+[gd_scene load_steps=13 format=3 uid="uid://673baqaisjqq"]
 
 [ext_resource type="Script" path="res://Scripts/audio_manager.gd" id="1_qo2xb"]
 [ext_resource type="AudioStream" uid="uid://d1nlsfpsjmxy6" path="res://Audio/DefaultST.ogg" id="2_rjwh8"]
 [ext_resource type="AudioStream" uid="uid://bqno54jdht81h" path="res://Audio/CombatST.mp3" id="3_fqa8r"]
 [ext_resource type="AudioStream" uid="uid://cjw40bptj4qcr" path="res://Audio/GameOverST.ogg" id="4_4x5vy"]
+[ext_resource type="AudioStream" uid="uid://l8yy73woi02p" path="res://Audio/Victory.mp3" id="5_0i811"]
 [ext_resource type="AudioStream" uid="uid://cnv8d0310b5h4" path="res://Audio/CLickUISFX.mp3" id="5_gm6fv"]
 [ext_resource type="AudioStream" uid="uid://bop468p65lt8v" path="res://Audio/OpeningUISFX.mp3" id="6_7gaqx"]
 [ext_resource type="AudioStream" uid="uid://dq0wtmfjni0s7" path="res://Audio/ClosingUISFX.mp3" id="7_dbc4r"]
+[ext_resource type="AudioStream" uid="uid://cs2585g7rfw3y" path="res://Audio/ChestOpening.mp3" id="9_g0p8s"]
+[ext_resource type="AudioStream" uid="uid://c4dacrps58h5e" path="res://Audio/PunchCut.wav" id="10_s3jv1"]
+[ext_resource type="AudioStream" uid="uid://dqk45gyhr1e1a" path="res://Audio/RockBreack.mp3" id="11_ijwod"]
+[ext_resource type="AudioStream" uid="uid://6dmogssq6sa7" path="res://Audio/Rumble.mp3" id="12_txuu8"]
 
 [node name="AudioManager" type="Node3D"]
 script = ExtResource("1_qo2xb")
 ST_tracks = {
 "Combat": ExtResource("3_fqa8r"),
 "Default": ExtResource("2_rjwh8"),
-"GameOver": ExtResource("4_4x5vy")
+"GameOver": ExtResource("4_4x5vy"),
+"Victory": ExtResource("5_0i811")
 }
 SFX_tracks = {
+"Break": ExtResource("11_ijwod"),
 "CloseUI": ExtResource("7_dbc4r"),
 "DefaultUI": ExtResource("5_gm6fv"),
-"OpenUI": ExtResource("6_7gaqx")
+"OpenChest": ExtResource("9_g0p8s"),
+"OpenUI": ExtResource("6_7gaqx"),
+"Punch": ExtResource("10_s3jv1"),
+"Rumble": ExtResource("12_txuu8")
 }
 
 [node name="STplayer" type="AudioStreamPlayer" parent="."]

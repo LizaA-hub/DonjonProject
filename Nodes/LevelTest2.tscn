@@ -3202,6 +3202,7 @@ unique_name_in_owner = true
 [connection signal="mouse_exited" from="Bar/clickable" to="Bar" method="_on_clickable_mouse_exited"]
 [connection signal="body_entered" from="LigthArea/corridorArea" to="LigthArea/corridorArea" method="_on_body_entered"]
 [connection signal="body_exited" from="LigthArea/corridorArea" to="LigthArea/corridorArea" method="_on_body_exited"]
+[connection signal="area_entered" from="LigthArea/corridorArea5" to="LigthArea/corridorArea5" method="_on_area_entered"]
 [connection signal="body_entered" from="LigthArea/corridorArea5" to="LigthArea/corridorArea5" method="_on_body_entered"]
 [connection signal="body_exited" from="LigthArea/corridorArea5" to="LigthArea/corridorArea5" method="_on_body_exited"]
 [connection signal="body_entered" from="LigthArea/corridorArea2" to="LigthArea/corridorArea2" method="_on_body_entered"]

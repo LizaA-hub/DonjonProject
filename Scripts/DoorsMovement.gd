@@ -26,6 +26,7 @@ func start_door_animation():
 	
 func open_first_door() -> void:
 	FirstDoor.animator.play("DoorOpening")
+	%AudioManager.play("Rumble")
 
 func open_third_door():
 	camera.is_in_cinematic = true
@@ -40,6 +41,7 @@ func open_third_door():
 	tween.tween_property(camera,"position",Vector3(28,16,-19),1)
 	tween.tween_interval(0.5)
 	tween.tween_callback(ThirdDoor.animator.play.bind("DoorOpening"))
+	tween.tween_callback(%AudioManager.play.bind("Rumble"))
 	tween.tween_interval(2)
 	
 	await tween.finished

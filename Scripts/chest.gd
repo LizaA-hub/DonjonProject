@@ -36,6 +36,7 @@ func interact():
 	tween2.tween_property(camera, "rotation_degrees", Vector3(-30,90,0),0.5)
 	tween.tween_callback(player.custom_look_at.bind(camera.global_position))
 	tween.tween_callback(pop_up.show_popup.bind(player.global_position,"You found a stick!"))
+	tween.tween_callback(%AudioManager.play.bind("OpenChest"))
 	tween.tween_interval(2)
 	tween.tween_callback(camera.reset_position.bind(camera_rotation,0.5))
 	tween.tween_callback(Input.set_mouse_mode.bind(Input.MOUSE_MODE_VISIBLE))

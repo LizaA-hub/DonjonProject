@@ -28,6 +28,7 @@ func interact():
 			conditions.KEY:
 				player.remove_item(Item.types.KEY)
 				animator.play("DoorOpening")
+				%AudioManager.play("Rumble")
 			conditions.ALLY:
 				parent.start_door_animation()
 	else:
@@ -54,9 +55,9 @@ func _on_animation_player_animation_finished(_anim_name):
 	move_down()
 	
 func move_down() -> void:
-	
 	var open_position = global_position
 	open_position.y = -10
 	var tween = get_tree().create_tween()
 	tween.tween_property(self,"position",open_position,1)
-	
+	await tween.finished
+	%AudioManager.stop()

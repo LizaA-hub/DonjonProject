@@ -36,6 +36,7 @@ func take_damage(_amout : float):
 	if !$Decal.visible:
 		$Decal.visible = true
 		
+	%AudioManager.play("Punch")
 	health -= _amout
 	if health == 3:
 		$Decal.texture_albedo = decal2
@@ -51,6 +52,7 @@ func take_damage(_amout : float):
 func disapear():
 	particle_system.emitting = true
 	global_position.y = -10
+	%AudioManager.play("Break")
 
 
 func _on_mouse_entered():

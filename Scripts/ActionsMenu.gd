@@ -49,13 +49,12 @@ func set_buttons(_target_type : String):
 			
 	else:
 		if !player.can_attack(target.global_position):
-			#print("player can'tattack")
-			#print("target distance : ",player.global_position.distance_squared_to(target.global_position))
+
 			if player.can_move_attack(target.global_position):
 				can_attack = false
 				can_move_attack = true
 			else:
-				#print("player can't move and attack")
+				#print("player - target distance : ",player.global_position.distance_squared_to(target.global_position))
 				can_attack = false
 				can_move = true
 	

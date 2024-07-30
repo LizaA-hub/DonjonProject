@@ -55,6 +55,12 @@ func _physics_process(delta):
 		is_moving = false
 		end_turn()
 	
+	if is_in_combat and (global_position.distance_squared_to(position_before_move) >= 25):
+		set_target(global_position)
+		newVelocity = Vector3.ZERO
+		is_reaching_target = false
+		end_turn()
+		
 	if (is_reaching_target and can_attack(navigationAgent.target_position)):
 		set_target(global_position)
 		newVelocity = Vector3.ZERO
@@ -62,12 +68,6 @@ func _physics_process(delta):
 		is_moving = false
 		start_interact()
 		
-	if is_in_combat and (global_position.distance_squared_to(position_before_move) >= 25):
-		set_target(global_position)
-		newVelocity = Vector3.ZERO
-		is_reaching_target = false
-		end_turn()
-	
 	newVelocity = (nextPathPosition - global_position).normalized() * speed * delta
 	
 	if(navigationAgent.avoidance_enabled):
@@ -118,11 +118,11 @@ func try_attack(_target, special_attack : bool = false) -> void:
 		set_target(target_position)
 		target_type = InteractableType.ATTACKABLE
 	else:
+		custom_look_at(target_position)
 		if special_attack:
 			start_special_attack()
 			return
 			
-		custom_look_at(target_position)
 		start_attack()
 		
 func start_attack():
@@ -291,7 +291,7 @@ func can_attack(_target : Vector3):
 	else: return true
 	
 func can_move_attack(_target : Vector3):
-	if global_position.distance_squared_to(_target) > 25:
+	if global_position.distance_squared_to(_target) > 64:
 		return false
 	else: return true
 

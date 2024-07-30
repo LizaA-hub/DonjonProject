@@ -27,10 +27,15 @@ func interact() -> void:
 
 func move_down():
 	var tween = get_tree().create_tween()
+	tween.tween_callback(%AudioManager.play.bind("Rumble"))
 	tween.tween_property(self,"position",open_position,2)
+
 	is_opened = true
 	is_free.emit()
 	player.remove_item(Item.types.KEY)
+	
+	await tween.finished
+	%AudioManager.play("OpenChest")
 
 func _on_clickable_mouse_entered():
 	if player.can_open_door() and !is_opened:

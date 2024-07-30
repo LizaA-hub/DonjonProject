@@ -93,6 +93,7 @@ func take_damage(strength : float):
 		return 0
 	health -= strength
 	show_damage(-1*strength)
+	%AudioManager.play("Punch")
 	
 	if health<=0:
 		disapear()
